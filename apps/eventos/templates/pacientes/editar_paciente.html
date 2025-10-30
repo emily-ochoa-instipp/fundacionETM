@@ -1,0 +1,295 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block contenido %}
+      <main role="main" class="main-content">
+        <div class="container-fluid">
+          <div class="row justify-content-center">
+            <div class="col-12">
+              <h2 class="page-title">Editar registro médico</h2>
+              <div class="card-deck">
+                <div class="card shadow mb-4">
+                    <div class="card-body">
+                      <ul class="nav nav-tabs mb-3 justify-content-center" id="myTab" role="tablist">
+                        <li class="nav-item px-4">
+                          <a class="nav-link active" id="historialMedico-tab" data-toggle="tab" href="#historialMedico" role="tab" aria-controls="historialMedico" aria-selected="true">Historial médico</a>
+                        </li>
+                        <li class="nav-item px-4">
+                          <a class="nav-link" id="actividad-tab" data-toggle="tab" href="#actividad" role="tab" aria-controls="actividad" aria-selected="false">Actividad</a>
+                        </li>
+                        <li class="nav-item px-4">
+                          <a class="nav-link" id="asistencias-tab" data-toggle="tab" href="#asistencias" role="tab" aria-controls="asistencias" aria-selected="false">Asistencias</a>
+                        </li>
+                        <li class="nav-item px-4">
+                          <a class="nav-link" id="pagos-tab" data-toggle="tab" href="#pagos" role="tab" aria-controls="pagos" aria-selected="false">Pagos</a>
+                        </li>
+                      </ul>
+                      <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="historialMedico" role="tabpanel" aria-labelledby="historialMedico-tab"> 
+                          <form method="post" action="">
+                          {% csrf_token %}
+                          {% if error is not None %}
+                              <div class="alert alert-danger" role="alert">
+                              {{ error }}
+                              </div>
+                          {% endif %}
+                            <div class="form-row">
+                              <div class="form-group col-md-6">
+                                <label for="inputNombres">Nombres</label>
+                                <input type="text" class="form-control" id="inputNombres" placeholder="Nombres" name="txtNombres" value="{{ paciente.usuario.user.first_name }}">
+                              </div>
+                              <div class="form-group col-md-6">
+                                <label for="inputApellidos">Apellidos</label>
+                                <input type="text" class="form-control" id="inputApellidos" placeholder="Apellidos" name="txtApellidos" value="{{ paciente.usuario.user.last_name }}">
+                              </div>
+                              <div class="form-group col-md-6">
+                                <label for="inputFchNac">Fecha de nacimiento</label>
+                                <input type="date" class="form-control" id="inputFchNac" placeholder="Fecha de nacimiento" name="txtFechNacimiento" value="{{ paciente.fecha_nac|date:'Y-m-d' }}">
+                              </div>
+                              <div class="form-group col-md-6">
+                                <label for="inputEdad">Edad</label>
+                                <input type="number" class="form-control" id="inputEdad" placeholder="Edad" name="txtEdad" value="{{ paciente.edad }}" readonly>
+                              </div>
+                              <div class="form-group col-md-6">
+                                <label for="inputSexo">Sexo</label>
+                                <select id="inputSexo" class="form-control" name="txtSexo">
+                                  <option selected>Seleccionar sexo</option>
+                                  <option value="Femenino" {% if paciente.sexo == 'Femenino' %}selected{% endif %}>Femenino</option>
+                                  <option value="Masculino" {% if paciente.sexo == 'Masculino' %}selected{% endif %}>Masculino</option>
+                                  <option>Otro</option>
+                                </select>
+                              </div>
+                              <div class="form-group col-md-6">
+                                <label for="inputTipoSangre">Tipo de sangre</label>
+                                <select id="inputTipoSangre" class="form-control" name="txtTipoSangre">
+                                  <option selected>Seleccionar tipo de sangre</option>
+                                  <option value="A+" {% if paciente.tipo_sangre == 'A+' %}selected{% endif %}>A+</option>
+                                  <option value="B+" {% if paciente.tipo_sangre == 'B+' %}selected{% endif %}>B+</option>
+                                  <option value="AB+" {% if paciente.tipo_sangre == 'AB+' %}selected{% endif %}>AB+</option>
+                                  <option value="O+" {% if paciente.tipo_sangre == 'O+' %}selected{% endif %}>O+</option>
+                                </select>
+                              </div>
+                              <!--<div class="form-group col-md-6">
+                                <label for="inputTipoDoc">Tipo documento</label>
+                                <select id="inputTipoDoc" class="form-control">
+                                  <option selected>Seleccionar tipo</option>
+                                  <option>Cédula</option>
+                                  <option>Pasaporte</option>
+                                  <option>Otro</option>
+                                </select>
+                              </div>-->
+                              <div class="form-group col-md-6">
+                                <label for="inputNumDoc">Número documento</label>
+                                <input type="number" class="form-control" id="inputNumDoc" placeholder="Número de documento" name="txtNumDoc" value="{{ paciente.usuario.num_doc }}">
+                              </div>
+                              <div class="form-group col-md-6">
+                                <label for="inputNumTelf">Número teléfono</label>
+                                <input type="number" class="form-control" id="inputNumTelf" placeholder="Número de teléfono" name="txtTelefono" value="{{ paciente.usuario.telefono }}">
+                              </div>
+
+                              <div class="form-group col-md-6">
+                                <label for="inputEmail">Email</label>
+                                <input type="email" class="form-control" id="inputEmail" placeholder="Email" name="txtEmail" value="{{ paciente.usuario.user.email }}">
+                              </div>
+                              <div class="form-group col-md-6">
+                                <label for="inputDireccion">Dirección</label>
+                                <input type="text" class="form-control" id="inputDireccion" placeholder="Dirección" name="txtDireccion" value="{{ paciente.direccion }}">
+                              </div>
+                              <div class="form-group col-md-6">
+                                <label for="inputEstadoCivil">Estado civil</label>
+                                <select id="inputEstadoCivil" class="form-control" name="txtEstadoCivil">
+                                  <option selected>Seleccionar estado civil</option>
+                                  <option value="Casad@" {% if paciente.estado_civil == 'Casad@' %}selected{% endif %}>Casad@</option>
+                                  <option value="Solter@" {% if paciente.estado_civil == 'Solter@' %}selected{% endif %}>Solter@</option>
+                                  <option value="Viud@" {% if paciente.estado_civil == 'Viud@' %}selected{% endif %}>Viud@</option>
+                                </select>
+                              </div>
+                              <div class="form-group col-md-6"></div>
+                              <button type="submit" class="btn btn-primary mr-4">Guardar</button>
+                              <a href="{% url 'tabla_pacientes' %}" class="btn btn-danger">Cancelar</a>
+                            </div> 
+                          </form>
+                        </div>
+
+                        <div class="tab-pane fade" id="actividad" role="tabpanel" aria-labelledby="actividad-tab"> 
+                            <form>
+                              <div class="form-row">
+                                <div class="form-group col-md-12">
+                                  <label for="inputAntecedentes">Antec. Personales Patológicos</label>
+                                  <textarea class="form-control" id="inputAntecedentes" rows="2"></textarea>
+                                </div>
+
+                                 <div class="form-group col-md-12">
+                                  <label for="inputAntecedentes">Antec. Personales No Patológicos</label>
+                                  <textarea class="form-control" id="inputAntecedentes" rows="2"></textarea>
+                                </div>
+
+                                 <div class="form-group col-md-12">
+                                  <label for="inputAntecedentes">Antec. Heredofamiliares</label>
+                                  <textarea class="form-control" id="inputAntecedentes" rows="2"></textarea>
+                                </div>
+
+                                 <div class="form-group col-md-12">
+                                  <label for="inputAntecedentes">Antec. Ginecoobstétricos</label>
+                                  <textarea class="form-control" id="inputAntecedentes" rows="2"></textarea>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary mr-4">Guardar</button>
+                                <button type="submit" class="btn btn-danger">Cancelar</button>
+                              </div> 
+                          </form>
+                        </div>
+
+                        <div class="tab-pane fade" id="asistencias" role="tabpanel" aria-labelledby="asistencias-tab"> 
+                          <form>
+                              <div class="form-row">
+                                <div class="form-group col-md-6">
+                                  <label for="inputAntecedentes">Motivo</label>
+                                  <textarea class="form-control" id="inputAntecedentes" rows="2"></textarea>
+                                </div>
+
+                                 <div class="form-group col-md-6">
+                                  <label for="inputAntecedentes">Examen físico</label>
+                                  <textarea class="form-control" id="inputAntecedentes" rows="2"></textarea>
+                                </div>
+
+                                <div class="form-group col-md-2">
+                                  <label for="inputPeso">Peso(kg)</label>
+                                  <input type="number" class="form-control" id="inputPeso" placeholder="">
+                                </div>
+                                <div class="form-group col-md-2">
+                                  <label for="inputTalla">Talla(m)</label>
+                                  <input type="number" class="form-control" id="inputTalla" placeholder="">
+                                </div>
+                                <div class="form-group col-md-2">
+                                  <label for="inputTemperatura">Temperatura(°C)</label>
+                                  <input type="number" class="form-control" id="inputTemperatura" placeholder="">
+                                </div>
+                                <div class="form-group col-md-2">
+                                  <label for="inputPresion">P.A(mmHg)</label>
+                                  <input type="number" class="form-control" id="inputPresion" placeholder="">
+                                </div>
+                                <div class="form-group col-md-2">
+                                  <label for="inputFrecuencia">F.C.(X)</label>
+                                  <input type="number" class="form-control" id="inputFrecuencia" placeholder="">
+                                </div>
+
+                                <div class="form-group col-md-12">
+                                  <label for="inputDiagnostico">Diagnóstico</label>
+                                  <textarea class="form-control" id="inputDiagnostico" rows="2"></textarea>
+                                </div>
+
+                                 <div class="form-group col-md-12">
+                                  <label for="inputObservaciones">Observaciones</label>
+                                  <textarea class="form-control" id="inputObservaciones" rows="2"></textarea>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary mr-4">Guardar</button>
+                                <button type="submit" class="btn btn-danger">Cancelar</button>
+                              </div> 
+                          </form>
+
+                        </div>
+
+                        <div class="tab-pane fade" id="pagos" role="tabpanel" aria-labelledby="pagos-tab"> 
+                          <form>
+                              <div class="form-row">
+                                <div class="form-group col-md-6">
+                                  <label for="inputAntecedentes">Motivo</label>
+                                  <textarea class="form-control" id="inputAntecedentes" rows="2"></textarea>
+                                </div>
+
+                                 <div class="form-group col-md-6">
+                                  <label for="inputAntecedentes">Examen físico</label>
+                                  <textarea class="form-control" id="inputAntecedentes" rows="2"></textarea>
+                                </div>
+
+                                <div class="form-group col-md-2">
+                                  <label for="inputPeso">Peso(kg)</label>
+                                  <input type="number" class="form-control" id="inputPeso" placeholder="">
+                                </div>
+                                <div class="form-group col-md-2">
+                                  <label for="inputTalla">Talla(m)</label>
+                                  <input type="number" class="form-control" id="inputTalla" placeholder="">
+                                </div>
+                                <div class="form-group col-md-2">
+                                  <label for="inputTemperatura">Temperatura(°C)</label>
+                                  <input type="number" class="form-control" id="inputTemperatura" placeholder="">
+                                </div>
+                                <div class="form-group col-md-2">
+                                  <label for="inputPresion">P.A(mmHg)</label>
+                                  <input type="number" class="form-control" id="inputPresion" placeholder="">
+                                </div>
+                                <div class="form-group col-md-2">
+                                  <label for="inputFrecuencia">F.C.(X)</label>
+                                  <input type="number" class="form-control" id="inputFrecuencia" placeholder="">
+                                </div>
+
+                                <div class="form-group col-md-12">
+                                  <label for="inputDiagnostico">Diagnóstico</label>
+                                  <textarea class="form-control" id="inputDiagnostico" rows="2"></textarea>
+                                </div>
+
+                                 <div class="form-group col-md-12">
+                                  <label for="inputObservaciones">Observaciones</label>
+                                  <textarea class="form-control" id="inputObservaciones" rows="2"></textarea>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary mr-4">Guardar</button>
+                                <button type="submit" class="btn btn-danger">Cancelar</button>
+                              </div> 
+                          </form>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+                </div>
+              </div> <!-- end section -->
+            </div> <!-- .col-12 -->
+          </div> <!-- .row -->
+        </div> <!-- .container-fluid -->
+    
+
+    <script>
+      window.dataLayer = window.dataLayer || [];
+
+      function gtag()
+      {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+      gtag('config', 'UA-56159088-1');
+    </script>
+
+    <script>
+      function calcularEdad() {
+          const fechaInput = document.getElementById('inputFchNac').value;
+          const edadInput = document.getElementById('inputEdad');
+
+          if (fechaInput) {
+              const hoy = new Date();
+              const fechaNac = new Date(fechaInput);
+              let edad = hoy.getFullYear() - fechaNac.getFullYear();
+              const m = hoy.getMonth() - fechaNac.getMonth();
+              if (m < 0 || (m === 0 && hoy.getDate() < fechaNac.getDate())) {
+                  edad--;
+              }
+              edadInput.value = edad;
+          } else {
+              edadInput.value = '';
+          }
+      }
+
+      // Ejecutar cuando cargue la página para mostrar edad actual
+      window.onload = calcularEdad;
+
+      // Ejecutar al cambiar la fecha
+      document.getElementById('inputFchNac').addEventListener('change', calcularEdad);
+    </script>
+
+
+{% endblock %}

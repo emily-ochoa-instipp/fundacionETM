@@ -41,6 +41,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'apps.inicio',
+    'apps.proyectos',
+    'apps.usuarios',
+    'apps.eventos',
+    'apps.autenticacion',
 ]
 
 MIDDLEWARE = [
@@ -119,8 +124,22 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATIC_DIR = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS=[
+    STATIC_DIR
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_URL = '/login/'
+LOGOUT_REDIRECT_URL = 'index'
+
+#AUTHENTICATION_BACKENDS = [
+ #   'apps.autenticacion.backends.MultiFieldAuthBackend',
+  #  'django.contrib.auth.backends.ModelBackend',
+#]
+
