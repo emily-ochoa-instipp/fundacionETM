@@ -4,9 +4,6 @@ from django.contrib.auth.decorators import login_required
 from apps.usuarios.models import Usuario
 from django.contrib.auth.models import User
 from django.db.models import Q
-from apps.pacientes.models import Paciente
-from apps.medicos.models import Medico
-from apps.especialidades.models import Especialidad
 
 # Create your views here.
 
@@ -49,23 +46,23 @@ def registrar_usuario(request):
             usuarioCreate = Usuario.objects.create(
                 user=userCreate, telefono=telefono_, num_doc=num_doc_, rol=rol_)
             
-            if rol_ == 'Paciente':
-                Paciente.objects.create(
-                    usuario=usuarioCreate,
-                    fecha_nac=None,
-                    edad=None,
-                    sexo=None,
-                    tipo_sangre=None,
-                    #num_doc=num_doc_,  
-                    direccion=None,
-                    estado_civil=None
-                )
-            if rol_ == 'Medico':
-                Medico.objects.create(
-                    usuario=usuarioCreate,
-                    direccion=None,
-                    especialidad=None,
-                )
+            # if rol_ == 'Direactora':
+            #     Directora.objects.create(
+            #         usuario=usuarioCreate,
+            #         fecha_nac=None,
+            #         edad=None,
+            #         sexo=None,
+            #         tipo_sangre=None,
+            #         #num_doc=num_doc_,  
+            #         direccion=None,
+            #         estado_civil=None
+            #     )
+            # if rol_ == 'Medico':
+            #     Medico.objects.create(
+            #         usuario=usuarioCreate,
+            #         direccion=None,
+            #         especialidad=None,
+            #     )
 
         return redirect('tabla_usuarios')
     

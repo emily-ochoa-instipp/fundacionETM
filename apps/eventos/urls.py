@@ -2,11 +2,10 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    # Vistas de pacientes
-    path('form_pacientes/', views.form_pacientes, name='form_pacientes'),
+    # Vistas de eventos
 
-    path('listar_pacientes/', views.tabla_pacientes, name='tabla_pacientes'),
-    path('pacientes/registrar/', views.registrar_paciente, name='registrar_paciente'),
-    path('pacientes/editar/<int:paciente_id>/', views.editar_paciente, name='editar_paciente'),
-    path('pacientes/eliminar/<int:paciente_id>/', views.eliminar_paciente, name='eliminar_paciente'),
+    path('listar_eventos/', views.tabla_eventos, name='tabla_eventos'),
+    path('eventos/registrar/', views.registrar_evento, name='registrar_evento'),
+    path('eventos/editar/<int:evento_id>/', views.editar_evento, name='editar_evento'),
+    path('eventos/eliminar/<int:evento_id>/', views.eliminar_evento, name='eliminar_evento'),
 ]
