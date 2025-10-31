@@ -28,20 +28,24 @@ def registrar_evento(request):
         if not (titulo and descripcion and fecha):
             error = "Todos los campos son obligatorios"
         else:
-            from .models import Evento
+            Evento.objects.create(
+                titulo=titulo,
+                descripcion=descripcion,
+                fecha=fecha,
+                hora_inicio=hora_inicio,
+                hora_fin=hora_fin,
+                lugar=lugar,
+                imagen=imagen,
+                estado=estado
+            )
+            return redirect('tabla_eventos')
 
-        Evento.objects.create(
-            titulo=titulo,
-            descripcion=descripcion,
-            fecha=fecha,
-            hora_inicio=hora_inicio,
-            hora_fin=hora_fin,
-            lugar=lugar,
-            imagen=imagen,
-            estado=estado
-        )
-        return redirect('tabla_eventos')
-    return render(request, 'eventos/tabla_eventos.html', {'error': error})
+    eventos = Evento.objects.all()
+    return render(request, 'eventos/tabla_eventos.html', {
+        'error': error,
+        'eventos': eventos
+    })
+
 
 @login_required
 def editar_evento(request, evento_id):
