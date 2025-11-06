@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="{% static 'assets/images/logo.png' %}">
+    <link rel="icon" href="{% static 'assets/images/logo2.png' %}">
     <title>FETM</title>
     <!-- Simple bar CSS -->
     <link rel="stylesheet" href="{% static 'css/simplebar.css' %}">
@@ -83,12 +83,12 @@
 
           <!-- nav bar -->
           <div class="w-100 mb-4 d-flex">
-            <a class="navbar-brand mx-auto mt-2 flex-fill text-center" href="{% url 'index' %}">
-              <img class="logo" src="{% static 'assets/images/logo1.png' %}" alt="Logo" class="navbar-brand-img brand-sm">
+            <a class="navbar-brand mx-auto mt-2 flex-fill text-center" href="{% url 'inicio' %}">
+              <img class="logo" src="{% static 'assets/images/logo3.png' %}" alt="Logo" class="navbar-brand-img brand-sm">
             </a>
           </div>
 
-          <p class="text-white nav-heading mt-4 mb-4">
+          <p class="nav-heading mb-4" style="color: #001a4e;">
             <span>Menu de opciones</span>
           </p>
           <ul class="navbar-nav flex-fill w-100 mb-2">
@@ -99,7 +99,7 @@
               </a>
               <ul class="collapse list-unstyled pl-4 w-100" id="dashboard">
                 <li class="nav-item active">
-                  <a class="nav-link pl-3" href="{% url 'index' %}"><span class="ml-1 item-text">Default</span></a>
+                  <a class="nav-link pl-3" href="{% url 'inicio' %}"><span class="ml-1 item-text">Inicio</span></a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link pl-3" href="{% url 'dashboard_analytics' %}"><span class="ml-1 item-text">Analytics</span></a>
@@ -119,7 +119,7 @@
 <!--Eventos-->
             <li class="nav-item dropdown">
               <a href="#eventosMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle nav-link">
-                <i class="fe fe-users fe-16"></i>
+                <i class="fe fe-calendar fe-16"></i>
                 <span class="ml-3 item-text">Eventos</span>
               </a>
               <!--Submenu-->
@@ -135,14 +135,14 @@
 <!--proyectos-->
             <li class="nav-item dropdown">
               <a href="#proyectosMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle nav-link">
-                <i class="fe fe-users fe-16"></i>
-                <span class="ml-3 item-text">Proyecto</span>
+                <i class="fe fe-folder fe-16"></i>
+                <span class="ml-3 item-text">Proyectos</span>
               </a>
               <!--Submenu-->
               <ul class="collapse list-unstyled pl-4 w-100" id="proyectosMenu">
                 <!--Listado-->
                 <li class="nav-item">
-                  <a class="nav-link pl-3" href="{% url 'tabla_proyectos' %}"><span class="ml-1 item-text">Listar médicos</span></a>
+                  <a class="nav-link pl-3" href="{% url 'tabla_proyectos' %}"><span class="ml-1 item-text">Listar proyectos</span></a>
                 </li>
               </ul>
               <!--Submenu-->

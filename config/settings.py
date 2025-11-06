@@ -17,6 +17,7 @@ from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+load_dotenv(BASE_DIR / ".env") # Cargar variables de entorno desde el archivo .env
 
 
 # Quick-start development settings - unsuitable for production
@@ -24,14 +25,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 #SECRET_KEY = 'django-insecure-r31g20&1-ytf*#3hr@@+#==hl3uwypijcd**b4w3ntl!0_c@9*'
-SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-r31g20&1-ytf*#3hr@@+#==hl3uwypijcd**b4w3ntl!0_c@9*')
+SECRET_KEY = os.getenv("SECRET_KEY", "dev-unsafe-secret-key")
 # SECURITY WARNING: don't run with debug turned on in production!
 
 # DEBUG = True
-DEBUG = os.getenv('DEBUG', 'True') == 'True'
+DEBUG = os.getenv("DEBUG", "True") == "True"
 
 #ALLOWED_HOSTS = []
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '127.0.0.1,localhost').split(',')
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
 
 # Application definition
 
@@ -44,10 +45,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'apps.inicio',
     'apps.proyectos',
-    'apps.usuarios',
+    'apps.usuarios.apps.UsuariosConfig',
     'apps.eventos',
     'apps.autenticacion',
     'apps.dashboard',
+    'apps.website',
 ]
 
 MIDDLEWARE = [
@@ -113,7 +115,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es-ec'
 
 TIME_ZONE = 'UTC'
 
@@ -145,11 +147,28 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_URL = '/login/'
-LOGOUT_REDIRECT_URL = 'index'
+LOGIN_URL = '/autenticacion/login/'
+LOGOUT_REDIRECT_URL = '/inicio/'
+LOGOUT_REDIRECT_URL = '/'
 
-#AUTHENTICATION_BACKENDS = [
- #   'apps.autenticacion.backends.MultiFieldAuthBackend',
-  #  'django.contrib.auth.backends.ModelBackend',
-#]
+# Custom User Model para inicar sesión con username, email o cedula
+AUTHENTICATION_BACKENDS = [
+    'apps.autenticacion.backends.MultiFieldAuthBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+# =========================================================
+# CONFIGURACIÓN PARA CORREO REAL (Usando GMAIL con .env)
+# =========================================================
+# 1. Usar el backend SMTP real de Django
+# EMAIL_BACKEND = 'centromedico.custom_email_backend.NonVerifyingEmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587        # Puerto TLS (Ya lo tenías bien)
+EMAIL_USE_TLS = True    # Activar TLS (Ya lo tenías bien)
+EMAIL_USE_SSL = False   # Desactivar SSL (Ya lo tenías bien)
+# 3. Tus credenciales cargadas de forma SEGURA desde el .env
+# Esto requiere que tu .env contenga: EMAIL_USER=... y EMAIL_PASS=...
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 

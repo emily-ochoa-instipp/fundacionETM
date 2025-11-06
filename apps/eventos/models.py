@@ -20,6 +20,7 @@ class Evento(models.Model):
     hora_inicio = models.TimeField(null=True, blank=True)
     hora_fin = models.TimeField(null=True, blank=True)
     lugar = models.CharField(max_length=150)
+    direccion = models.CharField(max_length=150)
     imagen = models.ImageField(upload_to='eventos/', null=True, blank=True)
     #creado_en = models.DateTimeField(auto_now_add=True)
     #actualizado_en = models.DateTimeField(auto_now=True)

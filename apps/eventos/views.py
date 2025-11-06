@@ -16,14 +16,17 @@ def tabla_eventos(request):
 def registrar_evento(request):
     error = None
     if request.method == 'POST':
-        titulo = request.POST['txtTitulo']
-        descripcion = request.POST['txtDescripcion']
-        fecha = request.POST['txtFecha']
-        hora_inicio = request.POST['txtHoraInicio'] or None
-        hora_fin = request.POST['txtHoraFin'] or None
-        lugar = request.POST['txtLugar']
-        imagen = request.FILES.get('imagen')
-        estado = request.POST.get('txtEstado') == 'on'
+        titulo = request.POST.get('txtTitulo')
+        descripcion = request.POST.get('txtDescripcion')
+        fecha = request.POST.get('txtFecha')
+        hora_inicio = request.POST.get('txtHoraInicio') or None
+        hora_fin = request.POST.get('txtHoraFin') or None
+        lugar = request.POST.get('txtLugar')
+        direccion = request.POST.get('txtDireccion')
+        imagen = request.FILES.get('txtImagen')
+
+        estado = True  
+
 
         if not (titulo and descripcion and fecha):
             error = "Todos los campos son obligatorios"
@@ -35,6 +38,7 @@ def registrar_evento(request):
                 hora_inicio=hora_inicio,
                 hora_fin=hora_fin,
                 lugar=lugar,
+                direccion=direccion,
                 imagen=imagen,
                 estado=estado
             )
@@ -52,14 +56,15 @@ def editar_evento(request, evento_id):
     evento = Evento.objects.get(id=evento_id)
 
     if request.method == 'POST':
-        evento.titulo = request.POST['txtTitulo']
-        evento.descripcion = request.POST['txtDescripcion']
-        evento.fecha = request.POST['txtFecha']
-        evento.hora_inicio = request.POST['txtHoraInicio']
-        evento.hora_fin = request.POST['txtHoraFin']
-        evento.lugar = request.POST['txtLugar']
-        evento.estado = request.POST['txtEstado']
-
+        evento.titulo = request.POST.get('txtTitulo')
+        evento.descripcion = request.POST.get('txtDescripcion')
+        evento.fecha = request.POST.get('txtFecha')
+        evento.hora_inicio = request.POST.get('txtHoraInicio')
+        evento.hora_fin = request.POST.get('txtHoraFin')
+        evento.lugar = request.POST.get('txtLugar')
+        evento.direccion = request.POST.get('txtDireccion')
+        evento.estado = True if request.POST.get('estado') == 'on' else False
+        
         if 'txtImagen' in request.FILES:
             evento.imagen = request.FILES['txtImagen']
         

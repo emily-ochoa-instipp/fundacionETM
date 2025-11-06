@@ -22,6 +22,7 @@
     <div class="wrapper">
       <div class="logo">
         <img src="{% static 'assets/images/logo.png' %}" alt="FTEM Logo">
+        <h1>Fundación Es Tiempo de Mujeres</h1>
       </div>
       <div class="login-container">
             <h1 class="h5 mb-1">INICIO DE SESIÓN</h1> <p class="mb-3">¡Bienvenid@!</p>
@@ -63,7 +64,7 @@
               </button> 
             </form>
             <p class="mt-4 mb-2 text-center">
-              <a href="">Recuperar contraseña</a>
+              <a href="{% url 'password_reset' %}">Recuperar contraseña</a>
               &bull;
               <a href="" class="text-center">Crear cuenta</a>
             </p>
@@ -83,12 +84,6 @@
   <script async src="{% static 'js/js.js' %}"></script>
   <script async src="https://www.googleapis.com/analytics.js/analytics.js"></script>
 
-  <!-- <script>
-    // Esta variable será generada por Django y contendrá la URL correcta (ej. "/index/")
-    const INDEX_URL = "{% url 'index' %}";
-  </script> 
-
-  <script src="{% static 'js/fisiomed_login.js' %}"></script>-->
 
 </body>
 </html>

@@ -15,19 +15,21 @@ def tabla_proyectos(request):
 
 def registrar_proyecto(request):
     if request.method == 'POST':
-        nombre = request.POST['txtNombre']
-        descripcion = request.POST['txtDescripcion']
-        fecha_inicio = request.POST['txtFechaInicio']
-        estado = request.POST['txtEstado']
+        nombre = request.POST.get('txtNombre')
+        descripcion = request.POST.get('txtDescripcion')
+        fecha_inicio = request.POST.get('txtFechaInicio')
+        estado = True
         imagen = request.FILES.get('txtImagen')
         
-        Proyecto.objects.create(
+        proyecto = Proyecto.objects.create(
             nombre=nombre,
             descripcion=descripcion,
             fecha_inicio=fecha_inicio,
             estado=estado,
             imagen=imagen
         )
+
+        proyecto.save()
         return redirect('tabla_proyectos')
     return render(request, 'proyectos/tabla_proyectos.html')
 
@@ -36,13 +38,14 @@ def editar_proyecto(request, proyecto_id):
     proyecto = Proyecto.objects.get(id=proyecto_id)
 
     if request.method == 'POST':
-        proyecto.nombre = request.POST['txtNombre']
-        proyecto.descripcion = request.POST['txtDescripcion']
-        proyecto.fecha_inicio = request.POST['txtFechaInicio']
-        proyecto.estado = request.POST['txtEstado']
+        proyecto.nombre = request.POST.get('txtNombre')
+        proyecto.descripcion = request.POST.get('txtDescripcion')
+        proyecto.fecha_inicio = request.POST.get('txtFechaInicio')
+        proyecto.estado = True if request.POST.get('estado') == 'on' else False
 
         if 'txtImagen' in request.FILES:
-            proyecto.imagen = request.FILES['txtImagen']
+            proyecto.imagen = request.FILES('txtImagen')
+
         proyecto.save()
         
 

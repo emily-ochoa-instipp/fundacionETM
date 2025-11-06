@@ -2,8 +2,10 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from apps.usuarios.models import Usuario
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.db.models import Q
+
+from django.contrib import messages
 
 # Create your views here.
 
@@ -16,55 +18,44 @@ def tabla_usuarios(request):
 
 def registrar_usuario(request):
     if request.method == 'POST':
+            first_name_ = request.POST.get('txtNombres')
+            last_name_ = request.POST.get('txtApellidos')
+            email_ = request.POST.get('txtEmail')
+            num_doc_ = request.POST.get('txtNumDoc')
+            username_ = request.POST.get('txtUsername')
+            password_ = request.POST.get('txtPassword')
+            rol_ = request.POST.get('txtRol')
+            telefono_ = request.POST.get('txtTelefono')
 
-        first_name_ = request.POST['txtNombres']
-        last_name_= request.POST['txtApellidos']
-        email_ = request.POST['txtEmail']
-        num_doc_ = request.POST['txtNumDoc']
-        username_ = request.POST['txtUsername']
-        password_ = request.POST['txtPassword']
-        rol_ = request.POST['txtRol']
-        telefono_ = request.POST['txtTelefono']
+            # Verificar duplicados
+            users = User.objects.filter(Q(username__iexact=username_) | Q(email__iexact=email_))
+            usuarios = Usuario.objects.filter(Q(num_doc__iexact=num_doc_))
 
-        users = User.objects.filter(
-            Q(username__iexact=username_) |
-            Q(email__iexact=email_)
-        )
+            if users.exists() or usuarios.exists():
+                return render(request, 'usuarios/tabla_usuarios.html', {
+                    'error': 'Ya existe un usuario con ese nombre de usuario, email o cédula',
+                })
 
-        usuarios = Usuario.objects.filter(
-            Q(num_doc__iexact=num_doc_)
-        )
-
-        if users.exists() or usuarios.exists():
-            return render(request, 'usuarios/tabla_usuarios.html', {
-                'error': 'Ya existe un usuario con ese nombre de usuario, email o cédula'
-            })
-        else:
+            # Crear el usuario base
             userCreate = User.objects.create_user(
-                first_name=first_name_, last_name=last_name_, email=email_, username=username_, password=password_)
+                first_name=first_name_,
+                last_name=last_name_,
+                email=email_,
+                username=username_,
+                password=password_
+            )
 
-            usuarioCreate = Usuario.objects.create(
-                user=userCreate, telefono=telefono_, num_doc=num_doc_, rol=rol_)
-            
-            # if rol_ == 'Direactora':
-            #     Directora.objects.create(
-            #         usuario=usuarioCreate,
-            #         fecha_nac=None,
-            #         edad=None,
-            #         sexo=None,
-            #         tipo_sangre=None,
-            #         #num_doc=num_doc_,  
-            #         direccion=None,
-            #         estado_civil=None
-            #     )
-            # if rol_ == 'Medico':
-            #     Medico.objects.create(
-            #         usuario=usuarioCreate,
-            #         direccion=None,
-            #         especialidad=None,
-            #     )
+            userCreate.is_active = True   # Activo por defecto
+            userCreate.save()
 
-        return redirect('tabla_usuarios')
+            #perfil Usuario se crea automáticamente por signals.py
+            usuario = userCreate.usuario
+            usuario.rol = rol_
+            usuario.telefono = telefono_
+            usuario.num_doc = num_doc_
+            usuario.save()
+
+            return redirect('tabla_usuarios')
     
     return render(request, 'usuarios/tabla_usuarios.html')
 
@@ -72,19 +63,27 @@ def registrar_usuario(request):
 def editar_usuario(request, usuario_id):
     usuario = get_object_or_404(Usuario, id=usuario_id)
     if request.method == 'POST':
-        #user
+        user = usuario.user
         usuario.user.first_name = request.POST.get('txtNombres')
         usuario.user.last_name = request.POST.get('txtApellidos')
         usuario.user.email = request.POST.get('txtEmail')
         usuario.user.username = request.POST.get('txtUsername')
-        usuario.user.set_password = request.POST.get('txtPassword')
-        
-        #usuario     
+        if 'estado' in request.POST:
+            user.is_active = True
+        else:
+            user.is_active = False
+
+        # password = request.POST.get('txtPassword')
+        # if password:
+        #     usuario.user.set_password(password)
+
         usuario.rol = request.POST.get('txtRol')
         usuario.num_doc = request.POST.get('txtNumDoc')
         usuario.telefono = request.POST.get('txtTelefono')
+
         usuario.user.save()
         usuario.save()
+        
         return redirect('tabla_usuarios')
     return render(request, 'usuarios/editar_usuario.html', {'usuario': usuario})
 
@@ -96,6 +95,24 @@ def eliminar_usuario(request, usuario_id):
     return redirect('tabla_usuarios')
 
 @login_required
-def profile(request, usuario_id):
-    return render(request, 'usuarios/profile.html')
+def profile(request):
+    usuario = Usuario.objects.get(user=request.user)
+    if request.method == 'POST':
+        # actualizar campos user
+        user = request.user
+        user.first_name = request.POST.get('txtNombres')
+        user.last_name = request.POST.get('txtApellidos')
+        user.email = request.POST.get('txtEmail')
+        user.save()
 
+        # actualizar usuario
+        usuario.telefono = request.POST.get('txtTelefono')
+        usuario.num_doc = request.POST.get('txtNumDoc')
+
+        if 'foto' in request.FILES:
+            usuario.foto = request.FILES['foto']
+
+        usuario.save()
+        messages.success(request, 'Los datos del perfil se actualizaron correctamente.')
+        return redirect('profile')
+    return render(request, 'usuarios/profile.html', {'usuario': usuario})

@@ -79,22 +79,23 @@
                                         <label for="inputFch">Fecha</label>
                                         <input type="date" class="form-control" id="inputFch" placeholder="Fecha" name="txtFecha" required>
                                       </div>
+                                      
                                       <div class="form-group col-md-6">
                                         <label for="startDate">Hora inicio</label>
                                         <div class="input-group">
                                           <div class="input-group-prepend">
                                             <div class="input-group-text" id="button-addon-time"><span class="fe fe-clock fe-16"></span></div>
                                           </div>
-                                          <input type="text" class="form-control time-input" id="start-time" name="txtHoraInicio">
+                                          <input type="time" class="form-control time-input" id="start-time" name="txtHoraInicio">
                                         </div>
                                       </div>
-                                        <div class="form-group col-md-6">
+                                      <div class="form-group col-md-6">
                                         <label for="startDate">Hora fin</label>
                                         <div class="input-group">
                                           <div class="input-group-prepend">
                                             <div class="input-group-text" id="button-addon-time"><span class="fe fe-clock fe-16"></span></div>
                                           </div>
-                                          <input type="text" class="form-control time-input" id="start-time" name="txtHoraFin">
+                                          <input type="time" class="form-control time-input" id="start-time" name="txtHoraFin">
                                         </div>
                                       </div>
                                       <div class="form-group col-md-6">
@@ -142,7 +143,7 @@
                             <th>Lugar</th>
                             <th>Imagen</th>
                             <th>Estado</th>
-                            <th>Action</th>
+                            <th>Acción</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -162,7 +163,13 @@
                                 Sin imagen
                               {% endif %}
                             </td>
-                            <td>{{ evento.estado }}</td>
+                            <td>
+                              {% if evento.estado %}
+                                  <span class="badge badge-success">Activo</span>
+                                {% else %}
+                                  <span class="badge badge-danger">Inactivo</span>
+                                {% endif %}
+                            </td>
                         
 
                             <td>

@@ -53,13 +53,13 @@
                             <div class="modal-dialog" role="document">
                               <div class="modal-content">
                                 <div class="modal-header">
-                                  <h5 class="modal-title" id="varyModalLabel">Agregar evento</h5>
+                                  <h5 class="modal-title" id="varyModalLabel">Agregar proyecto</h5>
                                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                   </button>
                                 </div>
                                 <div class="modal-body p-4">
-                                  <form method="post" action="{% url 'registrar_evento' %}" enctype="multipart/form-data">
+                                  <form method="post" action="{% url 'registrar_proyecto' %}" enctype="multipart/form-data">
                                     {% csrf_token %}
                                     {% if error is not None %}
                                         <div class="alert alert-danger" role="alert">
@@ -117,7 +117,7 @@
                                       </div>
                                       <div>
                                         <button type="submit" class="btn btn-primary mr-4">Guardar</button>
-                                        <a href="{% url 'tabla_eventos' %}" class="btn btn-danger">Cancelar</a>
+                                        <a href="{% url 'tabla_proyectos' %}" class="btn btn-danger">Cancelar</a>
                                       </div>
                                     </div>
                                   </form>
@@ -146,44 +146,50 @@
                           </tr>
                         </thead>
                         <tbody>
-                          {% for evento in eventos %}
+                          {% for proyecto in proyectos %}
                           <tr>
-                            <td>{{ evento.id }}</td>
-                            <td>{{ evento.titulo }}</td>
-                            <td>{{ evento.descripcion }}</td>
-                            <td>{{ evento.fecha }}</td>
-                            <td>{{ evento.hora_inicio }}</td>
-                            <td>{{ evento.hora_fin }}</td>
-                            <td>{{ evento.lugar }}</td>
+                            <td>{{ proyecto.id }}</td>
+                            <td>{{ proyecto.titulo }}</td>
+                            <td>{{ proyecto.descripcion }}</td>
+                            <td>{{ proyecto.fecha }}</td>
+                            <td>{{ proyecto.hora_inicio }}</td>
+                            <td>{{ proyecto.hora_fin }}</td>
+                            <td>{{ proyecto.lugar }}</td>
                             <td>
-                              {% if evento.imagen %}
-                                <img src="{{ evento.imagen.url }}" alt="imagen" style="width:80px; height:auto;">
+                              {% if proyecto.imagen %}
+                                <img src="{{ proyecto.imagen.url }}" alt="imagen" style="width:80px; height:auto;">
                               {% else %}
                                 Sin imagen
                               {% endif %}
                             </td>
-                            <td>{{ evento.estado }}</td>
+                            <td>
+                               {% if proyecto.estado %}
+                                  <span class="badge badge-success">Activo</span>
+                                {% else %}
+                                  <span class="badge badge-danger">Inactivo</span>
+                                {% endif %}
+                            </td>
                         
 
                             <td>
-                              <a href="{% url 'editar_evento' evento.id %}" class="btn btn-secondary"><span class="fe fe-edit fe-14 "></span></a>
+                              <a href="{% url 'editar_proyecto' proyecto.id %}" class="btn btn-secondary"><span class="fe fe-edit fe-14 "></span></a>
                              
-                              <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal{{ evento.id }}">
+                              <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal{{ proyecto.id }}">
                                 <span class="fe fe-trash fe-14 "></span>
                               </button>
 
                               <!-- Modal -->
-                                <div class="modal fade" id="exampleModal{{ evento.id }}" tabindex="-1" aria-labelledby="exampleModalLabel{{ evento.id }}" aria-hidden="true">
+                                <div class="modal fade" id="exampleModal{{ proyecto.id }}" tabindex="-1" aria-labelledby="exampleModalLabel{{ proyecto.id }}" aria-hidden="true">
                                   <div class="modal-dialog">
                                     <div class="modal-content">
-                                      <form method="post" action="{% url 'eliminar_evento' evento.id %}">
+                                      <form method="post" action="{% url 'eliminar_proyecto' proyecto.id %}">
                                         {% csrf_token %}
                                         <div class="modal-header">
                                           <h5 class="modal-title fs-5" id="exampleModalLabel {{ evento.id }}">Confirmación de eliminación</h5>
                                           <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                          ¿Estas seguro de eliminar el evento {{ evento.titulo }} del dia {{ evento.fecha }}?
+                                          ¿Estas seguro de eliminar el proyecto {{ proyecto.titulo }}?
                                         </div>
                                         <div class="modal-footer">
                                           <a href="{% url 'tabla_eventos' %}" class="btn btn-primary"data-bs-dismiss="modal">Cancelar</a>
@@ -198,7 +204,7 @@
                             </td>
                           </tr>
                           {% empty %}
-                          <tr><td colspan="9">No hay eventos registrados</td></tr>
+                          <tr><td colspan="9">No hay proyectos registrados</td></tr>
                           {% endfor %}
                         </tbody>
                       </table>                     

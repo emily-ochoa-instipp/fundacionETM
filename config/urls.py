@@ -1,7 +1,7 @@
 
 from django.contrib import admin
 from django.urls import include, path
-from apps.autenticacion import views as autenticacion_views
+from apps.website import views as website_views
 
 from django.conf import settings
 from django.conf.urls.static import static
@@ -9,7 +9,8 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', autenticacion_views.login_view, name='login'),
+    path('', website_views.index_views, name='index'),
+
     path('autenticacion/', include('apps.autenticacion.urls')),
     path('dashboard/', include('apps.dashboard.urls')),
     path('inicio/', include('apps.inicio.urls')),
