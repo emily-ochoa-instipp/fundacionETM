@@ -142,7 +142,40 @@
         </div>
       </div>
 
-      <div class="row align-items-stretch">
+      <!-- Timeline 1 -->
+      <section class="bsb-timeline-1 py-5 py-xl-8">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-10 col-md-8 col-xl-6">
+              <ul class="timeline">
+                {% for evento in proximos %}
+                <li class="timeline-item">
+                  <div class="timeline-body">
+                    <div class="timeline-content">
+                      <div class="card border-0">
+                        <div class="card-body p-0">
+                          <h5 class="card-subtitle text-secondary mb-1"> Día: {{ evento.fecha }} | Hora: {{ evento.hora_inicio }}</h5>
+                          <span class="card-subtitle text-secondary mb-1 icon-calendar mr-2"></span><span>{{ evento.fecha }}</span>  
+                          <span class="card-subtitle text-secondary mb-1 icon-calendar mr-2"></span><span>{{ evento.hora_inicio }}</span>
+                          <span class="card-subtitle text-secondary mb-1 icon-calendar mr-2"></span><span>{{ evento.Lugar }}</span>
+                          <h2 class="card-title mb-3">{{ evento.titulo }}</h2>
+                          <p class="card-text m-0">{{ evento.descripcion|truncatewords:20 }}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                   {% empty %}
+                    <p class="text-center">No hay próximos eventos por el momento.</p>
+                  {% endfor %}
+               
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {% comment %} <div class="row align-items-stretch">
         {% for evento in proximos %}
         <div class="col-lg-6"  data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:100 }}">
           <div class="media-h d-flex h-100">
@@ -166,14 +199,14 @@
           <p class="text-center">No hay próximos eventos por el momento.</p>
         {% endfor %}
 
-      <div class="row justify-content-center mb-5 mt-5">
+      <div class="row justify-content-center mb-5 mt-5"> {% endcomment %}
     </div>   
-
+    <!--
     </div>
         <p data-aos="fade-up" data-aos-delay="200">
             <a href="#" class="btn btn-rosa mr-1 mt-5">Ver más</a>
         </p>
-    </div>
+    </div> -->
   </div> <!-- /.untree_co-section -->
 
   <!-- seccion eventos -->
