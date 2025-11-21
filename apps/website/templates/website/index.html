@@ -154,12 +154,12 @@
                     <div class="timeline-content">
                       <div class="card border-0">
                         <div class="card-body p-0">
-                          <h5 class="card-subtitle text-secondary mb-1"> Día: {{ evento.fecha }} | Hora: {{ evento.hora_inicio }}</h5>
-                          <span class="card-subtitle text-secondary mb-1 icon-calendar mr-2"></span><span>{{ evento.fecha }}</span>  
-                          <span class="card-subtitle text-secondary mb-1 icon-calendar mr-2"></span><span>{{ evento.hora_inicio }}</span>
-                          <span class="card-subtitle text-secondary mb-1 icon-calendar mr-2"></span><span>{{ evento.Lugar }}</span>
-                          <h2 class="card-title mb-3">{{ evento.titulo }}</h2>
-                          <p class="card-text m-0">{{ evento.descripcion|truncatewords:20 }}</p>
+                          <!-- <h5 class="card-subtitle text-secondary mb-1"> Día: {{ evento.fecha }} | Hora: {{ evento.hora_inicio }}</h5> -->
+                          <span class="card-subtitle text-secondary mb-1 icon-calendar mr-2"></span><span>{{ evento.fecha }}</span> 
+                          <span class="card-subtitle text-secondary mb-1 icon-clock-o mr-2 ml-2"></span><span>{{ evento.hora_inicio }}</span>
+                          <span class="card-subtitle text-secondary mb-1 icon-map-marker mr-2 ml-2"></span><span>{{ evento.direccion }}</span>
+                          <h3 class="card-title mb-3 mt-2">{{ evento.titulo }}</h3>
+                          <p class="card-text m-0">{{ evento.descripcion|truncatewords:100 }}</p>
                         </div>
                       </div>
                     </div>
@@ -175,7 +175,7 @@
         </div>
       </section>
 
-      {% comment %} <div class="row align-items-stretch">
+      <!-- <div class="row align-items-stretch">
         {% for evento in proximos %}
         <div class="col-lg-6"  data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:100 }}">
           <div class="media-h d-flex h-100">
@@ -199,7 +199,7 @@
           <p class="text-center">No hay próximos eventos por el momento.</p>
         {% endfor %}
 
-      <div class="row justify-content-center mb-5 mt-5"> {% endcomment %}
+      <div class="row justify-content-center mb-5 mt-5">  -->
     </div>   
     <!--
     </div>
