@@ -51,6 +51,10 @@ body {
   -o-transition: .3s all ease;
   transition: .3s all ease; }
 
+.titulo-fetm{
+  text-shadow: 0 0 5px rgb(173, 49, 103);
+}
+
 a {
   color: #136ad5;
   -webkit-transition: .3s all ease;
@@ -65,7 +69,7 @@ a {
   color: #ffffff; }
 
 ::selection {
-  background: #000000;
+  background: #cc3f8a;
   color: #ffffff; }
 
 .text-primary {
@@ -232,10 +236,14 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
 .top-bar a {
   color: #ffffff; }
 
+.top-bar-secciones a {
+  color: #ffffff; }
+
 .logo-fetm{
-  width: 110px;
+  width: 150px;
   height: auto;
   margin-bottom: 20px;
+  filter: drop-shadow(0 0 2px rgb(255, 255, 255));
 
 }
 
@@ -769,7 +777,7 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
     min-height: 450px; }
 
 .untree_co-section {
-  padding: 100px 0;
+  padding: 80px 0;
   position: relative; }
   @media (max-width: 991.98px) {
     .untree_co-section {
@@ -957,7 +965,7 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
     transform: translateX(-50%); }
 
 .media-h {
-  margin-bottom: 30px;
+  margin-bottom: 10px;
   -webkit-box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.1);
   box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.1);
   background: #ffffff; }
@@ -1124,7 +1132,7 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
     font-size: 18px;
     text-align: center; }
   .custom-pagination li.active > a {
-    background: #136ad5;
+    background: #d44789;
     color: #ffffff;
     border-radius: 50%; }
 

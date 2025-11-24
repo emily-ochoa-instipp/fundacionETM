@@ -8,7 +8,7 @@ class Usuario (models.Model):
     rol = models.CharField(max_length=30, default='Asistente')
     telefono = models.CharField(max_length=20, null=True, blank=True, verbose_name='Teléfono')
     num_doc = models.CharField(max_length=20, null=True, blank=True, verbose_name='N°Doc')
-    foto = models.ImageField(upload_to='fotos_perfil/', default='fotos_perfil/default.png')
+    foto = models.ImageField(upload_to='fotos_perfil/', blank=True, null=True)
 
     def __str__(self):
         return f"{self.user.first_name} {self.user.last_name} ({self.rol})"

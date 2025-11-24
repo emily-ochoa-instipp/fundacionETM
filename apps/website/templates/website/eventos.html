@@ -1,0 +1,91 @@
+{% extends 'base-website.html' %}
+
+{% load static %}
+
+{% block contenido %}
+
+  
+  <nav class="site-nav mb-5" style="background-color: #cc3f8a;">
+      <div class="container top-bar-secciones">
+        <div class="row align-items-center">
+          <div class="col-6 col-lg-9">
+            <a href="#" class="small mr-3"><span class="icon-phone mr-2"></span> <span class="d-none d-lg-inline-block">0729666666 - 0999489227</span></a> 
+            <a href="#" class="small mr-3"><span class="icon-envelope mr-2"></span> <span class="d-none d-lg-inline-block">estiempodemujeresmachala@gmail.com</span></a> 
+          </div>
+          <div class="col-6 col-lg-3 text-right">
+            <a href="{% url 'index' %}" class="small mr-3">
+              <span class="icon-arrow-circle-left mr-2"></span>
+              Regresar al inicio
+            </a>
+          </div>
+        </div>
+      </div>
+  </nav>
+
+  <div class="untree_co-section bg-light mt-5">
+    <div class="container">
+       <div class="row justify-content-center mb-5">
+        <div class="col-lg-7 text-center" data-aos="fade-up" data-aos-delay="0">
+          <h2 class="line-bottom text-center mb-1">Eventos realizados</h2>
+        </div>
+      </div>
+
+      <div class="row align-items-stretch">
+        {% for evento in realizados %}
+        <div class="col-lg-6 mb-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:100 }}">
+          <div class="media-h d-flex h-100">
+            <figure>
+              {% if evento.imagen %}
+                <img src="{{ evento.imagen.url }}" alt="{{ evento.titulo }}">
+              {% else %}
+                <img src="{% static 'assets/images/foto-evento-default.jpeg' %}" alt="Imagen por defecto">
+              {% endif %}
+            </figure>
+            <div class="media-h-body shadow">
+              <h2 class="mb-3"><a href="#">{{ evento.titulo }}</a></h2>
+              <div class="meta mb-2">
+                <span class="icon-calendar mr-2"></span><span>{{ evento.fecha }}</span>
+                <span class="icon-person mr-2"></span>{{ evento.autor }}
+              </div>
+              <p>{{ evento.descripcion|truncatewords:200 }}</p>
+            </div>
+          </div>
+        </div>
+        {% empty %}
+          <p class="text-center">Aún no hay eventos realizados.</p>
+        {% endfor %}
+      </div>
+
+      <div class="row mt-5">
+        <div class="col-12 text-center">
+          {% if realizados.has_other_pages %}
+            <ul class="list-unstyled custom-pagination">
+              
+              {% if realizados.has_previous %}
+                <li><a href="?page={{ realizados.previous_page_number }}" class="mr-3">Anterior</a></li>
+              {% else %}
+                <li class="disabled mr-3"><span>Anterior</span></li>
+              {% endif %}
+
+              {% for num in realizados.paginator.page_range %}
+                {% if num == realizados.number %}
+                  <li class="active"><a href="?page={{ num }}">{{ num }}</a></li>
+                {% else %}
+                  <li><a href="?page={{ num }}">{{ num }}</a></li>
+                {% endif %}
+              {% endfor %}
+
+              {% if realizados.has_next %}
+                <li><a href="?page={{ realizados.next_page_number }}" class="ml-3">Siguiente</a></li>
+              {% else %}
+                <li class="disabled ml-3"><span>Siguiente</span></li>
+              {% endif %}
+
+            </ul>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div> <!-- /.untree_co-section -->
+
+   {% endblock %}

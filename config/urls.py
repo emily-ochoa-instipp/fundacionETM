@@ -11,6 +11,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', website_views.index_views, name='index'),
 
+    path('website/', include('apps.website.urls')),
     path('autenticacion/', include('apps.autenticacion.urls')),
     path('dashboard/', include('apps.dashboard.urls')),
     path('inicio/', include('apps.inicio.urls')),

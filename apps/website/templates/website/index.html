@@ -3,8 +3,80 @@
 {% load static %}
 
 {% block contenido %}
+  <div class="site-mobile-menu">
+    <div class="site-mobile-menu-header">
+      <div class="site-mobile-menu-close">
+        <span class="icofont-close js-menu-toggle"></span>
+      </div>
+    </div>
+    <div class="site-mobile-menu-body"></div>
+  </div>
+  
+  <nav class="site-nav mb-5">
+    <div class="pb-2 top-bar mb-3">
+      <div class="container">
+        <div class="row align-items-center">
 
-<div class="untree_co-hero overlay" style="background-image: url('{% static "images/fondo.jpg" %}');">
+          <div class="col-6 col-lg-9">
+            <a href="#" class="small mr-3"><span class="icon-phone mr-2"></span> <span class="d-none d-lg-inline-block">0729666666 - 0999489227</span></a> 
+            <a href="#" class="small mr-3"><span class="icon-envelope mr-2"></span> <span class="d-none d-lg-inline-block">estiempodemujeresmachala@gmail.com</span></a> 
+          </div>
+
+          <div class="col-6 col-lg-3 text-right">
+            <a href="{% url 'login' %}" class="small mr-3">
+              <span class="icon-lock mr-2"></span>
+              Iniciar sesión
+            </a>
+           
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="sticky-nav js-sticky-header">
+      <div class="container position-relative">
+        <div class="site-navigation text-center">
+          <a href="{% url 'index' %}" class="logo menu-absolute m-0 logo-nombre">FETM
+          </a>
+
+          <ul class="js-clone-nav d-none d-lg-inline-block site-menu">
+            <li class="active"><a href="{% url 'index' %}">Inicio</a></li>
+  
+            <li><a href="#Nosotras">Nosotras</a></li>
+            <li><a href="#Mision">Misión</a></li>
+            <li><a href="#Vision">Visión</a></li>
+            <li><a href="#Eventos">Eventos</a></li>
+            <li><a href="#Proyectos">Proyectos</a></li>
+            <li><a href="#Noticias">Noticias</a></li>
+            <li class="has-children">
+              <a href="#">Transparencia</a>
+              <ul class="dropdown">
+                <li><a href="#">Elements</a></li>
+                <li class="has-children">
+                  <a href="#">Menu Two</a>
+                  <ul class="dropdown">
+                    <li><a href="#">Sub Menu One</a></li>
+                    <li><a href="#">Sub Menu Two</a></li>
+                    <li><a href="#">Sub Menu Three</a></li>
+                  </ul>
+                </li>
+                <li><a href="#">Menu Three</a></li>
+              </ul>
+            </li>
+            <li><a href="#Contacto">Contactános</a></li>
+          </ul>
+
+          <a href="#" class="burger ml-auto float-right site-menu-toggle js-menu-toggle d-inline-block d-lg-none light" data-toggle="collapse" data-target="#main-navbar">
+            <span></span>
+          </a>
+
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  
+  <div class="untree_co-hero overlay" style="background-image: url('{% static "images/fondo.jpg" %}');">
 
     <div class="container">
       <div class="row align-items-center justify-content-center">
@@ -16,9 +88,11 @@
             <img class="logo-fetm" data-aos="fade-up" data-aos-delay="100" src="{% static 'assets/images/logo-web.png' %}" alt="logo">
 
             <div class="col-lg-12 text-center ">
-              <h1 class="mb-4 heading text-white" data-aos="fade-up" data-aos-delay="100">Fundación Es tiempo de Mujeres</h1>
+              <h1 class="mb-4 heading text-white titulo-fetm" data-aos="fade-up" data-aos-delay="100">Fundación Es tiempo de Mujeres</h1>
               <!-- <p class="mb-0" data-aos="fade-up" data-aos-delay="300"><a href="#" class="btn btn-secondary">Explore courses</a></p> -->
-              <a href="#" href="https://vimeo.com/342333493" data-fancybox data-aos="fade-up" data-aos-delay="0" class="caption mb-4 d-inline-block">Ver video</a>
+              <a href="#" href="https://vimeo.com/342333493" data-fancybox data-aos="fade-up" data-aos-delay="0" class="btn btn-rosa mt-5 mr-5 d-inline-block">Ver video</a>
+              
+              <a href="#Eventos"  data-aos="fade-up" data-aos-delay="0" class="btn btn-rosa mt-5 ml-3 d-inline-block">Consultar próximos eventos</a>
 
             </div>
 
@@ -37,7 +111,7 @@
   <div class="untree_co-section" id="Nosotras">
     <div class="container">
       <div class="row justify-content-between">
-        <div class="col-lg-5 mb-5">
+        <div class="col-lg-5">
           <h2 class="line-bottom mb-4" data-aos="fade-up" data-aos-delay="0">Acerca de nosotras</h2>
           <p data-aos="fade-up" data-aos-delay="100">Es Tiempo de Mujeres es una fundación sin fines de lucro ubicada en Machala, Ecuador, comprometida con el empoderamiento, desarrollo integral y bienestar de las mujeres en todas las etapas de su vida. Nacimos con la convicción de que cada mujer tiene el poder de transformar su entorno cuando cuenta con las herramientas, el apoyo y las oportunidades necesarias. <br> <br> Nuestra labor se enfoca en:</p>
           <ul class="list-unstyled ul-check mb-5 primary" data-aos="fade-up" data-aos-delay="200">
@@ -78,11 +152,11 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-5 mr-auto mb-5 mb-lg-0"  data-aos="fade-up" data-aos-delay="0">
-          <img src="{% static 'images/mision.jpg' %}" alt="image" class="img-fluid">
+          <img src="{% static 'images/mision.jpg' %}" alt="image" class="img-fluid shadow">
         </div>
         <div class="col-lg-7 ml-auto" data-aos="fade-up" data-aos-delay="100">
           <h3 class="line-bottom mb-4">Misión</h3>
-          <p style="text-align: justify;" >En la Fundación “Es tiempo de Mujeres” trabajamos porque creemos que la equidad y
+          <p style= "text-align: justify;" >En la Fundación “Es tiempo de Mujeres” trabajamos porque creemos que la equidad y
             la igualdad no pueden esperar, lo hacemos para romper las barreras que impiden el
             pleno desarrollo y la participación activa de las mujeres, especialmente de aquellas que
             enfrentan situaciones de violencia, exclusión o discriminación.
@@ -108,7 +182,7 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-5 mr-auto mb-5 mb-lg-0"  data-aos="fade-up" data-aos-delay="0">
-          <img src="{% static 'images/vision.jpg' %}" alt="image" class="img-fluid">
+          <img src="{% static 'images/vision.jpg' %}" alt="image" class="img-fluid shadow">
         </div>
         <div class="col-lg-7 ml-auto" data-aos="fade-up" data-aos-delay="100">
           <h3 class="line-bottom mb-4">Visión</h3>
@@ -132,18 +206,18 @@
 
   <!-- seccion eventos -->
 
-  <div class="untree_co-section" id="Eventos">
+  <div class="untree_co-section bg-light" id="Eventos">
     <div class="container">
-      <div class="row justify-content-center mb-5">
+      <div class="row justify-content-center">
         <div class="col-lg-7 text-center" data-aos="fade-up" data-aos-delay="0">
-          <h2 class="line-bottom text-center mb-4">Próximos eventos</h2>
+          <h2 class="line-bottom text-center mb-1">Próximos eventos</h2>
           <!-- <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p> -->
           <!-- <h2 class="line-bottom text-center mb-4">Eventos realizados</h2> -->
         </div>
       </div>
 
       <!-- Timeline 1 -->
-      <section class="bsb-timeline-1 py-5 py-xl-8">
+      <section class="bsb-timeline-1 py-5 py-xl-8" data-aos="fade-up" data-aos-delay="0">
         <div class="container">
           <div class="row justify-content-center">
             <div class="col-10 col-md-8 col-xl-6">
@@ -153,7 +227,7 @@
                   <div class="timeline-body">
                     <div class="timeline-content">
                       <div class="card border-0">
-                        <div class="card-body p-0">
+                        <div class="card-body p-0 rounded p-4 shadow" style="text-align: justify;">
                           <!-- <h5 class="card-subtitle text-secondary mb-1"> Día: {{ evento.fecha }} | Hora: {{ evento.hora_inicio }}</h5> -->
                           <span class="card-subtitle text-secondary mb-1 icon-calendar mr-2"></span><span>{{ evento.fecha }}</span> 
                           <span class="card-subtitle text-secondary mb-1 icon-clock-o mr-2 ml-2"></span><span>{{ evento.hora_inicio }}</span>
@@ -211,33 +285,33 @@
 
   <!-- seccion eventos -->
 
-  <div class="untree_co-section bg-light" id="Eventos">
+  <div class="untree_co-section" id="Eventos">
     <div class="container">
       
       <div class="row justify-content-center mb-5">
         <div class="col-lg-7 text-center" data-aos="fade-up" data-aos-delay="0">
-          <h2 class="line-bottom text-center mb-4">Eventos realizados</h2>
+          <h2 class="line-bottom text-center mb-1">Eventos realizados</h2>
         </div>
       </div>
 
       <div class="row align-items-stretch">
         {% for evento in realizados %}
-        <div class="col-lg-6" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:100 }}">
+        <div class="col-lg-6 mb-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:100 }}">
           <div class="media-h d-flex h-100">
             <figure>
               {% if evento.imagen %}
                 <img src="{{ evento.imagen.url }}" alt="{{ evento.titulo }}">
               {% else %}
-                <img src="{% static 'images/default-event.jpg' %}" alt="Imagen por defecto">
+                <img src="{% static 'assets/images/foto-evento-default.jpeg' %}" alt="Imagen por defecto">
               {% endif %}
             </figure>
-            <div class="media-h-body">
+            <div class="media-h-body shadow">
               <h2 class="mb-3"><a href="#">{{ evento.titulo }}</a></h2>
               <div class="meta mb-2">
                 <span class="icon-calendar mr-2"></span><span>{{ evento.fecha }}</span>
                 <span class="icon-person mr-2"></span>{{ evento.autor }}
               </div>
-              <p>{{ evento.descripcion|truncatewords:20 }}</p>
+              <p>{{ evento.descripcion|truncatewords:200 }}</p>
             </div>
           </div>
         </div>
@@ -246,16 +320,18 @@
         {% endfor %}
       </div>
           <p data-aos="fade-up" data-aos-delay="200">
-              <a href="#" class="btn btn-rosa mr-1 mt-5">Ver más</a>
+              <a href="{% url 'eventos' %}" class="btn btn-rosa mr-1 mt-5">Ver más</a>
           </p>
+    
+
     </div>
   </div> <!-- /.untree_co-section -->
 
   <!-- seccion proyectos -->
 
-   <div class="untree_co-section" id="Proyectos">
+   <div class="untree_co-section bg-light" id="Proyectos">
     <div class="container">
-      <div class="row justify-content-center mb-5">
+      <div class="row justify-content-center mb-1">
         <div class="col-lg-7 text-center" data-aos="fade-up" data-aos-delay="0">
           <h2 class="line-bottom text-center mb-4">Proyectos realizados</h2>
         </div>
@@ -296,11 +372,11 @@
 
   <!-- seccion noticias -->
 
-   <div class="untree_co-section bg-light" id="Historia">
+   <div class="untree_co-section" id="Historia">
     <div class="container">
       <div class="row justify-content-center mb-5">
         <div class="col-lg-7 text-center" data-aos="fade-up" data-aos-delay="0">
-          <h2 class="line-bottom text-center mb-4">Mujeres en la historia</h2>
+          <h2 class="line-bottom text-center mb-1">Mujeres en la historia</h2>
           <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
         </div>
       </div>
