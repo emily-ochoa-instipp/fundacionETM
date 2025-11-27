@@ -47,20 +47,22 @@
             <li><a href="#Vision">Visión</a></li>
             <li><a href="#Eventos">Eventos</a></li>
             <li><a href="#Proyectos">Proyectos</a></li>
-            <li><a href="#Noticias">Noticias</a></li>
+            <li><a href="#Mujeres-historia">Mujeres en la historia</a></li>
             <li class="has-children">
               <a href="#">Transparencia</a>
               <ul class="dropdown">
-                <li><a href="#">Elements</a></li>
-                <li class="has-children">
+                <li><a href="https://drive.google.com/file/d/1ZEbcDN89iiqAulqeJr20NtU2IXXc3WWi/view?usp=drive_link">FETM1</a></li>
+                <li><a href="https://drive.google.com/file/d/1yI3B-GogvlUCHaaHdVECPIthiiF0zTnH/view?usp=drive_link">FETM2</a></li>
+                <li><a href="https://drive.google.com/file/d/1ZEbcDN89iiqAulqeJr20NtU2IXXc3WWi/view?usp=drive_link">FETM3</a></li>
+
+                <!-- <li class="has-children">
                   <a href="#">Menu Two</a>
                   <ul class="dropdown">
                     <li><a href="#">Sub Menu One</a></li>
                     <li><a href="#">Sub Menu Two</a></li>
                     <li><a href="#">Sub Menu Three</a></li>
                   </ul>
-                </li>
-                <li><a href="#">Menu Three</a></li>
+                </li> -->
               </ul>
             </li>
             <li><a href="#Contacto">Contactános</a></li>
@@ -90,9 +92,9 @@
             <div class="col-lg-12 text-center ">
               <h1 class="mb-4 heading text-white titulo-fetm" data-aos="fade-up" data-aos-delay="100">Fundación Es tiempo de Mujeres</h1>
               <!-- <p class="mb-0" data-aos="fade-up" data-aos-delay="300"><a href="#" class="btn btn-secondary">Explore courses</a></p> -->
-              <a href="#" href="https://vimeo.com/342333493" data-fancybox data-aos="fade-up" data-aos-delay="0" class="btn btn-rosa mt-5 mr-5 d-inline-block">Ver video</a>
+              <a href="#" href="https://vimeo.com/342333493" data-fancybox data-aos="fade-up" data-aos-delay="0" class="btn btn-rosa mt-5 mr-5 d-inline-block shadow">Ver video</a>
               
-              <a href="#Eventos"  data-aos="fade-up" data-aos-delay="0" class="btn btn-rosa mt-5 ml-3 d-inline-block">Consultar próximos eventos</a>
+              <a href="#Eventos"  data-aos="fade-up" data-aos-delay="0" class="btn btn-rosa mt-5 ml-3 d-inline-block shadow">Consultar próximos eventos</a>
 
             </div>
 
@@ -227,13 +229,13 @@
                   <div class="timeline-body">
                     <div class="timeline-content">
                       <div class="card border-0">
-                        <div class="card-body p-0 rounded p-4 shadow" style="text-align: justify;">
+                        <div class="card-body p-0 rounded p-4 shadow text-justify">
                           <!-- <h5 class="card-subtitle text-secondary mb-1"> Día: {{ evento.fecha }} | Hora: {{ evento.hora_inicio }}</h5> -->
                           <span class="card-subtitle text-secondary mb-1 icon-calendar mr-2"></span><span>{{ evento.fecha }}</span> 
-                          <span class="card-subtitle text-secondary mb-1 icon-clock-o mr-2 ml-2"></span><span>{{ evento.hora_inicio }}</span>
-                          <span class="card-subtitle text-secondary mb-1 icon-map-marker mr-2 ml-2"></span><span>{{ evento.direccion }}</span>
+                          <span class="card-subtitle text-secondary mb-1 icon-clock-o mr-2 ml-2"></span><span>{{ evento.hora_inicio }} - {{ evento.hora_fin }} </span> <br>
+                          <span class="card-subtitle text-secondary mb-1 icon-map-marker mr-2"></span><span>{{ evento.lugar }}, {{ evento.direccion }}</span>
                           <h3 class="card-title mb-3 mt-2">{{ evento.titulo }}</h3>
-                          <p class="card-text m-0">{{ evento.descripcion|truncatewords:100 }}</p>
+                          <p class="card-text m-0">{{ evento.descripcion|truncatewords:300 }}</p>
                         </div>
                       </div>
                     </div>
@@ -248,39 +250,8 @@
           </div>
         </div>
       </section>
-
-      <!-- <div class="row align-items-stretch">
-        {% for evento in proximos %}
-        <div class="col-lg-6"  data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:100 }}">
-          <div class="media-h d-flex h-100">
-            <figure>
-              {% if evento.imagen %}
-                <img src="{{ evento.imagen.url }}" alt="{{ evento.titulo }}">
-              {% else %}
-                <img src="{% static 'images/default-event.jpg' %}" alt="Imagen por defecto">
-              {% endif %}            
-            </figure>
-            
-            <div class="media-h-body">
-              <h2 class="mb-3"><a href="#">{{ evento.titulo }}</a></h2>
-              <div class="meta mb-2"><span class="icon-calendar mr-2"></span><span>{{ evento.fecha }}</span>  <span class="icon-person mr-2"></span>FETM</div>
-              <p>{{ evento.descripcion|truncatewords:20 }}</p>
-              <p><a href="#">Leer más</a></p>
-            </div>
-          </div>
-        </div>
-        {% empty %}
-          <p class="text-center">No hay próximos eventos por el momento.</p>
-        {% endfor %}
-
-      <div class="row justify-content-center mb-5 mt-5">  -->
     </div>   
-    <!--
-    </div>
-        <p data-aos="fade-up" data-aos-delay="200">
-            <a href="#" class="btn btn-rosa mr-1 mt-5">Ver más</a>
-        </p>
-    </div> -->
+   
   </div> <!-- /.untree_co-section -->
 
   <!-- seccion eventos -->
@@ -308,10 +279,10 @@
             <div class="media-h-body shadow">
               <h2 class="mb-3"><a href="#">{{ evento.titulo }}</a></h2>
               <div class="meta mb-2">
-                <span class="icon-calendar mr-2"></span><span>{{ evento.fecha }}</span>
-                <span class="icon-person mr-2"></span>{{ evento.autor }}
+                <span class="icon-building-o mr-2"></span>{{ evento.lugar }} <br>
+                <span class="icon-map-marker mr-2"></span> {{ evento.direccion }}
               </div>
-              <p>{{ evento.descripcion|truncatewords:200 }}</p>
+              <p class="text-justify">{{ evento.descripcion|truncatewords:200 }}</p>
             </div>
           </div>
         </div>
@@ -371,48 +342,6 @@
   </div> <!-- /.untree_co-section -->
 
   <!-- seccion noticias -->
-
-   <div class="untree_co-section" id="Historia">
-    <div class="container">
-      <div class="row justify-content-center mb-5">
-        <div class="col-lg-7 text-center" data-aos="fade-up" data-aos-delay="0">
-          <h2 class="line-bottom text-center mb-1">Mujeres en la historia</h2>
-          <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-        </div>
-      </div>
-      <div class="row align-items-stretch">
-        <div class="col-lg-6"  data-aos="fade-up" data-aos-delay="100">
-          <div class="media-h d-flex h-100">
-            <figure>
-              <img src="{% static 'images/img-school-1-min.jpg' %}" alt="Image">
-            </figure>
-            <div class="media-h-body">
-              <h2 class="mb-3"><a href="#">Education for Tomorrow's Leaders</a></h2>
-              <div class="meta mb-2"><span class="icon-calendar mr-2"></span><span>June 22, 2020</span>  <span class="icon-person mr-2"></span>Admin</div>
-              <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-              <p><a href="#">Learn More</a></p>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-6"  data-aos="fade-up" data-aos-delay="200">
-          <div class="media-h d-flex h-100">
-            <figure>
-              <img src="{% static 'images/img-school-2-min.jpg' %}" alt="Image">
-            </figure>
-            <div class="media-h-body">
-              <h2 class="mb-3"><a href="#">Enroll Your Kids This Summer to get 30% off</a></h2>
-              <div class="meta mb-2"><span class="icon-calendar mr-2"></span><span>June 22, 2020</span>  <span class="icon-person mr-2"></span>Admin</div>
-              <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-              <p><a href="#">Learn More</a></p>
-            </div>
-          </div>
-        </div>
-      </div>
-        <p data-aos="fade-up" data-aos-delay="200">
-            <a href="#" class="btn btn-rosa mr-1 mt-5">Ver más</a>
-        </p>
-    </div>
-  </div> <!-- /.untree_co-section -->
 
   <div class="untree_co-section">
     <div class="container">
@@ -694,22 +623,22 @@
   
 
 
-  <div class="untree_co-section bg-light">
+  <div class="untree_co-section bg-light" id="Mujeres-historia">
     <div class="container">
       <div class="row">
         <div class="col-lg-7 text-center mx-auto">
 
-          <h3 class="line-bottom mb-4">Testimonios</h3>
+          <h3 class="line-bottom mb-4">Mujeres en la historia</h3>
           <div class="owl-carousel wide-slider-testimonial">
             <div class="item">
               <blockquote class="block-testimonial">
 
                 <p>
-                &ldquo;Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.&rdquo;</p>
+                Matilde Hidalgo de Prócel es considerada la figura más importante del feminismo ecuatoriano. En 1924 se convirtió en la primera mujer en votar en Ecuador y en toda América Latina, después de presentar una solicitud que no tenía precedentes en la región. Además, fue la primera mujer en graduarse de la secundaria y en recibir un título universitario en el país. Su valentía abrió las puertas para que las mujeres ecuatorianas fueran reconocidas como ciudadanas con plenos derechos políticos y civiles, marcando un antes y un después en la historia democrática del Ecuador.</p>
                 <div class="author">
-                  <img src="{% static 'images/person_1.jpg' %}" alt="Free template by TemplateUX">
-                  <h3>John Doe</h3>
-                  <p class="position">CEO, Founder</p>
+                  <img src="{% static 'images/mujeres-historia/matilde.png' %}" alt="Free template by TemplateUX">
+                  <h3>Matilde Hidalgo de Prócel</h3>
+                  <p class="position">Médica y activista</p>
                 </div>
               </blockquote>
             </div>
@@ -717,12 +646,11 @@
             <div class="item">
               <blockquote class="block-testimonial">
 
-                <p>
-                &ldquo;When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the subline of her own road, the Line Lane. Pityful a rethoric question ran over her cheek, then she continued her way.&rdquo;</p>
+                <p>Tránsito Amaguaña fue una líder indígena y activista por los derechos de los pueblos originarios y especialmente de las mujeres indígenas. Su lucha se centró en la justicia social, la tierra, la educación y la dignidad de las comunidades más vulnerables. A lo largo de su vida, organizó marchas, huelgas y movimientos que exigían mejores condiciones de vida y un trato más justo para las mujeres indígenas, quienes enfrentaban una doble discriminación: por género y por etnia. Su figura es símbolo de resistencia, igualdad y valentía.</p>
                 <div class="author">
-                  <img src="{% static 'images/person_2.jpg' %}" alt="Free template by TemplateUX">
-                  <h3>James Woodland</h3>
-                  <p class="position">Designer at Facebook</p>
+                  <img src="{% static 'images/mujeres-historia/transito.png' %}" alt="Free template by TemplateUX">
+                  <h3>Tránsito Amaguaña</h3>
+                  <p class="position">Líder indígena y activista social</p>
                 </div>
               </blockquote>
             </div>
@@ -730,12 +658,11 @@
             <div class="item">
               <blockquote class="block-testimonial">
 
-                <p>
-                &ldquo;A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.&rdquo;</p>
+                <p>Dolores Cacuango, también conocida como Mama Doloreyuk, fue una de las pioneras en la defensa de los derechos indígenas y de la mujer en Ecuador. Fundó las primeras escuelas bilingües quichua–español en el país, con el objetivo de garantizar educación y oportunidades para los niños y niñas indígenas. Su trabajo desafió al sistema discriminatorio de la época y abrió un camino hacia la inclusión social. Fue una mujer visionaria que luchó por la autonomía, la identidad cultural y la dignidad de las mujeres indígenas.</p>
                 <div class="author">
-                  <img src="{% static 'images/person_3.jpg' %}" alt="Free template by TemplateUX">
-                  <h3>Rob Smith</h3>
-                  <p class="position">Product Designer at Twitter</p>
+                  <img src="{% static 'images/mujeres-historia/dolores.png' %}" alt="Free template by TemplateUX">
+                  <h3>Dolores Cacuango</h3>
+                  <p class="position">Líder indígena, educadora comunitaria y activista</p>
                 </div>
               </blockquote>
             </div>
@@ -745,6 +672,72 @@
       </div>
     </div>
   </div>
+
+  <!-- seccion contacto -->
+
+  <div class="untree_co-section" id="Contacto">
+    <div class="container">
+
+      <div class="row mb-5">
+        <div class="col-lg-4 mb-5 order-2 mb-lg-0" data-aos="fade-up" data-aos-delay="100">
+          <div class="contact-info">
+
+            <div class="address mt-4">
+              <i class="icon-room"></i>
+              <h4 class="mb-2">Ubicación:</h4>
+              <p>Rocafuerte y 9 de Mayo, Edificio Torre Corporativa Murano 2 piso oficina 209</p>
+            </div>
+
+            <div class="open-hours mt-4">
+              <i class="icon-clock-o"></i>
+              <h4 class="mb-2">Atención:</h4>
+              <p>
+                Lunes-Viernes:<br>
+                08:00 AM - 18:00 PM
+              </p>
+            </div>
+
+            <div class="email mt-4">
+              <i class="icon-envelope"></i>
+              <h4 class="mb-2">Email:</h4>
+              <p>estiempodemujeresmachala@gmail.com</p>
+            </div>
+
+            <div class="phone mt-4">
+              <i class="icon-phone"></i>
+              <h4 class="mb-2">Teléfono:</h4>
+              <p>0729666666 - 0999489227</p>
+            </div>
+
+          </div>
+        </div>
+        <div class="col-lg-7 mr-auto order-1" data-aos="fade-up" data-aos-delay="200">
+          <form action="#">
+            <div class="row">
+              <div class="col-6 mb-3">
+                <input type="text" class="form-control" placeholder="Escribe tu nombre">
+              </div>
+              <div class="col-6 mb-3">
+                <input type="email" class="form-control" placeholder="Escribe tu correo">
+              </div>
+              <div class="col-12 mb-3">
+                <input type="text" class="form-control" placeholder="Asunto">
+              </div>
+              <div class="col-12 mb-3">
+                <textarea name="" id="" cols="30" rows="7" class="form-control" placeholder="Mensaje"></textarea>
+              </div>
+
+              <div class="col-12">
+                <input type="submit" value="Enviar mensaje" class="btn btn-rosa">
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      
+    </div>
+  </div> <!-- /.untree_co-section -->
 
 
  

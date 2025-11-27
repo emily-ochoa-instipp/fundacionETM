@@ -1,26 +1,9 @@
-{% extends 'base-website.html' %}
+{% extends 'top-bar-website.html' %}
 
 {% load static %}
 
 {% block contenido %}
 
-  
-  <nav class="site-nav mb-5" style="background-color: #cc3f8a;">
-      <div class="container top-bar-secciones">
-        <div class="row align-items-center">
-          <div class="col-6 col-lg-9">
-            <a href="#" class="small mr-3"><span class="icon-phone mr-2"></span> <span class="d-none d-lg-inline-block">0729666666 - 0999489227</span></a> 
-            <a href="#" class="small mr-3"><span class="icon-envelope mr-2"></span> <span class="d-none d-lg-inline-block">estiempodemujeresmachala@gmail.com</span></a> 
-          </div>
-          <div class="col-6 col-lg-3 text-right">
-            <a href="{% url 'index' %}" class="small mr-3">
-              <span class="icon-arrow-circle-left mr-2"></span>
-              Regresar al inicio
-            </a>
-          </div>
-        </div>
-      </div>
-  </nav>
 
   <div class="untree_co-section bg-light mt-5">
     <div class="container">
@@ -44,10 +27,13 @@
             <div class="media-h-body shadow">
               <h2 class="mb-3"><a href="#">{{ evento.titulo }}</a></h2>
               <div class="meta mb-2">
-                <span class="icon-calendar mr-2"></span><span>{{ evento.fecha }}</span>
-                <span class="icon-person mr-2"></span>{{ evento.autor }}
+                <span class="icon-building-o mr-2"></span>{{ evento.lugar }} <br>
+                <span class="icon-map-marker mr-2"></span> {{ evento.direccion }}
               </div>
-              <p>{{ evento.descripcion|truncatewords:200 }}</p>
+              <p class="text-justify">{{ evento.descripcion|truncatewords:200 }}</p>
+              <a href="{% url 'evento_detalles' evento.id %}">
+                  Ver más
+              </a>
             </div>
           </div>
         </div>

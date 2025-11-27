@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 # from django.http import HttpResponse
 # from django.contrib.auth.decorators import login_required
 
@@ -16,7 +16,7 @@ def index_views(request):
     # Separar próximos y realizados según la fecha
     ahora = timezone.now()
     proximos = eventos_visibles.filter(fecha__gte=ahora).order_by('fecha')
-    realizados = eventos_visibles.filter(fecha__lt=ahora).order_by('-fecha')
+    realizados = eventos_visibles.filter(fecha__lt=ahora).order_by('-fecha') [:6]
 
     context = {
         'proximos': proximos,
@@ -32,7 +32,7 @@ def eventos_views(request):
     realizados = eventos_visibles.filter(fecha__lt=ahora).order_by('-fecha')
 
     # PAGINACIÓN 6 eventos por página
-    paginator = Paginator(realizados, 2)
+    paginator = Paginator(realizados, 6)
     page_number = request.GET.get("page")
     realizados = paginator.get_page(page_number)
 
@@ -42,4 +42,8 @@ def eventos_views(request):
     }
 
     return render(request, 'website/eventos.html', context)
+
+def evento_detalles(request, id):
+    evento = get_object_or_404(Evento, id=id)
+    return render(request, 'website/evento_detalles.html', {'evento': evento})
 

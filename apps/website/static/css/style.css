@@ -295,10 +295,11 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
         padding: 10px 15px;
         display: inline-block;
         text-decoration: none !important;
-        color: rgba(255, 255, 255, 0.5);
+        color: rgba(255, 255, 255, 0.695);
         position: relative; }
         .site-nav .site-navigation .site-menu > li > a:hover {
-          color: #ffffff; }
+          color: #ffffff;
+        }
       .site-nav .site-navigation .site-menu > li.cta-button a {
         padding: 5px 22px;
         border: 1px solid rgba(0, 0, 0, 0.1);
@@ -724,7 +725,7 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
       left: 0;
       right: 0;
       bottom: 0;
-      background: rgba(187, 69, 124, 0.618);
+      background: rgba(110, 38, 72, 0.831);
       z-index: -0; }
   .untree_co-hero > .container, .bg-img > .container {
     position: relative;
@@ -1635,7 +1636,7 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
   margin-bottom: 30px; }
 
 .site-footer {
-  background: #c04c8c;
+  background: #cc3f8a;
   font-size: 14px;
   color: #ffffff;
   padding: 70px 0; }

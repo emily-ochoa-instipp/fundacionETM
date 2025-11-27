@@ -14,13 +14,13 @@ def tabla_eventos(request):
     })
 
 def registrar_evento(request):
-    error = None
+    
     if request.method == 'POST':
         titulo = request.POST.get('txtTitulo')
         descripcion = request.POST.get('txtDescripcion')
         fecha = request.POST.get('txtFecha')
-        hora_inicio = request.POST.get('txtHoraInicio') or None
-        hora_fin = request.POST.get('txtHoraFin') or None
+        hora_inicio = request.POST.get('txtHoraInicio') 
+        hora_fin = request.POST.get('txtHoraFin') 
         lugar = request.POST.get('txtLugar')
         direccion = request.POST.get('txtDireccion')
         imagen = request.FILES.get('txtImagen')
@@ -60,7 +60,7 @@ def editar_evento(request, evento_id):
         evento.descripcion = request.POST.get('txtDescripcion')
         evento.fecha = request.POST.get('txtFecha')
         evento.hora_inicio = request.POST.get('txtHoraInicio')
-        evento.hora_fin = request.POST.get('txtHoraFin')
+        evento.hora_fin = request.POST.get('txtHoraFin') 
         evento.lugar = request.POST.get('txtLugar')
         evento.direccion = request.POST.get('txtDireccion')
         evento.estado = True if request.POST.get('estado') == 'on' else False
