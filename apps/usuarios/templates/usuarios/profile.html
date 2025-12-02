@@ -8,6 +8,16 @@
           <div class="row justify-content-center">
             <div class="col-12 col-lg-10 col-xl-8">
               <h2 class="h3 mb-4 page-title">Configuración de pérfil</h2>
+              {% if messages %}
+                  <div>
+                      {% for message in messages %}
+                          <div class="alert alert-{{ message.tags }}">
+                              {{ message }}
+                          </div>
+                      {% endfor %}
+                  </div>
+              {% endif %}
+
               <div class="my-4">
 
                 <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
@@ -62,24 +72,24 @@
                       <div class="form-row">
                         <div class="form-group col-md-6">
                           <label for="nombres">Nombres</label>
-                          <input type="text" id="nombres" class="form-control" placeholder="Nombres" name="txtNombres" value="{{ usuario.user.first_name }}">
+                          <input type="text" id="nombres" class="form-control" placeholder="Nombres" name="txtNombres" value="{{ usuario.user.first_name }}" required>
                         </div>
                         <div class="form-group col-md-6">
                           <label for="apellidos">Apellidos</label>
-                          <input type="text" id="apellidos" class="form-control" placeholder="Apellidos" name="txtApellidos" value="{{ usuario.user.last_name }}">
+                          <input type="text" id="apellidos" class="form-control" placeholder="Apellidos" name="txtApellidos" value="{{ usuario.user.last_name }}" required>
                         </div>
                       </div>
                       <div class="form-group">
                         <label for="inputEmail4">Email</label>
-                        <input type="email" class="form-control" id="inputEmail4" placeholder="email" name="txtEmail" value="{{ usuario.user.email }}">
+                        <input type="email" class="form-control" id="inputEmail4" placeholder="email" name="txtEmail" value="{{ usuario.user.email }}" required>
                       </div>
                       <div class="form-group">
                         <label for="inputNumTelf">Teléfono</label>
-                        <input type="tel" class="form-control" id="inputNumTelf" placeholder="Teléfono" name="txtTelefono" value="{{ usuario.telefono }}">
+                        <input type="tel" class="form-control" id="inputNumTelf" placeholder="Teléfono" name="txtTelefono" value="{{ usuario.telefono }}" required>
                       </div>
                       <div class="form-group">
                         <label for="inputNumDoc">Cédula</label>
-                        <input type="text" class="form-control" id="inputNumDoc" placeholder="Número documento" name="txtNumDoc" value="{{ usuario.num_doc }}">
+                        <input type="text" class="form-control" id="inputNumDoc" placeholder="Número documento" name="txtNumDoc" value="{{ usuario.num_doc }}" required>
                       </div>
                       <button type="submit" class="btn btn-primary mt-3">Guardar cambios</button>
                     </form>
@@ -88,36 +98,37 @@
                   <div class="tab-pane fade" id="cuenta" role="tabpanel" aria-labelledby="cuenta-tab">
                     <form class="mt-4">
                           <div class="form-group">
-                            <label for="inputPassword4">Usuario actual</label>
-                            <input type="password" class="form-control" id="inputPassword5">
+                            <label for="inputUsername">Usuario actual</label>
+                            <input type="text" class="form-control" id="inputUsername" name="txtUsername" value="{{ usuario.user.username }}" required>
                           </div>
                           <div class="form-group">
-                            <label for="inputPassword5">Nueva usuario</label>
-                            <input type="password" class="form-control" id="inputPassword5">
+                            <label for="inputUsername">Nueva usuario</label>
+                            <input type="text" class="form-control" id="inputUsername" name="txtUsername" required> 
                           </div>
                           <div class="form-group">
-                            <label for="inputPassword6">Confirmar contraseña para guardar cambios</label>
-                            <input type="password" class="form-control" id="inputPassword6">
+                            <label for="inputPassword">Confirmar contraseña para guardar cambios</label>
+                            <input type="password" class="form-control" id="inputPassword" name="txtPassword" required>
                           </div>
                     
                   
                       <button type="submit" class="btn btn-primary">Guardar dambios</button>
                     </form>
+                    
                   </div> 
       
                   <div class="tab-pane fade" id="contrasena" role="tabpanel" aria-labelledby="contrasena-tab">
                     <form id="password-form" class="mt-4">
                           <div class="form-group">
-                            <label for="inputPassword4">Contraseña actual</label>
-                            <input type="password" class="form-control" id="inputPassword5">
+                            <label for="inputPassword">Contraseña actual</label>
+                            <input type="password" class="form-control" id="inputPassword" name="txtPassword" required>
                           </div>
                           <div class="form-group">
-                            <label for="inputPassword5">Nueva Contraseña</label>
-                            <input type="password" class="form-control" id="inputPassword5">
+                            <label for="inputPassword">Nueva Contraseña</label>
+                            <input type="password" class="form-control" id="inputPassword" name="txtPassword" required>
                           </div>
                           <div class="form-group">
-                            <label for="inputPassword6">Confirmar nueva contraseña</label>
-                            <input type="password" class="form-control" id="inputPassword6">
+                            <label for="inputPassword">Confirmar nueva contraseña</label>
+                            <input type="password" class="form-control" id="inputPassword" required>
                           </div>
                         
                         <div class="col-md-6">

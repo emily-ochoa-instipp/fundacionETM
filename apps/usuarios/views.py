@@ -113,6 +113,31 @@ def profile(request):
             usuario.foto = request.FILES['foto']
 
         usuario.save()
+    
+        # Obtener nuevo nombre de usuario y confirmación de contraseña
+        nuevo_usuario = request.POST.get('txtUsername')
+        confirm_password = request.POST.get('txtConfirmPassword')
+
+        if nuevo_usuario: # si se envió un nuevo username
+            # Verificar si el usuario ingresó la contraseña correcta
+            if not request.user.check_password(confirm_password):
+                messages.error(request, 'La contraseña no es correcta.')
+                return redirect('profile')
+
+            # Verificar si el nombre de usuario ya está en uso
+            if User.objects.filter(username=nuevo_usuario).exists():
+                messages.error(request, 'El nombre de usuario ya está en uso.')
+                return redirect('profile')
+
+            # Actualizar nombre de usuario
+            request.user.username = nuevo_usuario
+            request.user.save()
+
+            messages.success(request, 'Nombre de usuario actualizado correctamente.')
+
         messages.success(request, 'Los datos del perfil se actualizaron correctamente.')
         return redirect('profile')
+    
+    
+    
     return render(request, 'usuarios/profile.html', {'usuario': usuario})
