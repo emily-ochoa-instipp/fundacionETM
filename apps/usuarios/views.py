@@ -97,7 +97,32 @@ def eliminar_usuario(request, usuario_id):
 @login_required
 def profile(request):
     usuario = Usuario.objects.get(user=request.user)
+
     if request.method == 'POST':
+        # Obtener nuevo nombre de usuario y confirmación de contraseña
+        nuevo_usuario = request.POST.get('txtUsername')
+        confirm_password = request.POST.get('txtPassword')
+
+        if nuevo_usuario: # si se envió un nuevo username
+
+            if nuevo_usuario != request.user.username: # Solo procede si realmente hay un cambio
+
+                # Verificar si el usuario ingresó la contraseña correcta
+                if not request.user.check_password(confirm_password):
+                    messages.error(request, 'La contraseña no es correcta.')
+                    return redirect('profile')
+
+                # Verificar si el nombre de usuario ya está en uso
+                if User.objects.filter(username=nuevo_usuario).exclude(pk=request.user.pk).exists():
+                    messages.error(request, 'El nombre de usuario ya está en uso.')
+                    return redirect('profile')
+
+                # Actualizar nombre de usuario
+                request.user.username = nuevo_usuario
+                request.user.save()
+
+                messages.success(request, 'Nombre de usuario actualizado correctamente.')
+
         # actualizar campos user
         user = request.user
         user.first_name = request.POST.get('txtNombres')
@@ -105,7 +130,7 @@ def profile(request):
         user.email = request.POST.get('txtEmail')
         user.save()
 
-        # actualizar usuario
+        # actualizar campos de modelo usuario
         usuario.telefono = request.POST.get('txtTelefono')
         usuario.num_doc = request.POST.get('txtNumDoc')
 
@@ -114,28 +139,8 @@ def profile(request):
 
         usuario.save()
     
-        # Obtener nuevo nombre de usuario y confirmación de contraseña
-        nuevo_usuario = request.POST.get('txtUsername')
-        confirm_password = request.POST.get('txtConfirmPassword')
-
-        if nuevo_usuario: # si se envió un nuevo username
-            # Verificar si el usuario ingresó la contraseña correcta
-            if not request.user.check_password(confirm_password):
-                messages.error(request, 'La contraseña no es correcta.')
-                return redirect('profile')
-
-            # Verificar si el nombre de usuario ya está en uso
-            if User.objects.filter(username=nuevo_usuario).exists():
-                messages.error(request, 'El nombre de usuario ya está en uso.')
-                return redirect('profile')
-
-            # Actualizar nombre de usuario
-            request.user.username = nuevo_usuario
-            request.user.save()
-
-            messages.success(request, 'Nombre de usuario actualizado correctamente.')
-
-        messages.success(request, 'Los datos del perfil se actualizaron correctamente.')
+        if not nuevo_usuario or nuevo_usuario == request.user.username:
+            messages.success(request, 'Los datos del perfil se actualizaron correctamente.')
         return redirect('profile')
     
     
