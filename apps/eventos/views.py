@@ -1,8 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-from apps.eventos.models import Evento
-from datetime import date
+from apps.eventos.models import Evento, ImagenEvento
 
 # Create your views here.
 
@@ -65,14 +63,17 @@ def editar_evento(request, evento_id):
         evento.direccion = request.POST.get('txtDireccion')
         evento.estado = True if request.POST.get('estado') == 'on' else False
         
-        if 'txtImagen' in request.FILES:
+        #imagen portada
+        if request.FILES.get('txtImagen'):
             evento.imagen = request.FILES['txtImagen']
         
         evento.save()
         
         return redirect('tabla_eventos')
+    
+    galeria = evento.galeria.all()
 
-    return render(request, 'eventos/editar_evento.html', {'evento': evento})
+    return render(request, 'eventos/editar_evento.html', {'evento': evento, 'galeria': galeria})
 
 @login_required
 def eliminar_evento(request, evento_id):
@@ -81,3 +82,27 @@ def eliminar_evento(request, evento_id):
     evento.delete()   
     return redirect('tabla_eventos')
 
+
+@login_required
+def agregar_imagen_galeria(request, evento_id):
+    evento = get_object_or_404(Evento, id=evento_id)
+
+    if request.method == "POST":
+        imagenes = request.FILES.getlist("imagenes")  
+
+        for img in imagenes:
+            ImagenEvento.objects.create(
+                evento=evento,
+                imagen_galeria=img,
+            )
+
+        return redirect("editar_evento", evento_id=evento.id)
+
+    return render(request, "eventos/tabla_eventos.html", {"evento": evento})
+
+@login_required
+def eliminar_imagen_galeria(request, imagen_id):
+    imagen = get_object_or_404(ImagenEvento, id=imagen_id)
+    evento_id = imagen.evento.id
+    imagen.delete()
+    return redirect("editar_evento", evento_id=evento_id)

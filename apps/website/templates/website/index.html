@@ -128,11 +128,11 @@
               <span class="caption-2">Miembros de la fundación</span>
             </div>
             <div class="col-4 col-lg-4" data-aos="fade-up" data-aos-delay="100">
-              <span class="counter d-block"><span data-number="10">0</span><span></span></span>
+              <span class="counter d-block"><span data-number="50">0</span><span></span></span>
               <span class="caption-2">Eventos realizados</span>
             </div>
             <div class="col-4 col-lg-4" data-aos="fade-up" data-aos-delay="100">
-              <span class="counter d-block"><span data-number="6">0</span><span></span></span>
+              <span class="counter d-block"><span data-number="20">0</span><span></span></span>
               <span class="caption-2">Proyectos realizados</span>
             </div>
           </div>
@@ -277,12 +277,16 @@
               {% endif %}
             </figure>
             <div class="media-h-body shadow">
-              <h2 class="mb-3"><a href="#">{{ evento.titulo }}</a></h2>
+              <h2 class="mb-3"><a href="{% url 'evento_detalles' evento.id %}">{{ evento.titulo }}</a></h2>
               <div class="meta mb-2">
                 <span class="icon-building-o mr-2"></span>{{ evento.lugar }} <br>
-                <span class="icon-map-marker mr-2"></span> {{ evento.direccion }}
+                <span class="icon-map-marker mr-2"></span> {{ evento.direccion }} <br>
+                <span class="icon-calendar mr-2"></span>{{ evento.fecha }} 
               </div>
-              <p class="text-justify">{{ evento.descripcion|truncatewords:200 }}</p>
+              <p class="text-justify">{{ evento.descripcion|truncatewords:100 }}</p>
+              <a href="{% url 'evento_detalles' evento.id %}">
+                  Ver más
+              </a>
             </div>
           </div>
         </div>
@@ -712,26 +716,7 @@
           </div>
         </div>
         <div class="col-lg-7 mr-auto order-1" data-aos="fade-up" data-aos-delay="200">
-          <form action="#">
-            <div class="row">
-              <div class="col-6 mb-3">
-                <input type="text" class="form-control" placeholder="Escribe tu nombre">
-              </div>
-              <div class="col-6 mb-3">
-                <input type="email" class="form-control" placeholder="Escribe tu correo">
-              </div>
-              <div class="col-12 mb-3">
-                <input type="text" class="form-control" placeholder="Asunto">
-              </div>
-              <div class="col-12 mb-3">
-                <textarea name="" id="" cols="30" rows="7" class="form-control" placeholder="Mensaje"></textarea>
-              </div>
-
-              <div class="col-12">
-                <input type="submit" value="Enviar mensaje" class="btn btn-rosa">
-              </div>
-            </div>
-          </form>
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3983.3643708485615!2d-79.9597013725722!3d-3.259360603507492!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x90330e59eb2d09f3%3A0x9f54fb59c20abe06!2sTorre%20Corporativa%20Murano!5e0!3m2!1ses-419!2sec!4v1765434281552!5m2!1ses-419!2sec" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
       </div>
 

@@ -21,10 +21,17 @@ class Evento(models.Model):
     hora_fin = models.TimeField(null=True, blank=True)
     lugar = models.CharField(max_length=150)
     direccion = models.CharField(max_length=150)
-    imagen = models.ImageField(upload_to='eventos/', null=True, blank=True)
+    imagen = models.ImageField(upload_to='eventos/imagen_portada', null=True, blank=True)
     #creado_en = models.DateTimeField(auto_now_add=True)
     #actualizado_en = models.DateTimeField(auto_now=True)
     estado = models.BooleanField(default=True)
 
     def __str__(self):
         return self.titulo
+
+class ImagenEvento(models.Model):
+    evento = models.ForeignKey(Evento, on_delete=models.CASCADE, related_name="galeria")
+    imagen_galeria = models.ImageField(upload_to='eventos/galeria/')
+
+    def __str__(self):
+        return f"Imagen de {self.evento.titulo}"

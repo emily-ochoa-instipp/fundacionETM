@@ -11,7 +11,7 @@
               <div class="card-deck">
                 <div class="card shadow mb-4">
                   <div class="card-body">
-                    <form method="post" action="">
+                    <form method="post" action="" enctype="multipart/form-data">
                       {% csrf_token %}
                       {% if error is not None %}
                           <div class="alert alert-danger" role="alert">
@@ -24,14 +24,17 @@
                             <label for="inputTitulo">Titulo</label>
                             <input type="text" class="form-control" id="inputTitulo" placeholder="Titulo" name="txtTitulo" value="{{ evento.titulo }}" required>
                           </div>
-                          <div class="form-group col-md-6">
-                            <label for="inputDescripcion">Descripcion</label>
-                            <input type="text" class="form-control" id="inputDescripcion" placeholder="Descripcion" name="txtDescripcion" value="{{ evento.descripcion }}" required>
-                          </div>
+
                           <div class="form-group col-md-6">
                             <label for="inputFch">Fecha</label>
                             <input type="date" class="form-control" id="inputFch" placeholder="Fecha" name="txtFecha" value="{{ evento.fecha|date:'Y-m-d' }}" required>
                           </div>
+
+                          <div class="form-group col-md-12">
+                            <label for="inputDescripcion">Descripción</label>
+                            <textarea class="form-control" id="inputDescripcion" name="txtDescripcion" rows="4" required>{{ evento.descripcion }}</textarea>
+                          </div>
+                        
                           <div class="form-group col-md-6">
                             <label for="example-time">Hora inicio</label>
                             <input class="form-control" id="example-time" type="time" name="txtHoraInicio" value="{{ evento.hora_inicio }}" required>
@@ -51,13 +54,17 @@
                             <input type="text" class="form-control" id="inputLugar" placeholder="Lugar" name="txtLugar" value="{{ evento.lugar }}" required>
                           </div>
                           <div class="form-group col-md-6">
-                            <label for="inputImagen">Imagen</label>
-                            <input type="image" class="form-control" id="inputImagen" placeholder="Imagen" name="txtImagen" value="{{ evento.imagen }}">
+                            <label for="inputImagenNew">Subir nueva foto de portada</label>
+                            <input type="file" class="form-control" id="inputImagen" placeholder="Imagen" name="txtImagen">
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label for="inputImagenNew">Imagen de portada actual</label><br>
+                            <img src="{{ evento.imagen.url }}" class="img-fluid rounded shadow" width="220">
                           </div>
                           
                         </div>
                         
-                        <div class="modal-footer d-flex justify-content-between">
+                        <div class="col-md-12 mt-3 modal-footer d-flex justify-content-between">
                           <div class="custom-control custom-switch">
                             <input type="checkbox" class="custom-control-input" id="RepeatSwitch" name="estado" {% if evento.estado %} checked {% endif %}>
                             <label class="custom-control-label" for="RepeatSwitch">Activo</label>
@@ -67,9 +74,79 @@
                             <a href="{% url 'tabla_eventos' %}" class="btn btn-danger">Cancelar</a>
                           </div>
                         </div>
-                        </div>
+                        
+                      </div>
+                    </form>                        
+                  </div>
+                </div>
+              </div> <!-- end section -->
+
+              <div class="card-deck">
+                <div class="card shadow mb-4">
+                  <div class="card-body">
+                    
+                    <form method="POST" action="{% url 'agregar_imagen_galeria' evento.id %}" enctype="multipart/form-data">
+                      {% csrf_token %}
+                      <div class="text-center mt-4 mb-5">
+                        <h3>Agregar imágenes a la galería</h3>
+                      </div>
+
+                      <div class="d-flex justify-content-between align-items-center">
+                          <div class="form-group col-md-6">
+                            <label for="inputTitulo">Selecciona imágenes</label>
+                            <input type="file" name="imagenes" multiple class="form-control" required>
+                          </div>
+
+                          <div class="form-group col-md-6">
+                            <button class="btn btn-primary mt-3">Agregar imágenes</button>
+                          </div>
+                          
                       </div>
                     </form>
+
+                    <hr>
+
+                    <div class="text-center mt-4 mb-5">
+                        <h3>Galería actual</h3>
+                    </div>
+
+                    <div class="row mt-3">
+                        {% for img in galeria %}
+                            <div class="col-md-3 mb-4 text-center item">
+                                <img src="{{ img.imagen_galeria.url }}" class="item-wrap img-fluid shadow rounded mb-3" style="height: 100px;">
+                                <br>
+
+                                <a href="" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModal{{ img.id }}">Eliminar</a>
+
+                              
+                              <!-- Modal -->
+                                <div class="modal fade" id="exampleModal{{ img.id }}" tabindex="-1" aria-labelledby="exampleModalLabel{{ img.id }}" aria-hidden="true">
+                                  <div class="modal-dialog">
+                                    <div class="modal-content">
+                                      <form method="post" action="{% url 'eliminar_imagen_galeria' img.id %}">
+                                        {% csrf_token %}
+                                        <div class="modal-header">
+                                          <h5 class="modal-title fs-5" id="exampleModalLabel {{ img.id }}">Confirmación de eliminación</h5>
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                          ¿Estas seguro de eliminar esta imagen del evento {{ evento.titulo }} del dia {{ evento.fecha }}?
+                                        </div>
+                                        <div class="modal-footer">
+                                          <a href="{% url 'editar_evento' evento.id %}" class="btn btn-primary"data-bs-dismiss="modal">Cancelar</a>
+                                          <button type="submit" class="btn btn-danger">Eliminar</button>
+                                        </div>
+                                      </form>   
+                                    </div>
+                                  </div>
+                                </div>
+
+                            </div>
+                              {% empty %}
+                                <p class="ml-4">No hay imágenes en la galería.</p>
+                              {% endfor %}
+                    </div>                  
+                  
                   </div>
                 </div>
               </div> <!-- end section -->

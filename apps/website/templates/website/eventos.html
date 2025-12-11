@@ -27,10 +27,11 @@
             <div class="media-h-body shadow">
               <h2 class="mb-3"><a href="#">{{ evento.titulo }}</a></h2>
               <div class="meta mb-2">
+                <span class="icon-calendar mr-2"></span>{{ evento.fecha }} <br>
                 <span class="icon-building-o mr-2"></span>{{ evento.lugar }} <br>
                 <span class="icon-map-marker mr-2"></span> {{ evento.direccion }}
               </div>
-              <p class="text-justify">{{ evento.descripcion|truncatewords:200 }}</p>
+              <p class="text-justify">{{ evento.descripcion|truncatewords:100 }}</p>
               <a href="{% url 'evento_detalles' evento.id %}">
                   Ver más
               </a>
