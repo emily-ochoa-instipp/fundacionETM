@@ -4,8 +4,12 @@ from django.contrib.auth.decorators import login_required
 from apps.usuarios.models import Usuario
 from django.contrib.auth.models import User, Group
 from django.db.models import Q
-
+from django.contrib.auth import update_session_auth_hash #funcion para evitar q se cierre la sesion luego de cambiar la contraseña
+from django.urls import reverse
 from django.contrib import messages
+
+from django.contrib.auth import password_validation 
+from django.core.exceptions import ValidationError
 
 # Create your views here.
 
@@ -99,50 +103,95 @@ def profile(request):
     usuario = Usuario.objects.get(user=request.user)
 
     if request.method == 'POST':
-        # Obtener nuevo nombre de usuario y confirmación de contraseña
-        nuevo_usuario = request.POST.get('txtUsername')
-        confirm_password = request.POST.get('txtPassword')
+        form_type = request.POST.get('form_type')
 
-        if nuevo_usuario: # si se envió un nuevo username
+        # URL base
+        profile_url = reverse('profile')       
 
-            if nuevo_usuario != request.user.username: # Solo procede si realmente hay un cambio
+        if form_type == 'perfil':
+            # actualizar campos user
+            user = request.user
+            user.first_name = request.POST.get('txtNombres')
+            user.last_name = request.POST.get('txtApellidos')
+            user.email = request.POST.get('txtEmail')
+            user.save()
+
+            # actualizar campos de modelo usuario
+            usuario.telefono = request.POST.get('txtTelefono')
+            usuario.num_doc = request.POST.get('txtNumDoc')
+
+            if 'foto' in request.FILES:
+                usuario.foto = request.FILES['foto']
+
+            usuario.save()
+        
+            messages.success(request, 'Datos del perfil actualizados correctamente.')
+            return redirect(profile_url + '#perfil')
+    
+        elif form_type == 'cuenta':
+            # Obtener nuevo nombre de usuario y confirmación de contraseña
+            nuevo_usuario = request.POST.get('txtNewUsername')
+            confirm_password = request.POST.get('txtPassword')
+
+            # Verificar si realmente hay un cambio de nombre de usuario
+            if nuevo_usuario and nuevo_usuario != request.user.username:     
 
                 # Verificar si el usuario ingresó la contraseña correcta
                 if not request.user.check_password(confirm_password):
-                    messages.error(request, 'La contraseña no es correcta.')
-                    return redirect('profile')
+                    messages.error(request, 'La contraseña no es correcta. No se pudo cambiar el nombre de usuario.')
+                    return redirect(profile_url + '#cuenta')
 
                 # Verificar si el nombre de usuario ya está en uso
                 if User.objects.filter(username=nuevo_usuario).exclude(pk=request.user.pk).exists():
                     messages.error(request, 'El nombre de usuario ya está en uso.')
-                    return redirect('profile')
+                    return redirect(profile_url + '#cuenta')
 
                 # Actualizar nombre de usuario
                 request.user.username = nuevo_usuario
                 request.user.save()
 
                 messages.success(request, 'Nombre de usuario actualizado correctamente.')
+                # Redirige y usa el hash para volver al tab 'cuenta'
+                return redirect(profile_url + '#cuenta')
+            
+            else:
+                messages.warning(request, 'No se ingresó un nuevo nombre de usuario o es igual al actual.')
+                return redirect(profile_url + '#cuenta')
 
-        # actualizar campos user
-        user = request.user
-        user.first_name = request.POST.get('txtNombres')
-        user.last_name = request.POST.get('txtApellidos')
-        user.email = request.POST.get('txtEmail')
-        user.save()
 
-        # actualizar campos de modelo usuario
-        usuario.telefono = request.POST.get('txtTelefono')
-        usuario.num_doc = request.POST.get('txtNumDoc')
+        elif form_type == 'contrasena':
+            current_password = request.POST.get('txtPassword')
+            new_password = request.POST.get('txtNewPassword')
+            confirm_new_password = request.POST.get('txtConfNewPass')
+            
+            # verificar coincidencia ntre nueva contraseña y la confirmacion
+            if new_password != confirm_new_password:
+                messages.error(request, 'La nueva contraseña y la confirmación no coinciden.')
+                return redirect(profile_url + '#contrasena')
 
-        if 'foto' in request.FILES:
-            usuario.foto = request.FILES['foto']
+            # Verificar la contraseña actual
+            if not request.user.check_password(current_password):
+                messages.error(request, 'La contraseña actual no es correcta.')
+                return redirect(profile_url + '#contrasena')
 
-        usuario.save()
-    
-        if not nuevo_usuario or nuevo_usuario == request.user.username:
-            messages.success(request, 'Los datos del perfil se actualizaron correctamente.')
-        return redirect('profile')
-    
-    
-    
+            # Reglas de Validación de Django
+            try:
+                password_validation.validate_password(new_password, user=request.user)
+                
+            except ValidationError as e:
+                for error in e.messages:
+                    messages.error(request, error)
+                return redirect(profile_url + '#contrasena')
+
+            # Cambiar la contraseña
+            request.user.set_password(new_password)
+            request.user.save()
+            
+            # Mantener la sesión de usuario activa 
+            update_session_auth_hash(request, request.user)
+
+            messages.success(request, 'Contraseña actualizada correctamente.')
+            return redirect(profile_url + '#contrasena')
+        
     return render(request, 'usuarios/profile.html', {'usuario': usuario})
+    

@@ -10,11 +10,13 @@
               <h2 class="h3 mb-4 page-title">Configuración de pérfil</h2>
               {% if messages %}
                   <div>
-                      {% for message in messages %}
-                          <div class="alert alert-{{ message.tags }}">
-                              {{ message }}
-                          </div>
-                      {% endfor %}
+                    {% for message in messages %}
+                        {% if message.tags == 'error' %}
+                            <div class="alert alert-danger"> 🚨 {{ message }}</div>
+                        {% else %}
+                            <div class="alert alert-{{ message.tags }}"> {{ message }}</div>
+                        {% endif %}
+                    {% endfor %}
                   </div>
               {% endif %}
 
@@ -35,8 +37,8 @@
 
                 <div class="tab-content" id="myTabContent">
                   <div class="tab-pane fade show active" id="perfil" role="tabpanel" aria-labelledby="perfil-tab">
-
                     <form method="POST" enctype="multipart/form-data">
+                      <input type="hidden" name="form_type" value="perfil">
                       {% csrf_token %}
                       <div class="row mt-5 align-items-center">
                         <div class="col-12">
@@ -59,7 +61,7 @@
                             <div class="col-5">
                               <button type="submit" class="btn btn-primary">Cambiar foto</button>
                             </div>
-                          </div>
+                        </div>
                         
                         <!-- <div class="d-flex justify-content-between align-items-center"> 
                           <h4 class="mb-1">{{ usuario.user.first_name }} {{ usuario.user.last_name }}</h4>
@@ -97,14 +99,15 @@
 
                   <div class="tab-pane fade" id="cuenta" role="tabpanel" aria-labelledby="cuenta-tab">
                     <form method="POST" class="mt-4">
+                      <input type="hidden" name="form_type" value="cuenta">
                       {% csrf_token %}
                       <div class="form-group">
                         <label for="inputUsername">Usuario actual</label>
-                        <input type="text" class="form-control" id="inputUsername" name="txtUsername" value="{{ usuario.user.username }}" required>
+                        <input type="text" class="form-control" id="inputUsername" name="txtUsername" value="{{ usuario.user.username }}" disabled>
                       </div>
                       <div class="form-group">
-                        <label for="inputUsername">Nueva usuario</label>
-                        <input type="text" class="form-control" id="inputUsername" name="txtNewUsername" required> 
+                        <label for="NewUsername">Nueva usuario</label>
+                        <input type="text" class="form-control" id="NewUsername" name="txtNewUsername" required> 
                       </div>
                       <div class="form-group">
                         <label for="inputPassword">Confirmar contraseña para guardar cambios</label>
@@ -117,19 +120,21 @@
                   </div> 
       
                   <div class="tab-pane fade" id="contrasena" role="tabpanel" aria-labelledby="contrasena-tab">
-                    <form id="password-form" class="mt-4">
-                          <div class="form-group">
-                            <label for="inputPassword">Contraseña actual</label>
-                            <input type="password" class="form-control" id="inputPassword" name="txtPassword" required>
-                          </div>
-                          <div class="form-group">
-                            <label for="inputPassword">Nueva Contraseña</label>
-                            <input type="password" class="form-control" id="inputPassword" name="txtNewPassword" required>
-                          </div>
-                          <div class="form-group">
-                            <label for="inputPassword">Confirmar nueva contraseña</label>
-                            <input type="password" class="form-control" id="inputPassword" required>
-                          </div>
+                    <form method="POST" class="mt-4">
+                      <input type="hidden" name="form_type" value="contrasena">
+                      {% csrf_token %}
+                        <div class="form-group">
+                          <label for="inputPassword">Contraseña actual</label>
+                          <input type="password" class="form-control" id="inputPassword" name="txtPassword" required>
+                        </div>
+                        <div class="form-group">
+                          <label for="newPassword">Nueva Contraseña</label>
+                          <input type="password" class="form-control" id="newPassword" name="txtNewPassword" required>
+                        </div>
+                        <div class="form-group">
+                          <label for="confirmNewPassword">Confirmar nueva contraseña</label>
+                          <input type="password" class="form-control" id="confirmNewPassword" name="txtConfNewPass" required>
+                        </div>
                         
                         <div class="col-md-6">
                           <p class="mb-2">Requisitos de nueva contraseña</p>
@@ -164,6 +169,24 @@
       gtag('js', new Date());
       gtag('config', 'UA-56159088-1');
     </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var hash = window.location.hash;
+            if (hash) {
+                var triggerEl = document.querySelector('a[href="' + hash + '"]');
+                if (triggerEl) {
+                    $(triggerEl).tab('show'); 
+                }
+            }
+        });
+
+        // Limpieza de hash (opcional)
+        // if(window.location.hash) {
+        //      history.replaceState('', document.title, window.location.pathname + window.location.search);
+        // }
+    </script>
+
   </body>
 </html>
 {% endblock %}
