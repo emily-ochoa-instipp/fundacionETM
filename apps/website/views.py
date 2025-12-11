@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 
 from django.core.paginator import Paginator
 from django.utils import timezone
-from apps.eventos.models import Evento
+from apps.eventos.models import Evento, Proyecto
 
 
 # Create your views here.
@@ -44,4 +44,9 @@ def eventos_views(request):
 def evento_detalles(request, id):
     evento = get_object_or_404(Evento, id=id)
     return render(request, 'website/evento_detalles.html', {'evento': evento})
+
+
+def proyecto_detalles(request, id):
+    proyecto = get_object_or_404(Proyecto, id=id)
+    return render(request, 'website/proyecto_detalles.html', {'proyecto': proyecto})
 
