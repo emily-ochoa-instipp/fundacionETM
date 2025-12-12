@@ -6,9 +6,10 @@ urlpatterns = [
     path('', views.index_views, name='index'),
 
     # path('nosotras/', views.nosotras, name='nosotras'),
-    path('website/', views.eventos_views, name='eventos'),
-    path('eventos/<int:id>/', views.evento_detalles, name='evento_detalles'),
-    path('proyectos/<int:id>/', views.proyecto_detalles, name='proyecto_detalles'),
+    path('eventos/', views.eventos_views, name='eventos'),
+    path('proyectos/', views.proyectos_views, name='proyectos'),
+    path('evento/<int:id>/', views.evento_detalles, name='evento_detalles'),
+    path('proyecto/<int:id>/', views.proyecto_detalles, name='proyecto_detalles'),
     # path('nosotras/', views.nosotras, name='nosotras'),
     # path('nosotras/', views.nosotras, name='nosotras'),
     

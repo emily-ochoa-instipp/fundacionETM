@@ -9,30 +9,28 @@
     <div class="container">
        <div class="row justify-content-center mb-5">
         <div class="col-lg-7 text-center" data-aos="fade-up" data-aos-delay="0">
-          <h2 class="line-bottom text-center mb-1">Eventos realizados</h2>
+          <h2 class="line-bottom text-center mb-1">Proyectos realizados</h2>
         </div>
       </div>
 
       <div class="row align-items-stretch">
-        {% for evento in realizados %}
+        {% for proyecto in proyectos %}
         <div class="col-lg-6 mb-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:100 }}">
           <div class="media-h d-flex h-100">
             <figure>
-              {% if evento.imagen %}
-                <img src="{{ evento.imagen.url }}" alt="{{ evento.titulo }}">
+              {% if proyecto.imagen %}
+                <img src="{{ proyecto.imagen.url }}" alt="{{ proyecto.nombre }}">
               {% else %}
                 <img src="{% static 'assets/images/foto-evento-default.jpeg' %}" alt="Imagen por defecto">
               {% endif %}
             </figure>
             <div class="media-h-body shadow">
-              <h2 class="mb-3"><a href="#">{{ evento.titulo }}</a></h2>
+              <h2 class="mb-3"><a href="#">{{ proyecto.nombre }}</a></h2>
               <div class="meta mb-2">
-                <span class="icon-calendar mr-2"></span>{{ evento.fecha }} <br>
-                <span class="icon-building-o mr-2"></span>{{ evento.lugar }} <br>
-                <span class="icon-map-marker mr-2"></span> {{ evento.direccion }}
+                <span class="icon-calendar mr-2"></span>{{ proyecto.fecha_inicio }} - {{ proyecto.fecha_fin|default:"En curso"  }}  <br>
               </div>
-              <p class="text-justify">{{ evento.descripcion|truncatewords:100 }}</p>
-              <a href="{% url 'evento_detalles' evento.id %}">
+              <p class="text-justify">{{ proyecto.descripcion|truncatewords:100 }}</p>
+              <a href="{% url 'proyecto_detalles' proyecto.id %}">
                   Ver más
               </a>
             </div>

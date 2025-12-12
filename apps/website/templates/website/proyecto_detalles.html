@@ -6,23 +6,23 @@
 
   <div class="untree_co-section bg-light mt-5">
     <div class="container">
-      <a href="{% url 'eventos' %}" class="small mr-3">
+      <a href="{% url 'proyectos' %}" class="small mr-3">
         <span class="icon-arrow-circle-left mr-2"></span>
-        Regresar a todos los eventos
+        Regresar a todos los proyectos
       </a>
 
       <div class="row justify-content-center mb-4 mt-4">
         <div class="col-md-12 text-center" data-aos="fade-up" data-aos-delay="0">
-          <h2 class="line-bottom text-center mb-1 ">{{ evento.titulo }}</h2>
+          <h2 class="line-bottom text-center mb-1 ">{{ proyecto.nombre }}</h2>
         </div>
       </div>
 
       <div class="row align-items-stretch">
         <div class="col-md-12 d-flex justify-content-center" data-aos="fade-up">
-          {% if evento.imagen %}
-              <img src="{{ evento.imagen.url }}" alt="{{ evento.titulo }}" class="img-fluid shadow" style="height: 25rem;">
+          {% if proyecto.imagen %}
+              <img src="{{ proyecto.imagen.url }}" alt="{{ proyecto.nombre }}" class="img-fluid shadow" style="height: 25rem;">
           {% else %}
-              <img src="{% static 'assets/images/no-image-evento.jpeg' %}" alt="Imagen no disponible" class="img-fluid">
+              <img src="{% static 'assets/images/foto-evento-default.jpeg' %}" alt="Imagen no disponible" class="img-fluid">
           {% endif %}
 
         </div>
@@ -31,11 +31,9 @@
         
             <div class="media-h-body shadow p-4">
               <div class="meta mb-2">
-                <span class="icon-calendar mr-2"></span>{{ evento.fecha }} <br>
-                <span class="icon-map-marker mr-2"></span> {{ evento.direccion }} <br>
-                <span class="icon-building-o mr-2"></span>{{ evento.lugar }} 
+                <span class="icon-calendar mr-2"></span>{{ proyecto.fecha_inicio }} - {{ proyecto.fecha_fin|default:"En curso" }}  <br>
               </div>
-              <p class="text-justify">{{ evento.descripcion|truncatewords:5000 }}</p>
+              <p class="text-justify">{{ proyecto.descripcion|truncatewords:5000 }}</p>
             </div>
           </div>
         </div>
@@ -44,7 +42,7 @@
 
     <div class="row justify-content-center mb-4 mt-4">
       <div class="col-lg-7 text-center" data-aos="fade-up" data-aos-delay="0">
-        <h2 class="line-bottom text-center mb-1 ">Imágenes del evento</h2>
+        <h2 class="line-bottom text-center mb-1 ">Imágenes del proyecto</h2>
       </div>
     </div>
     <div class="container mt-5">

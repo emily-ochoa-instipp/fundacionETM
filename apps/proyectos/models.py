@@ -7,6 +7,7 @@ class Proyecto (models.Model):
     descripcion = models.TextField()
     imagen = models.ImageField(upload_to='proyectos/', blank=True, null=True)
     fecha_inicio = models.DateField()
+    fecha_fin = models.DateField(null=True, blank=True)
     estado = models.BooleanField(default=True)
 
     def __str__(self):

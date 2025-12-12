@@ -18,6 +18,7 @@ def registrar_proyecto(request):
         nombre = request.POST.get('txtNombre')
         descripcion = request.POST.get('txtDescripcion')
         fecha_inicio = request.POST.get('txtFechaInicio')
+        fecha_fin = request.POST.get('txtFechaFin')
         estado = True
         imagen = request.FILES.get('txtImagen')
         
@@ -25,6 +26,7 @@ def registrar_proyecto(request):
             nombre=nombre,
             descripcion=descripcion,
             fecha_inicio=fecha_inicio,
+            fecha_fin=fecha_fin,
             estado=estado,
             imagen=imagen
         )
@@ -41,6 +43,7 @@ def editar_proyecto(request, proyecto_id):
         proyecto.nombre = request.POST.get('txtNombre')
         proyecto.descripcion = request.POST.get('txtDescripcion')
         proyecto.fecha_inicio = request.POST.get('txtFechaInicio')
+        proyecto.fecha_fin = request.POST.get('txtFechaFin')
         proyecto.estado = True if request.POST.get('estado') == 'on' else False
 
         if 'txtImagen' in request.FILES:

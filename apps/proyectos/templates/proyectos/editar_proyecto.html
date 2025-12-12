@@ -7,7 +7,7 @@
         <div class="container-fluid">
           <div class="row justify-content-center">
             <div class="col-12">
-              <h2 class="page-title">Editar evento</h2>
+              <h2 class="page-title">Editar proyecto</h2>
               <div class="card-deck">
                 <div class="card shadow mb-4">
                   <div class="card-body">
@@ -20,29 +20,25 @@
                       {% endif %}
                       <div class="form-row">
                         <div class="form-row">
-                          <div class="form-group col-md-6">
-                            <label for="inputTitulo">Titulo</label>
-                            <input type="text" class="form-control" id="inputTitulo" placeholder="Titulo" name="txtTitulo" required>
+                          <div class="form-group col-md-12">
+                            <label for="inputNombre">Nombre</label>
+                            <input type="text" class="form-control" id="inputNombre" placeholder="Nombre del proyecto" name="txtNombre" required>
+                          </div>
+                          <div class="form-group col-md-12">
+                              <label for="inputDescripcion">Descripción</label>
+                              <textarea class="form-control" id="inputDescripcion" name="txtDescripcion" rows="4" required></textarea>
                           </div>
                           <div class="form-group col-md-6">
-                            <label for="inputDescripcion">Descripcion</label>
-                            <input type="text" class="form-control" id="inputDescripcion" placeholder="Descripcion" name="txtDescripcion" required>
+                            <label for="inputFchInicio">Fecha inicio</label>
+                            <input type="date" class="form-control" id="inputFchInicio" placeholder="Fecha" name="txtFechaInicio" required>
                           </div>
                           <div class="form-group col-md-6">
-                            <label for="inputFch">Fecha</label>
-                            <input type="date" class="form-control" id="inputFch" placeholder="Fecha" name="txtFecha" required>
+                            <label for="inputFchFin">Fecha fin</label>
+                            <input type="date" class="form-control" id="inputFchFin" placeholder="Fecha" name="txtFechaFin">
                           </div>
                           <div class="form-group col-md-6">
-                            <label for="inputDireccion">Dirección</label>
-                            <input type="text" class="form-control" id="inputDireccion" placeholder="Dirección" name="txtDireccion" required>
-                          </div>
-                          <div class="form-group col-md-6">
-                            <label for="inputLugar">Lugar</label>
-                            <input type="text" class="form-control" id="inputLugar" placeholder="Lugar" name="txtLugar" required>
-                          </div>
-                          <div class="form-group col-md-6">
-                            <label for="inputImagen">Imagen</label>
-                            <input type="image" class="form-control" id="inputImagen" placeholder="Imagen" name="txtImagen" required>
+                            <label for="inputImagen">Imagen portada</label>
+                            <input type="file" class="form-control" id="inputImagen" placeholder="Imagen" name="imagen" >
                           </div>
                         </div> 
                         <div class="modal-footer d-flex justify-content-between">

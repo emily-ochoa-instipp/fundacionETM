@@ -304,7 +304,7 @@
 
   <!-- seccion proyectos -->
 
-  <div class="untree_co-section" id="Eventos">
+  <div class="untree_co-section" id="Proyectos">
     <div class="container">
       
       <div class="row justify-content-center mb-5">
@@ -314,22 +314,20 @@
       </div>
 
       <div class="row align-items-stretch">
-        {% for proyecto in realizados %}
+        {% for proyecto in proyectos %}
         <div class="col-lg-6 mb-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:100 }}">
           <div class="media-h d-flex h-100">
             <figure>
               {% if proyecto.imagen %}
                 <img src="{{ proyecto.imagen.url }}" alt="{{ proyecto.nombre }}">
               {% else %}
-                <img src="{% static 'assets/images/foto-proyecto-default.jpeg' %}" alt="Imagen por defecto">
+                <img src="{% static 'assets/images/foto-evento-default.jpeg' %}" alt="Imagen por defecto">
               {% endif %}
             </figure>
             <div class="media-h-body shadow">
-              <h2 class="mb-3"><a href="{% url 'proyecto_detalles' proyecto.id %}">{{ evento.titulo }}</a></h2>
+              <h2 class="mb-3"><a href="{% url 'proyecto_detalles' proyecto.id %}">{{ proyecto.nombre }}</a></h2>
               <div class="meta mb-2">
-                <span class="icon-building-o mr-2"></span>{{ proyecto.lugar }} <br>
-                <span class="icon-map-marker mr-2"></span> {{ proyecto.direccion }} <br>
-                <span class="icon-calendar mr-2"></span>{{ proyecto.fecha_inicio }} 
+                <span class="icon-calendar mr-2"></span>{{ proyecto.fecha_inicio }} - {{ proyecto.fecha_fin|default:"En curso"  }} 
               </div>
               <p class="text-justify">{{ proyecto.descripcion|truncatewords:100 }}</p>
               <a href="{% url 'proyecto_detalles' proyecto.id %}">
@@ -343,7 +341,7 @@
         {% endfor %}
       </div>
           <p data-aos="fade-up" data-aos-delay="200">
-              <a href="{% url 'eventos' %}" class="btn btn-rosa mr-1 mt-5">Ver más</a>
+              <a href="{% url 'proyectos' %}" class="btn btn-rosa mr-1 mt-5">Ver más</a>
           </p>
     
 
