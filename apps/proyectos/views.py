@@ -18,7 +18,7 @@ def registrar_proyecto(request):
         nombre = request.POST.get('txtNombre')
         descripcion = request.POST.get('txtDescripcion')
         fecha_inicio = request.POST.get('txtFechaInicio')
-        fecha_fin = request.POST.get('txtFechaFin')
+        fecha_fin = request.POST.get('txtFechaFin') or None
         estado = True
         imagen = request.FILES.get('txtImagen')
         
