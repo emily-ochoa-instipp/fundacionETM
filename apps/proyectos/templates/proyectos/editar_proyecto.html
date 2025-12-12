@@ -11,7 +11,7 @@
               <div class="card-deck">
                 <div class="card shadow mb-4">
                   <div class="card-body">
-                    <form method="post" action="">
+                    <form method="post" action="" enctype="multipart/form-data">
                       {% csrf_token %}
                       {% if error is not None %}
                           <div class="alert alert-danger" role="alert">
@@ -22,26 +22,36 @@
                         <div class="form-row">
                           <div class="form-group col-md-12">
                             <label for="inputNombre">Nombre</label>
-                            <input type="text" class="form-control" id="inputNombre" placeholder="Nombre del proyecto" name="txtNombre" required>
+                            <input type="text" class="form-control" id="inputNombre" placeholder="Nombre del proyecto" name="txtNombre" value="{{ proyecto.nombre }}" required>
                           </div>
                           <div class="form-group col-md-12">
                               <label for="inputDescripcion">Descripción</label>
-                              <textarea class="form-control" id="inputDescripcion" name="txtDescripcion" rows="4" required></textarea>
+                              <textarea class="form-control" id="inputDescripcion" name="txtDescripcion" rows="4" required>{{ proyecto.descripcion }}</textarea>
                           </div>
                           <div class="form-group col-md-6">
                             <label for="inputFchInicio">Fecha inicio</label>
-                            <input type="date" class="form-control" id="inputFchInicio" placeholder="Fecha" name="txtFechaInicio" required>
+                            <input type="date" class="form-control" id="inputFchInicio" placeholder="Fecha" name="txtFechaInicio" value="{{ proyecto.fecha_inicio|date:'Y-m-d'  }}" required>
                           </div>
                           <div class="form-group col-md-6">
                             <label for="inputFchFin">Fecha fin</label>
-                            <input type="date" class="form-control" id="inputFchFin" placeholder="Fecha" name="txtFechaFin">
+                            <input type="date" class="form-control" id="inputFchFin" placeholder="Fecha" name="txtFechaFin" value="{{ proyecto.fecha_fin|date:'Y-m-d' }}" >
                           </div>
                           <div class="form-group col-md-6">
-                            <label for="inputImagen">Imagen portada</label>
-                            <input type="file" class="form-control" id="inputImagen" placeholder="Imagen" name="imagen" >
+                            <label for="inputImagenNew">Subir nueva foto de portada</label> 
+                            <input type="file" class="form-control" id="inputImagen" placeholder="Imagen" name="txtImagen">
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label for="inputImagen">Imagen portada actual</label><br>
+                            {% if proyecto.imagen %}
+                                <img src="{{ proyecto.imagen.url }}" class="img-fluid rounded shadow" width="220">
+                            {% else %}
+                                <img src="{% static 'assets/images/foto-evento-default.jpeg' %}" 
+                                    class="img-fluid rounded shadow" width="220">
+                                <p class="text-muted">Imagen por defecto.</p>
+                            {% endif %}
                           </div>
                         </div> 
-                        <div class="modal-footer d-flex justify-content-between">
+                        <div class="col-md-12 mt-3 modal-footer d-flex justify-content-between">
                           <div class="custom-control custom-switch">
                             <input type="checkbox" class="custom-control-input" id="RepeatSwitch" name="estado" {% if proyecto.estado %} checked {% endif %}>
                             <label class="custom-control-label" for="RepeatSwitch">Activo</label>
