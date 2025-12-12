@@ -59,7 +59,13 @@
                           </div>
                           <div class="form-group col-md-6">
                             <label for="inputImagenNew">Imagen de portada actual</label><br>
-                            <img src="{{ evento.imagen.url }}" class="img-fluid rounded shadow" width="220">
+                            {% if evento.imagen %}
+                                <img src="{{ evento.imagen.url }}" class="img-fluid rounded shadow" width="220">
+                            {% else %}
+                                <img src="{% static 'assets/images/foto-evento-default.jpeg' %}" 
+                                    class="img-fluid rounded shadow" width="220">
+                                <p class="text-muted">Imagen por defecto.</p>
+                            {% endif %}
                           </div>
                           
                         </div>
