@@ -7,39 +7,38 @@ from apps.proyectos.models import Proyecto
 
 
 def index_views(request):
-    eventos_visibles = Evento.objects.filter(estado=True)
-    proyectos_visibles = Proyecto.objects.filter(estado=True)
 
     ahora = timezone.now()
 
     # EVENTOS
-    proximos_eventos = eventos_visibles.filter(fecha__gte=ahora).order_by('fecha')
-    eventos_realizados = eventos_visibles.filter(fecha__lt=ahora).order_by('-fecha')[:6]
+    actualizar_estados_eventos()
+    proximos_eventos = Evento.objects.filter(estado='proximo', fecha__gte=ahora.date()).order_by('fecha')
+    eventos_realizados = Evento.objects.filter(estado='realizado', fecha__lt=ahora.date()).order_by('-fecha')[:6]
 
     # PROYECTOS
-    proyectos_en_curso = proyectos_visibles.filter(
-        fecha_fin__isnull=True
-    ) | proyectos_visibles.filter(fecha_fin__gte=ahora)
+    actualizar_estados_proyectos()
+    proyectos_en_curso = Proyecto.objects.filter(estado='en_curso').order_by('-fecha_inicio')
+    proyectos_realizados = Proyecto.objects.filter(estado='realizado').order_by('-fecha_fin')[:6]
 
-    proyectos_realizados = proyectos_visibles.filter(
-        fecha_fin__lt=ahora
-    ).order_by('-fecha_fin')[:6]
 
     context = {
-        'proximos': proximos_eventos,
-        'realizados': eventos_realizados,
+        'proximos_eventos': proximos_eventos,
+        'eventos_realizados': eventos_realizados,
         'proyectos_en_curso': proyectos_en_curso,
         'proyectos_realizados': proyectos_realizados,
     }
 
     return render(request, 'website/index.html', context)
 
+#eventos
+
+def actualizar_estados_eventos():
+    Evento.objects.filter(fecha__lt=timezone.now().date(), estado='proximo').update(estado='realizado')
 
 def eventos_views(request):
-    eventos_visibles = Evento.objects.filter(estado=True)
-    ahora = timezone.now()
+    actualizar_estados_eventos()
 
-    realizados = eventos_visibles.filter(fecha__lt=ahora).order_by('-fecha')
+    realizados = Evento.objects.filter(estado='realizado').order_by('-fecha')
 
     # PAGINACIÓN 6 evetnos por pagina
     paginator = Paginator(realizados, 6)
@@ -52,14 +51,21 @@ def eventos_views(request):
 
     return render(request, 'website/eventos.html', context)
 
+def evento_detalles(request, id):
+    evento = get_object_or_404(Evento, id=id, )
+    return render(request, 'website/evento_detalles.html', {'evento': evento})
 
-def proyectos_views(request):
-    proyectos_visibles = Proyecto.objects.filter(estado=True)
-    ahora = timezone.now()
+#PROYECTOS
 
-    realizados = proyectos_visibles.filter(
-        fecha_fin__lt=ahora
-    ).order_by('-fecha_fin')
+def actualizar_estados_proyectos():
+    Proyecto.objects.filter(fecha_fin__lt=timezone.now().date(), estado='en_curso').update(estado='realizado')
+
+#realizado---------------------
+
+def proyectos_realizados_views(request):
+    actualizar_estados_proyectos()
+
+    realizados = Proyecto.objects.filter(estado='realizado').order_by('-fecha_fin')
 
     # PAGINACIÓN
     paginator = Paginator(realizados, 6)
@@ -70,13 +76,30 @@ def proyectos_views(request):
         'realizados': realizados,
     }
 
-    return render(request, 'website/proyectos.html', context)
+    return render(request, 'website/proyectos_realizados.html', context)
 
-
-def evento_detalles(request, id):
-    evento = get_object_or_404(Evento, id=id)
-    return render(request, 'website/evento_detalles.html', {'evento': evento})
-
-def proyecto_detalles(request, id):
+def proyecto_realizado_detalles(request, id):
     proyecto = get_object_or_404(Proyecto, id=id)
-    return render(request, 'website/proyecto_detalles.html', {'proyecto': proyecto})
+    return render(request, 'website/proyecto_realizado_detalles.html', {'proyecto': proyecto})
+
+#en curso---------------------
+def proyectos_en_curso_views(request):
+    actualizar_estados_proyectos()
+
+    en_curso = Proyecto.objects.filter(estado='en_curso').order_by('-fecha_inicio')
+
+    # PAGINACIÓN
+    paginator = Paginator(en_curso, 6)
+    page_number = request.GET.get("page")
+    en_curso = paginator.get_page(page_number)
+
+    context = {
+        'en_curso': en_curso
+    }
+
+    return render(request, 'website/proyectos_en_curso.html', context)
+
+def proyecto_en_curso_detalles(request, id):
+    proyecto = get_object_or_404(Proyecto, id=id)
+    return render(request, 'website/proyecto_en_curso_detalles.html', {'proyecto': proyecto})
+

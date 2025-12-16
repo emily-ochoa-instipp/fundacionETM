@@ -1,0 +1,76 @@
+{% extends 'top-bar-website.html' %}
+
+{% load static %}
+
+{% block contenido %}
+
+
+  <div class="untree_co-section bg-light mt-5">
+    <div class="container">
+       <div class="row justify-content-center mb-5">
+        <div class="col-lg-7 text-center" data-aos="fade-up" data-aos-delay="0">
+          <h2 class="line-bottom text-center mb-1">Proyectos activos</h2>
+        </div>
+      </div>
+
+      <div class="row align-items-stretch">
+        {% for proyecto in en_curso %}
+        <div class="col-lg-6 mb-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:100 }}">
+          <div class="media-h d-flex h-100">
+            <figure>
+              {% if proyecto.imagen %}
+                <img src="{{ proyecto.imagen.url }}" alt="{{ proyecto.nombre }}">
+              {% else %}
+                <img src="{% static 'assets/images/foto-evento-default.jpeg' %}" alt="Imagen por defecto">
+              {% endif %}
+            </figure>
+            <div class="media-h-body shadow">
+              <h2 class="mb-3"><a href="#">{{ proyecto.nombre }}</a></h2>
+              <div class="meta mb-2">
+                <span class="icon-calendar mr-2"></span>{{ proyecto.fecha_inicio }} - {{ proyecto.fecha_fin|default:"En curso" }}  <br>
+              </div>
+              <p class="text-justify">{{ proyecto.descripcion|truncatewords:100 }}</p>
+              <a href="{% url 'proyecto_realizado_detalles' proyecto.id %}">
+                  Ver más
+              </a>
+            </div>
+          </div>
+        </div>
+        {% empty %}
+          <p class="text-center">Aún no hay proyectos en curso.</p>
+        {% endfor %}
+      </div>
+
+      <div class="row mt-5">
+        <div class="col-12 text-center">
+          {% if en_curso.has_other_pages %}
+            <ul class="list-unstyled custom-pagination">
+              
+              {% if realizados.has_previous %}
+                <li><a href="?page={{ en_curso.previous_page_number }}" class="mr-3">Anterior</a></li>
+              {% else %}
+                <li class="disabled mr-3"><span>Anterior</span></li>
+              {% endif %}
+
+              {% for num in en_curso.paginator.page_range %}
+                {% if num == en_curso.number %}
+                  <li class="active"><a href="?page={{ num }}">{{ num }}</a></li>
+                {% else %}
+                  <li><a href="?page={{ num }}">{{ num }}</a></li>
+                {% endif %}
+              {% endfor %}
+
+              {% if en_curso.has_next %}
+                <li><a href="?page={{ en_curso.next_page_number }}" class="ml-3">Siguiente</a></li>
+              {% else %}
+                <li class="disabled ml-3"><span>Siguiente</span></li>
+              {% endif %}
+
+            </ul>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div> <!-- /.untree_co-section -->
+
+   {% endblock %}

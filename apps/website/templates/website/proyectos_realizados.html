@@ -27,17 +27,17 @@
             <div class="media-h-body shadow">
               <h2 class="mb-3"><a href="#">{{ proyecto.nombre }}</a></h2>
               <div class="meta mb-2">
-                <span class="icon-calendar mr-2"></span>{{ proyecto.fecha_inicio }} - {{ proyecto.fecha_fin|default:"En curso"  }}  <br>
+                <span class="icon-calendar mr-2"></span>{{ proyecto.fecha_inicio }} - {{ proyecto.fecha_fin }}  <br>
               </div>
               <p class="text-justify">{{ proyecto.descripcion|truncatewords:100 }}</p>
-              <a href="{% url 'proyecto_detalles' proyecto.id %}">
+              <a href="{% url 'proyecto_realizado_detalles' proyecto.id %}">
                   Ver más
               </a>
             </div>
           </div>
         </div>
         {% empty %}
-          <p class="text-center">Aún no hay eventos realizados.</p>
+          <p class="text-center">Aún no hay proyectos realizados.</p>
         {% endfor %}
       </div>
 

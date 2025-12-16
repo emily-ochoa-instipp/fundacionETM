@@ -17,6 +17,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <!-- Icons CSS -->
     <link rel="stylesheet" href="{% static 'css/feather.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dataTables.bootstrap4.css' %}">
     <link rel="stylesheet" href="{% static 'css/select2.css' %}">
     <link rel="stylesheet" href="{% static 'css/dropzone.css' %}">
     <link rel="stylesheet" href="{% static 'css/uppy.min.css' %}">
@@ -47,8 +48,8 @@
         <form class="form-inline mr-auto searchform text-muted">
           <input class="form-control mr-sm-2 bg-transparent border-0 pl-4 text-muted" type="search" placeholder="Buscar..." aria-label="Search">
         </form>
-        <ul class="nav">
-          <span class="nav-link my-2">{{ user.first_name }} {{ user.last_name }}</span>
+        <ul class="nav d-flex align-items-center">
+          <span class="nav-link">{{ user.first_name }} {{ user.last_name }}</span>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle text-muted pr-0 my-1" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <span class="avatar avatar-sm mt-2">
@@ -78,67 +79,31 @@
               <img class="logo" src="{% static 'assets/images/logo-web.png' %}" alt="Logo" class="navbar-brand-img brand-sm">
             </a>
           </div>
-
+<!--MENU-->
           <p class="nav-heading mb-4" style="color: #001a4e;">
             <span>Menu de opciones</span>
           </p>
           <ul class="navbar-nav flex-fill w-100 mb-2">
-            <li class="nav-item dropdown">
-              <a href="#dashboard" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle nav-link">
+            <li class="nav-item w-100">
+              <a class="nav-link" href="{% url 'inicio' %}">
                 <i class="fe fe-home fe-16"></i>
-                <span class="ml-3 item-text">Dashboard</span><span class="sr-only">(current)</span>
+                <span class="ml-3 item-text">Dashboard</span>
               </a>
-              <ul class="collapse list-unstyled pl-4 w-100" id="dashboard">
-                <li class="nav-item active">
-                  <a class="nav-link pl-3" href="{% url 'inicio' %}"><span class="ml-1 item-text">Inicio</span></a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link pl-3" href="{% url 'dashboard_analytics' %}"><span class="ml-1 item-text">Analytics</span></a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link pl-3" href="{% url 'dashboard_sales' %}"><span class="ml-1 item-text">E-commerce</span></a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link pl-3" href="{% url 'dashboard_saas' %}"><span class="ml-1 item-text">Saas Dashboard</span></a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link pl-3" href="{% url 'dashboard_system' %}"><span class="ml-1 item-text">Systems</span></a>
-                </li>
-              </ul>
-<!--MENU-->
-          <ul class="navbar-nav flex-fill w-100 mb-2">
+            </li>
 <!--Eventos-->
-            <li class="nav-item dropdown">
-              <a href="#eventosMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle nav-link">
+            <li class="nav-item w-100">
+              <a class="nav-link" href="{% url 'tabla_eventos' %}">
                 <i class="fe fe-calendar fe-16"></i>
                 <span class="ml-3 item-text">Eventos</span>
               </a>
-              <!--Submenu-->
-              <ul class="collapse list-unstyled pl-4 w-100" id="eventosMenu">
-                <!--Listado-->
-                <li class="nav-item">
-                  <a class="nav-link pl-3" href="{% url 'tabla_eventos' %}"><span class="ml-1 item-text">Listar eventos</span></a>
-                </li>
-              </ul>
-              <!--Submenu-->
             </li>
-            <!--eventos-->
 <!--proyectos-->
-            <li class="nav-item dropdown">
-              <a href="#proyectosMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle nav-link">
+            <li class="nav-item w-100">
+              <a class="nav-link" href="{% url 'tabla_proyectos' %}">
                 <i class="fe fe-folder fe-16"></i>
                 <span class="ml-3 item-text">Proyectos</span>
               </a>
-              <!--Submenu-->
-              <ul class="collapse list-unstyled pl-4 w-100" id="proyectosMenu">
-                <!--Listado-->
-                <li class="nav-item">
-                  <a class="nav-link pl-3" href="{% url 'tabla_proyectos' %}"><span class="ml-1 item-text">Listar proyectos</span></a>
-                </li>
-              </ul>
-              <!--Submenu-->
             </li>
-            <!--proyectos-->
 
 <!--Usuarios-->
             <li class="nav-item dropdown">
@@ -176,6 +141,10 @@
     <script src="{% static 'js/jquery.stickOnScroll.js' %}"></script>
     <script src="{% static 'js/tinycolor-min.js' %}"></script>
     <script src="{% static 'js/config.js' %}"></script>
+
+    <script src="{% static 'js/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'js/dataTables.bootstrap4.min.js' %}"></script>
+
     <script src="{% static 'js/d3.min.js' %}"></script>
     <script src="{% static 'js/topojson.min.js' %}"></script>
     <script src="{% static 'js/datamaps.all.min.js' %}"></script>
@@ -199,7 +168,37 @@
     <script src="{% static 'js/dropzone.min.js' %}"></script>
     <script src="{% static 'js/uppy.min.js' %}"></script>
     <script src="{% static 'js/quill.min.js' %}"></script>
-    <script src="{% static 'js/buscador.js' %}"></script>
+ 
+
+    <script>
+      $('#dataTable-1').DataTable(
+      {
+        autoWidth: true,
+        "lengthMenu": [
+          [8, 16, 32, 64, -1],
+          [8, 16, 32, 64, "Todos"]
+        ],
+        language: {
+          processing:     "Procesando...",
+          search:         "Buscar:",
+          lengthMenu:     "Mostrar _MENU_ registros",
+          info:           "Mostrando _START_ a _END_ de _TOTAL_ registros",
+          infoEmpty:      "Mostrando 0 a 0 de 0 registros",
+          infoFiltered:   "(filtrado de _MAX_ registros totales)",
+          loadingRecords: "Cargando...",
+          zeroRecords:    "No se encontraron resultados",
+          emptyTable:     "No hay datos disponibles en la tabla",
+          paginate: {
+            first:    "Primero",
+            previous: "Anterior",
+            next:     "Siguiente",
+            last:     "Último"
+          }
+        }
+
+      });
+    </script>
+
     <script>
       $('.select2').select2(
       {

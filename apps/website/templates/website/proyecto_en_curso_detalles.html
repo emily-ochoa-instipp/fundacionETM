@@ -1,0 +1,67 @@
+{% extends 'top-bar-website.html' %}
+
+{% load static %}
+
+{% block contenido %}
+
+  <div class="untree_co-section bg-light mt-5">
+    <div class="container">
+      <a href="{% url 'proyectos_en_curso' %}" class="small mr-3">
+        <span class="icon-arrow-circle-left mr-2"></span>
+        Regresar a todos los proyectos
+      </a>
+
+      <div class="row justify-content-center mb-4 mt-4">
+        <div class="col-md-12 text-center" data-aos="fade-up" data-aos-delay="0">
+          <h2 class="line-bottom text-center mb-1 ">{{ proyecto.nombre }}</h2>
+        </div>
+      </div>
+
+      <div class="row align-items-stretch">
+        <div class="col-md-12 d-flex justify-content-center" data-aos="fade-up">
+          {% if proyecto.imagen %}
+              <img src="{{ proyecto.imagen.url }}" alt="{{ proyecto.nombre }}" class="img-fluid shadow" style="height: 25rem;">
+          {% else %}
+              <img src="{% static 'assets/images/foto-evento-default.jpeg' %}" alt="Imagen no disponible" class="img-fluid">
+          {% endif %}
+
+        </div>
+        <div class="col-lg-12 mt-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:100 }}">
+          <div class="media-h d-flex h-100">
+        
+            <div class="media-h-body shadow p-4">
+              <div class="meta mb-2">
+                <span class="icon-calendar mr-2"></span>{{ proyecto.fecha_inicio }} - {{ proyecto.fecha_fin|default:"En curso" }}  <br>
+              </div>
+              <p class="text-justify">{{ proyecto.descripcion|truncatewords:5000 }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row justify-content-center mb-4 mt-4">
+      <div class="col-lg-7 text-center" data-aos="fade-up" data-aos-delay="0">
+        <h2 class="line-bottom text-center mb-1 ">Imágenes del proyecto</h2>
+      </div>
+    </div>
+    <div class="container mt-5">
+        <div class="custom-block" data-aos="fade-up">
+          <div class="row gutter-v2 gallery">
+            {% for imagen_galeria in proyecto.galeria.all %}
+            <div class="col-md-4 item">
+              <a href="{{ imagen_galeria.imagen_galeria.url }}" class="item-wrap shadow fancybox mb-4" data-fancybox="gal">
+                <span class="icon-search2"></span>
+                <img src="{{ imagen_galeria.imagen_galeria.url }}" alt="{{ proyecto.nombre }}" class="img-fluid"></a>
+            </div>
+            {% empty %}
+              <div class="col-12">
+                <p>No hay imágenes de galería disponibles para este proyecto.</p>
+              </div>
+          {% endfor %}
+          </div>
+        </div> <!-- END .custom-block -->
+    </div>
+  </div>
+
+  {% endblock %}
