@@ -13,11 +13,12 @@
                   <div class="card-body">
                     <form method="post" action="" enctype="multipart/form-data">
                       {% csrf_token %}
-                      {% if error is not None %}
-                          <div class="alert alert-danger" role="alert">
+                      {% if error %}
+                        <div class="alert alert-danger">
                           {{ error }}
-                          </div>
+                        </div>
                       {% endif %}
+
                       <div class="form-row">
                         <div class="form-row">
                           <div class="form-group col-md-6">
@@ -71,10 +72,15 @@
                         </div>
                         
                         <div class="col-md-12 mt-3 modal-footer d-flex justify-content-between">
-                          <div class="custom-control custom-switch">
-                            <input type="checkbox" class="custom-control-input" id="RepeatSwitch" name="estado" {% if evento.estado %} checked {% endif %}>
-                            <label class="custom-control-label" for="RepeatSwitch">Activo</label>
-                          </div>
+                          <div class="form-group col-md-2">
+                              <label for="inputEstado">Estado</label>
+                              <select id="inputEstado" class="form-control" name="estado" required>
+                                <option selected>Seleccionar estado</option>
+                                {% for value, label in evento.ESTADOS_EVENTO %}
+                                  <option value="{{ value }}" {% if evento.estado == value %}selected{% endif %}>{{ label }}</option>
+                                {% endfor %}
+                              </select>
+                            </div>
                           <div>
                             <button type="submit" class="btn btn-primary mr-4">Guardar</button>
                             <a href="{% url 'tabla_eventos' %}" class="btn btn-danger">Cancelar</a>
