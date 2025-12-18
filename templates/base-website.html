@@ -111,29 +111,65 @@
     <script src="{% static 'js/aos.js' %}"></script>
     <script src="{% static 'js/custom.js' %}"></script>
 
+    <script>
+      $(document).ready(function () {
+
+        function animateCounters() {
+          $('.counter-section .counter span[data-number]').each(function () {
+            var $this = $(this);
+            var target = $this.data('number');
+
+            // Reinicia a 0 antes de animar
+            $this.text('0');
+
+            $this.animateNumber(
+              {
+                number: target
+              },
+              1500
+            );
+          });
+        }
+
+        // Se ejecuta al cargar la página
+        animateCounters();
+
+        // Se vuelve a ejecutar cuando la sección entra en pantalla
+        $('.counter-section').waypoint(function () {
+          animateCounters();
+        }, {
+          offset: '80%'
+        });
+
+      });
+    </script>
+
+    <!-- cambia el color cuando esta en una seccion -->
+  
+    <script>
+      $(window).on('scroll', function() {
+          var scrollPos = $(window).scrollTop() + 150; // margen para precisión
+
+          $('.site-menu a[href^="#"]').each(function () {
+              var currLink = $(this);
+              var section = $(currLink.attr('href'));
+
+              if (section.length) {
+                  if (section.position().top <= scrollPos &&
+                      section.position().top + section.height() > scrollPos) {
+
+                      $('.site-menu li').removeClass('active');
+                      currLink.parent().addClass('active');
+                  }
+              }
+          });
+      });
+    </script>
+
+
   </body>
 
   </html>
 
-  <!-- cambia el color cuando esta en una seccion -->
-   
-  <script>
-    $(window).on('scroll', function() {
-        var scrollPos = $(window).scrollTop() + 150; // margen para precisión
 
-        $('.site-menu a[href^="#"]').each(function () {
-            var currLink = $(this);
-            var section = $(currLink.attr('href'));
-
-            if (section.length) {
-                if (section.position().top <= scrollPos &&
-                    section.position().top + section.height() > scrollPos) {
-
-                    $('.site-menu li').removeClass('active');
-                    currLink.parent().addClass('active');
-                }
-            }
-        });
-    });
-    </script>
 
