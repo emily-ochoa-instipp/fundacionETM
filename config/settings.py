@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'apps.autenticacion',
     'apps.dashboard',
     'apps.website',
+    'apps.transparencia',
 ]
 
 MIDDLEWARE = [

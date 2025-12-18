@@ -1,0 +1,176 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block contenido %}
+
+      <main role="main" class="main-content">
+        <div class="container-fluid">
+          <div class="row justify-content-center">
+            <div class="col-12">
+              <h2 class="mb-2 page-title">Documentos de Transparencia</h2>
+              <div class="row my-4">
+
+                <div class="col-12 mb-3 d-flex justify-content-end">
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#eventModal">Agregar +</button>
+                </div>
+
+                <!-- Small table -->
+                <div class="col-md-12">
+                  <div class="card shadow">
+                    <div class="card-body">                 
+                        <!-- table -->
+                        <table class="table datatables table-hover" id="dataTable-1">
+                          <thead>
+                            <tr>
+                              <th>#</th>
+                              <th>Nombre</th>
+                              <th>Archivo</th>
+                              <th>Estado</th>
+                              <th>Acción</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {% for documento in documentos %}
+                            <tr>
+                              <td>{{ documento.id }}</td>
+                              <td>{{ documento.nombre }}</td>
+                              <td><a href="{{ documento.archivo.url }}" target="_blank">Ver PDF</a></td>
+                              <td>
+                                  {% if documento.estado %}
+                                    <span class="badge badge-success">Activo</span>
+                                  {% else %}
+                                    <span class="badge badge-danger">Inactivo</span>
+                                  {% endif %}
+                              </td>
+                        
+                              <td>
+                                <a href="{% url 'editar_documento' documento.id %}" class="btn btn-secondary"><span class="fe fe-edit fe-14 "></span></a>
+                              
+                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal{{ documento.id }}">
+                                  <span class="fe fe-trash fe-14 "></span>
+                                </button>
+
+                                <!-- Modal -->
+                  
+                                  <div class="modal fade" id="exampleModal{{ documento.id }}" tabindex="-1" aria-labelledby="exampleModalLabel{{ documento.id }}" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                      <div class="modal-content">
+                                        <form method="post" action="{% url 'eliminar_documento' documento.id %}">
+                                          {% csrf_token %}
+                                          <div class="modal-header">
+                                            <h5 class="modal-title fs-5" id="exampleModalLabel{{ documento.id }}">Confirmación de eliminación</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                                          </div>
+                                          <div class="modal-body">
+                                            ¿Estas segura de eliminar el documento {{ documento.nombre }}?
+                                          </div>
+                                          <div class="modal-footer">
+                                            <a href="{% url 'tabla_transparencia' %}" class="btn btn-primary"data-bs-dismiss="modal">Cancelar</a>
+                                            <!-- <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancelar</button>-->
+                                            <button type="submit" class="btn btn-danger">Eliminar</button>
+                                          </div>
+                                        </form>   
+                                      </div>
+                                    </div>
+                                  </div>
+                              </td>
+                            </tr>
+                            {% empty %}
+                            <tr><td colspan="9">No hay documentos registrados</td></tr>
+                            {% endfor %}
+                          </tbody>
+                        </table>                     
+                      </div>
+                    </div>
+                  </div>
+                </div> <!-- simple table -->
+              </div> <!-- end section -->
+            </div> <!-- .col-12 -->
+          </div> <!-- .row -->
+        </div> <!-- .container-fluid -->
+      </main> <!-- main -->
+
+      <!-- new event modal -->
+        <div class="modal fade" id="eventModal" tabindex="-1" role="dialog" aria-labelledby="eventModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="varyModalLabel">Agregar documento</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body p-4">
+                <form method="post" action="{% url 'crear_documento' %}" enctype="multipart/form-data">
+                  {% csrf_token %}
+                  {% if error is not None %}
+                      <div class="alert alert-danger" role="alert">
+                      {{ error }}
+                      </div>
+                  {% endif %}
+                  <div class="form-row">
+                    <div class="form-group col-md-6">
+                      <label for="inputNombre">Nombre</label>
+                      {{ form.nombre }}
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="inputDocumento">Documento pdf</label>
+                      {{ form.archivo }}
+                    </div>
+                  </div>
+
+                  <div class="modal-footer d-flex justify-content-between">
+                    <div class="custom-control custom-switch">
+                      {{ form.estado }}
+                      <label class="custom-control-label" for="RepeatSwitch">Activo</label>
+                    </div>
+                    <div>
+                      <button type="submit" class="btn btn-primary mr-4">Guardar</button>
+                    <!--<button type="submit" class="btn btn-danger">Cancelar</button>-->
+                      <a href="{% url 'tabla_transparencia' %}" class="btn btn-danger">Cancelar</a>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div> <!-- new event modal -->
+    
+    <script>
+      $('#dataTable-1').DataTable(
+      {
+        
+        autoWidth: true,
+        "lengthMenu": [    
+          [16, 32, 64, -1],
+          [16, 32, 64, "Todos"]
+        ]
+      });
+    </script>
+    <script src="js/apps.js"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-56159088-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+
+      function gtag()
+      {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+      gtag('config', 'UA-56159088-1');
+    </script>
+  </body>
+</html>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
