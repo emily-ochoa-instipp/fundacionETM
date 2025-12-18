@@ -29,14 +29,14 @@
                 </div>
               </div>
 
-              <div class="row">
+              <div class="row row-cols-1 row-cols-md-2 row-cols-xl-5">
 
-                <div class="col-md-6 col-xl-3 mb-4">
+                <div class="col  mb-4">
                   <div class="card shadow border-0">
                     <div class="card-body">
                       <div class="row align-items-center">
                         <div class="col-3 text-center">
-                          <span class="circle circle-sm bg-danger">
+                          <span class="circle circle-sm bg-primary">
                             <i class="fe fe-16 fe-calendar text-white mb-0"></i>
                           </span>
                         </div>
@@ -49,12 +49,30 @@
                   </div>
                 </div>
 
-                <div class="col-md-6 col-xl-3 mb-4">
+                <div class="col mb-4">
                   <div class="card shadow border-0">
                     <div class="card-body">
                       <div class="row align-items-center">
                         <div class="col-3 text-center">
-                          <span class="circle circle-sm bg-success">
+                          <span class="circle circle-sm bg-danger">
+                            <i class="fe fe-16 fe-calendar text-white mb-0"></i>
+                          </span>
+                        </div>
+                        <div class="col">
+                          <p class="small text-muted mb-0">Eventos realizados</p>
+                          <span class="h3 mb-0">{{ eventos_realizados }}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col mb-4">
+                  <div class="card shadow border-0">
+                    <div class="card-body">
+                      <div class="row align-items-center">
+                        <div class="col-3 text-center">
+                          <span class="circle circle-sm bg-warning">
                             <i class="fe fe-16 fe-folder text-white mb-0"></i>
                           </span>
                         </div>
@@ -67,36 +85,36 @@
                   </div>
                 </div>
 
-                <div class="col-md-6 col-xl-3 mb-4">
+                <div class="col mb-4">
                   <div class="card shadow border-0">
                     <div class="card-body">
                       <div class="row align-items-center">
                         <div class="col-3 text-center">
-                          <span class="circle circle-sm bg-warning">
-                            <i class="fe fe-16 fe-users text-white mb-0"></i>
+                          <span class="circle circle-sm bg-info">
+                            <i class="fe fe-16 fe-folder text-white mb-0"></i>
                           </span>
                         </div>
                         <div class="col">
-                          <p class="small text-muted mb-0">Usuarios creados</p>
-                          <span class="h3 mb-0">{{ usuarios_activos }}</span>
+                          <p class="small text-muted mb-0">Proyectos realizados</p>
+                          <span class="h3 mb-0">{{ proyectos_realizados }}</span>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
 
-                <div class="col-md-6 col-xl-3 mb-4">
+                <div class="col mb-4">
                   <div class="card shadow border-0">
                     <div class="card-body">
                       <div class="row align-items-center">
                         <div class="col-3 text-center">
-                          <span class="circle circle-sm bg-info">
-                            <i class="fe fe-16 fe-activity text-white mb-0"></i>
+                          <span class="circle circle-sm bg-success">
+                            <i class="fe fe-16 fe-users text-white mb-0"></i>
                           </span>
                         </div>
                         <div class="col">
-                          <p class="small text-muted mb-0">AVG Orders</p>
-                          <span class="h3 mb-0">$80</span>
+                          <p class="small text-muted mb-0">Usuarios creados</p>
+                          <span class="h3 mb-0">{{ usuarios_activos }}</span>
                         </div>
                       </div>
                     </div>
