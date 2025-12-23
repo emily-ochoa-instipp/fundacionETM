@@ -33,6 +33,9 @@ body {
     opacity: 1;
     visibility: visible; }
 
+.text-rosa {
+  color: #d44789; !important; }
+
 .text-black {
   color: #000000 !important; }
 
@@ -45,11 +48,6 @@ body {
 .bg-secondary-light {
   background-color: rgba(0, 174, 255, 0.05); }
 
-.logo-nombre{
-  color: #ffffff;
-  -webkit-transition: .3s all ease;
-  -o-transition: .3s all ease;
-  transition: .3s all ease; }
 
 .titulo-fetm{
   text-shadow: 0 0 5px rgb(173, 49, 103);
@@ -961,43 +959,33 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
     bottom: 0; }
   .line-bottom.text-center:before {
     left: 50%;
-    -webkit-transform: translateX(-50%);
-    -ms-transform: translateX(-50%);
     transform: translateX(-50%); }
 
 .media-h {
+  display: flex;
   margin-bottom: 10px;
-  -webkit-box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.1);
   box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.1);
   background: #ffffff; }
   .media-h figure {
-    -webkit-box-flex: 0;
-    -ms-flex: 0 0 170px;
     flex: 0 0 170px;
     position: relative;
     margin-bottom: 0;
     overflow: hidden;
   }
     .media-h figure img {
-      -o-object-fit: cover;
       object-fit: cover;
       position: absolute;
       height: 100%;
       margin-bottom: 0;
       width: 100%;
-      -webkit-transform: scale(1);
-      -ms-transform: scale(1);
       transform: scale(1);
-      -webkit-transition: .3s transform ease;
-      -o-transition: .3s transform ease;
       transition: .3s transform ease; }
   .media-h .media-h-body {
+    flex: 1;
     padding: 20px; }
     .media-h .media-h-body h2 {
       font-size: 20px; }
   .media-h:hover img {
-    -webkit-transform: scale(1.05);
-    -ms-transform: scale(1.05);
     transform: scale(1.05); }
 
 .meta {
