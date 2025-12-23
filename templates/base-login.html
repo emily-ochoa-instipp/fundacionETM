@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="favicon.ico">
+    <link rel="shortcut icon" href="{% static 'assets/images/logo-web.png' %}">
     <title>FETM</title>
     <link rel="stylesheet" href="{% static 'css/simplebar.css' %}">
     <link rel="stylesheet" href="{% static 'css/css2.css' %}">
@@ -21,8 +21,8 @@
 <body class="light">
     <div class="wrapper">
     <div class="logo">
-        <img src="{% static 'assets/images/logo-web.png' %}" alt="FTEM Logo">
-        <h1>Fundación Es Tiempo de Mujeres</h1>
+        <img class="logo-login" src="{% static 'assets/images/logo-web.png' %}" alt="FTEM Logo">
+        <h1 class="titulo-fetm">Fundación Es Tiempo de Mujeres</h1>
     </div>
     <div class="login-container">
 {% block contenido %}
