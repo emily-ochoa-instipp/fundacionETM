@@ -224,7 +224,7 @@
                           <span class="card-subtitle text-secondary mb-1 icon-calendar mr-2"></span><span>{{ evento.fecha }}</span> 
                           <span class="card-subtitle text-secondary mb-1 icon-clock-o mr-2 ml-2"></span><span>{{ evento.hora_inicio }} - {{ evento.hora_fin }} </span> <br>
                           <span class="card-subtitle text-secondary mb-1 icon-map-marker mr-2"></span><span>{{ evento.lugar }}, {{ evento.direccion }}</span>
-                          <h3 class="card-title mb-3 mt-2">{{ evento.titulo }}</h3>
+                          <h5 class="card-title mb-3 mt-2 line-bottom">{{ evento.titulo }}</h5>
                           <p class="card-text m-0">{{ evento.descripcion|truncatewords:300 }}</p>
                         </div>
                       </div>
@@ -263,7 +263,7 @@
               {% if evento.imagen %}
                 <img src="{{ evento.imagen.url }}" alt="{{ evento.titulo }}">
               {% else %}
-                <img src="{% static 'assets/images/foto-evento-default.jpeg' %}" alt="Imagen por defecto">
+                <img src="{% static 'images/foto-evento-default.jpeg' %}" alt="Imagen por defecto">
               {% endif %}
             </figure>
             <div class="media-h-body shadow">
@@ -273,7 +273,7 @@
                 <span class="icon-map-marker mr-2"></span> {{ evento.direccion }} <br>
                 <span class="icon-calendar mr-2"></span>{{ evento.fecha }} 
               </div>
-              <p class="text-justify">{{ evento.descripcion|truncatewords:100 }}</p>
+              <p class="text-justify">{{ evento.descripcion|truncatewords:10 }}</p>
               <a href="{% url 'evento_detalles' evento.id %}">
                   Ver más
               </a>
@@ -311,7 +311,7 @@
               {% if proyecto.imagen %}
                 <img src="{{ proyecto.imagen.url }}" alt="{{ proyecto.nombre }}">
               {% else %}
-                <img src="{% static 'assets/images/foto-evento-default.jpeg' %}" alt="Imagen por defecto">
+                <img src="{% static 'images/foto-proyecto-default.png' %}" alt="Imagen por defecto">
               {% endif %}
             </figure>
             <div class="media-h-body shadow">
@@ -319,7 +319,7 @@
               <div class="meta mb-2">
                 <span class="icon-calendar mr-2"></span>{{ proyecto.fecha_inicio }} - {{ proyecto.fecha_fin|default:"En curso"  }} 
               </div>
-              <p class="text-justify">{{ proyecto.descripcion|truncatewords:100 }}</p>
+              <p class="text-justify">{{ proyecto.descripcion|truncatewords:10 }}</p>
               <a href="{% url 'proyecto_en_curso_detalles' proyecto.id %}">
                   Ver más
               </a>
@@ -356,7 +356,7 @@
               {% if proyecto.imagen %}
                 <img src="{{ proyecto.imagen.url }}" alt="{{ proyecto.nombre }}">
               {% else %}
-                <img src="{% static 'assets/images/foto-evento-default.jpeg' %}" alt="Imagen por defecto">
+                <img src="{% static 'images/foto-proyecto-default.png' %}" alt="Imagen por defecto">
               {% endif %}
             </figure>
             <div class="media-h-body shadow">
@@ -364,7 +364,7 @@
               <div class="meta mb-2">
                 <span class="icon-calendar mr-2"></span>{{ proyecto.fecha_inicio }} - {{ proyecto.fecha_fin|default:"En curso"  }} 
               </div>
-              <p class="text-justify">{{ proyecto.descripcion|truncatewords:100 }}</p>
+              <p class="text-justify">{{ proyecto.descripcion|truncatewords:10 }}</p>
               <a href="{% url 'proyecto_realizado_detalles' proyecto.id %}">
                   Ver más
               </a>

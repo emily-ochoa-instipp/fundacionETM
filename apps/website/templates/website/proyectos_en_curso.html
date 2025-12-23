@@ -21,15 +21,15 @@
               {% if proyecto.imagen %}
                 <img src="{{ proyecto.imagen.url }}" alt="{{ proyecto.nombre }}">
               {% else %}
-                <img src="{% static 'assets/images/foto-evento-default.jpeg' %}" alt="Imagen por defecto">
+                <img src="{% static 'images/foto-proyecto-default.png' %}" alt="Imagen por defecto">
               {% endif %}
             </figure>
             <div class="media-h-body shadow">
-              <h2 class="mb-3"><a href="#">{{ proyecto.nombre }}</a></h2>
+              <h2 class="mb-3"><a href="{% url 'proyecto_en_curso_detalles' proyecto.id %}">{{ proyecto.nombre }}</a></h2>
               <div class="meta mb-2">
                 <span class="icon-calendar mr-2"></span>{{ proyecto.fecha_inicio }} - {{ proyecto.fecha_fin|default:"En curso" }}  <br>
               </div>
-              <p class="text-justify">{{ proyecto.descripcion|truncatewords:100 }}</p>
+              <p class="text-justify">{{ proyecto.descripcion|truncatewords:10 }}</p>
               <a href="{% url 'proyecto_realizado_detalles' proyecto.id %}">
                   Ver más
               </a>

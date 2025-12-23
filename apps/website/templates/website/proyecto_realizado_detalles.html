@@ -22,7 +22,7 @@
           {% if proyecto.imagen %}
               <img src="{{ proyecto.imagen.url }}" alt="{{ proyecto.nombre }}" class="img-fluid shadow" style="height: 25rem;">
           {% else %}
-              <img src="{% static 'assets/images/foto-evento-default.jpeg' %}" alt="Imagen no disponible" class="img-fluid">
+              <img src="{% static 'images/foto-proyecto-default.png' %}" alt="Imagen no disponible" class="img-fluid">
           {% endif %}
 
         </div>
@@ -33,7 +33,7 @@
               <div class="meta mb-2">
                 <span class="icon-calendar mr-2"></span>{{ proyecto.fecha_inicio }} - {{ proyecto.fecha_fin }}  <br>
               </div>
-              <p class="text-justify">{{ proyecto.descripcion|truncatewords:5000 }}</p>
+              <p class="text-justify">{{ proyecto.descripcion }}</p>
             </div>
           </div>
         </div>
