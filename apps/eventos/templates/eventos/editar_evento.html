@@ -8,92 +8,94 @@
           <div class="row justify-content-center">
             <div class="col-12">
               <h2 class="page-title">Editar evento</h2>
-              <div class="card-deck">
-                <div class="card shadow mb-4">
-                  <div class="card-body">
-                    <form method="post" action="" enctype="multipart/form-data">
-                      {% csrf_token %}
-                      {% if error %}
-                        <div class="alert alert-danger">
-                          {{ error }}
-                        </div>
-                      {% endif %}
+              <div class="row">
+                <div class="col-12">
+                  <div class="card shadow mb-4">
+                    <div class="card-body">
+                      <form method="post" action="" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {% if error %}
+                          <div class="alert alert-danger">
+                            {{ error }}
+                          </div>
+                        {% endif %}
 
-                      <div class="form-row">
                         <div class="form-row">
-                          <div class="form-group col-md-6">
-                            <label for="inputTitulo">Titulo</label>
-                            <input type="text" class="form-control" id="inputTitulo" placeholder="Titulo" name="txtTitulo" value="{{ evento.titulo }}" required>
-                          </div>
-
-                          <div class="form-group col-md-6">
-                            <label for="inputFch">Fecha</label>
-                            <input type="date" class="form-control" id="inputFch" placeholder="Fecha" name="txtFecha" value="{{ evento.fecha|date:'Y-m-d' }}" required>
-                          </div>
-
-                          <div class="form-group col-md-12">
-                            <label for="inputDescripcion">Descripción</label>
-                            <textarea class="form-control" id="inputDescripcion" name="txtDescripcion" rows="4" required>{{ evento.descripcion }}</textarea>
-                          </div>
-                        
-                          <div class="form-group col-md-6">
-                            <label for="example-time">Hora inicio</label>
-                            <input class="form-control" id="example-time" type="time" name="txtHoraInicio" value="{{ evento.hora_inicio }}" required>
-                          </div>
-                      
-                          <div class="form-group col-md-6">
-                            <label for="example-time">Hora Fin</label>
-                            <input class="form-control" id="example-time" type="time" name="txtHoraFin" value="{{ evento.hora_fin }}" required>
-                          </div>
-                          
-                          <div class="form-group col-md-6">
-                            <label for="inputDireccion">Dirección</label>
-                            <input type="text" class="form-control" id="inputDireccion" placeholder="Dirección" name="txtDireccion" value="{{ evento.direccion }}" required>
-                          </div>
-                          <div class="form-group col-md-6">
-                            <label for="inputLugar">Lugar</label>
-                            <input type="text" class="form-control" id="inputLugar" placeholder="Lugar" name="txtLugar" value="{{ evento.lugar }}" required>
-                          </div>
-                          <div class="form-group col-md-6">
-                            <label for="inputImagenNew">Subir nueva foto de portada</label>
-                            <input type="file" class="form-control" id="inputImagen" placeholder="Imagen" name="txtImagen">
-                          </div>
-                          <div class="form-group col-md-6">
-                            <label for="inputImagenNew">Imagen de portada actual</label><br>
-                            {% if evento.imagen %}
-                                <img src="{{ evento.imagen.url }}" class="img-fluid rounded shadow" width="220">
-                            {% else %}
-                                <img src="{% static 'assets/images/foto-evento-default.jpeg' %}" 
-                                    class="img-fluid rounded shadow" width="220">
-                                <p class="text-muted">Imagen por defecto.</p>
-                            {% endif %}
-                          </div>
-                          
-                        </div>
-                        
-                        <div class="col-md-12 mt-3 modal-footer d-flex justify-content-between">
-                          <div class="form-group col-md-2">
-                              <label for="inputEstado">Estado</label>
-                              <select id="inputEstado" class="form-control" name="estado" required>
-                                <option selected>Seleccionar estado</option>
-                                {% for value, label in evento.ESTADOS_EVENTO %}
-                                  <option value="{{ value }}" {% if evento.estado == value %}selected{% endif %}>{{ label }}</option>
-                                {% endfor %}
-                              </select>
+                          <div class="form-row">
+                            <div class="form-group col-md-6">
+                              <label for="inputTitulo">Titulo</label>
+                              <input type="text" class="form-control" id="inputTitulo" placeholder="Titulo" name="txtTitulo" value="{{ evento.titulo }}" required>
                             </div>
-                          <div>
-                            <button type="submit" class="btn btn-primary mr-4">Guardar</button>
-                            <a href="{% url 'tabla_eventos' %}" class="btn btn-danger">Cancelar</a>
-                          </div>
-                        </div>
+
+                            <div class="form-group col-md-6">
+                              <label for="inputFch">Fecha</label>
+                              <input type="date" class="form-control" id="inputFch" placeholder="Fecha" name="txtFecha" value="{{ evento.fecha|date:'Y-m-d' }}" required>
+                            </div>
+
+                            <div class="form-group col-md-12">
+                              <label for="inputDescripcion">Descripción</label>
+                              <textarea class="form-control" id="inputDescripcion" name="txtDescripcion" rows="4" required>{{ evento.descripcion }}</textarea>
+                            </div>
+                          
+                            <div class="form-group col-md-6">
+                              <label for="example-time">Hora inicio</label>
+                              <input class="form-control" id="example-time" type="time" name="txtHoraInicio" value="{{ evento.hora_inicio }}" required>
+                            </div>
                         
-                      </div>
-                    </form>                        
+                            <div class="form-group col-md-6">
+                              <label for="example-time">Hora Fin</label>
+                              <input class="form-control" id="example-time" type="time" name="txtHoraFin" value="{{ evento.hora_fin }}" required>
+                            </div>
+                            
+                            <div class="form-group col-md-6">
+                              <label for="inputDireccion">Dirección</label>
+                              <input type="text" class="form-control" id="inputDireccion" placeholder="Dirección" name="txtDireccion" value="{{ evento.direccion }}" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                              <label for="inputLugar">Lugar</label>
+                              <input type="text" class="form-control" id="inputLugar" placeholder="Lugar" name="txtLugar" value="{{ evento.lugar }}" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                              <label for="inputImagenNew">Subir nueva foto de portada</label>
+                              <input type="file" class="form-control" id="inputImagen" placeholder="Imagen" name="txtImagen">
+                            </div>
+                            <div class="form-group col-md-6">
+                              <label for="inputImagenNew">Imagen de portada actual</label><br>
+                              {% if evento.imagen %}
+                                  <img src="{{ evento.imagen.url }}" class="img-fluid rounded shadow" width="220">
+                              {% else %}
+                                  <img src="{% static 'assets/images/foto-evento-default.jpeg' %}" 
+                                      class="img-fluid rounded shadow" width="220">
+                                  <p class="text-muted">Imagen por defecto.</p>
+                              {% endif %}
+                            </div>
+                            
+                          </div>
+                          
+                          <div class="col-md-12 mt-3 modal-footer d-flex justify-content-between">
+                            <div class="form-group col-md-2">
+                                <label for="inputEstado">Estado</label>
+                                <select id="inputEstado" class="form-control" name="estado" required>
+                                  <option selected>Seleccionar estado</option>
+                                  {% for value, label in evento.ESTADOS_EVENTO %}
+                                    <option value="{{ value }}" {% if evento.estado == value %}selected{% endif %}>{{ label }}</option>
+                                  {% endfor %}
+                                </select>
+                              </div>
+                            <div>
+                              <button type="submit" class="btn btn-primary mr-4">Guardar</button>
+                              <a href="{% url 'tabla_eventos' %}" class="btn btn-danger">Cancelar</a>
+                            </div>
+                          </div>
+                          
+                        </div>
+                      </form>                        
+                    </div>
                   </div>
                 </div>
               </div> <!-- end section -->
 
-              <div class="card-deck">
+              <div class="col-12">
                 <div class="card shadow mb-4">
                   <div class="card-body">
                     

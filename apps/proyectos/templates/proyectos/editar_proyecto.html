@@ -8,69 +8,71 @@
           <div class="row justify-content-center">
             <div class="col-12">
               <h2 class="page-title">Editar proyecto</h2>
-              <div class="card-deck">
-                <div class="card shadow mb-4">
-                  <div class="card-body">
-                    <form method="post" action="" enctype="multipart/form-data">
-                      {% csrf_token %}
-                      {% if error %}
-                        <div class="alert alert-danger">
-                          {{ error }}
-                        </div>
-                      {% endif %}
-                      <div class="form-row">
+              <div class="row">
+                <div class="col-12">
+                  <div class="card shadow mb-4">
+                    <div class="card-body">
+                      <form method="post" action="" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {% if error %}
+                          <div class="alert alert-danger">
+                            {{ error }}
+                          </div>
+                        {% endif %}
                         <div class="form-row">
-                          <div class="form-group col-md-12">
-                            <label for="inputNombre">Nombre</label>
-                            <input type="text" class="form-control" id="inputNombre" placeholder="Nombre del proyecto" name="txtNombre" value="{{ proyecto.nombre }}" required>
-                          </div>
-                          <div class="form-group col-md-12">
-                              <label for="inputDescripcion">Descripción</label>
-                              <textarea class="form-control" id="inputDescripcion" name="txtDescripcion" rows="4" required>{{ proyecto.descripcion }}</textarea>
-                          </div>
-                          <div class="form-group col-md-6">
-                            <label for="inputFchInicio">Fecha inicio</label>
-                            <input type="date" class="form-control" id="inputFchInicio" placeholder="Fecha" name="txtFechaInicio" value="{{ proyecto.fecha_inicio|date:'Y-m-d'  }}" required>
-                          </div>
-                          <div class="form-group col-md-6">
-                            <label for="inputFchFin">Fecha fin</label>
-                            <input type="date" class="form-control" id="inputFchFin" placeholder="Fecha" name="txtFechaFin" value="{{ proyecto.fecha_fin|date:'Y-m-d' }}" >
-                          </div>
-                          <div class="form-group col-md-6">
-                            <label for="inputImagenNew">Subir nueva foto de portada</label> 
-                            <input type="file" class="form-control" id="inputImagen" placeholder="Imagen" name="txtImagen">
-                          </div>
-                          <div class="form-group col-md-6">
-                            <label for="inputImagen">Imagen portada actual</label><br>
-                            {% if proyecto.imagen %}
-                                <img src="{{ proyecto.imagen.url }}" class="img-fluid rounded shadow" width="220">
-                            {% else %}
-                                <img src="{% static 'assets/images/foto-evento-default.jpeg' %}" 
-                                    class="img-fluid rounded shadow mb-2" width="220">  
-                                <p class="text-muted">* Imagen por defecto.</p>
-                            {% endif %}
-                          </div>
-                        </div> 
-                        <div class="col-md-12 mt-3 modal-footer d-flex justify-content-between">
-                            <div class="form-group col-md-2">
-                              <label for="inputEstado">Estado</label>
-                              <select id="inputEstado" class="form-control" name="estado" required>
-                                <option selected>Seleccionar estado</option>
-                                {% for value, label in proyecto.ESTADOS_PROYECTO %}
-                                  <option value="{{ value }}" {% if proyecto.estado == value %}selected{% endif %}>{{ label }}</option>
-                                {% endfor %}
-                              </select>
+                          <div class="form-row">
+                            <div class="form-group col-md-12">
+                              <label for="inputNombre">Nombre</label>
+                              <input type="text" class="form-control" id="inputNombre" placeholder="Nombre del proyecto" name="txtNombre" value="{{ proyecto.nombre }}" required>
                             </div>
-                          <div>
-                            <button type="submit" class="btn btn-primary mr-4">Guardar</button>
-                            <a href="{% url 'tabla_proyectos' %}" class="btn btn-danger">Cancelar</a>
+                            <div class="form-group col-md-12">
+                                <label for="inputDescripcion">Descripción</label>
+                                <textarea class="form-control" id="inputDescripcion" name="txtDescripcion" rows="4" required>{{ proyecto.descripcion }}</textarea>
+                            </div>
+                            <div class="form-group col-md-6">
+                              <label for="inputFchInicio">Fecha inicio</label>
+                              <input type="date" class="form-control" id="inputFchInicio" placeholder="Fecha" name="txtFechaInicio" value="{{ proyecto.fecha_inicio|date:'Y-m-d'  }}" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                              <label for="inputFchFin">Fecha fin</label>
+                              <input type="date" class="form-control" id="inputFchFin" placeholder="Fecha" name="txtFechaFin" value="{{ proyecto.fecha_fin|date:'Y-m-d' }}" >
+                            </div>
+                            <div class="form-group col-md-6">
+                              <label for="inputImagenNew">Subir nueva foto de portada</label> 
+                              <input type="file" class="form-control" id="inputImagen" placeholder="Imagen" name="txtImagen">
+                            </div>
+                            <div class="form-group col-md-6">
+                              <label for="inputImagen">Imagen portada actual</label><br>
+                              {% if proyecto.imagen %}
+                                  <img src="{{ proyecto.imagen.url }}" class="img-fluid rounded shadow" width="220">
+                              {% else %}
+                                  <img src="{% static 'assets/images/foto-evento-default.jpeg' %}" 
+                                      class="img-fluid rounded shadow mb-2" width="220">  
+                                  <p class="text-muted">* Imagen por defecto.</p>
+                              {% endif %}
+                            </div>
+                          </div> 
+                          <div class="col-md-12 mt-3 modal-footer d-flex justify-content-between">
+                              <div class="form-group col-md-2">
+                                <label for="inputEstado">Estado</label>
+                                <select id="inputEstado" class="form-control" name="estado" required>
+                                  <option selected>Seleccionar estado</option>
+                                  {% for value, label in proyecto.ESTADOS_PROYECTO %}
+                                    <option value="{{ value }}" {% if proyecto.estado == value %}selected{% endif %}>{{ label }}</option>
+                                  {% endfor %}
+                                </select>
+                              </div>
+                            <div>
+                              <button type="submit" class="btn btn-primary mr-4">Guardar</button>
+                              <a href="{% url 'tabla_proyectos' %}" class="btn btn-danger">Cancelar</a>
+                            </div>
                           </div>
-                        </div>
-                    </form>
+                      </form>
+                    </div>
                   </div>
                 </div>
               </div> <!-- end section -->
-              <div class="card-deck">
+              <div class="col-12">
                 <div class="card shadow mb-4">
                   <div class="card-body">
                     
