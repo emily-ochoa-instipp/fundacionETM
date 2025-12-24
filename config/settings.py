@@ -13,6 +13,9 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 from pathlib import Path
 import os
 from dotenv import load_dotenv
+from decouple import config
+import dj_database_url
+
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -25,14 +28,17 @@ load_dotenv(BASE_DIR / ".env") # Cargar variables de entorno desde el archivo .e
 
 # SECURITY WARNING: keep the secret key used in production secret!
 #SECRET_KEY = 'django-insecure-r31g20&1-ytf*#3hr@@+#==hl3uwypijcd**b4w3ntl!0_c@9*'
-SECRET_KEY = os.getenv("SECRET_KEY", "dev-unsafe-secret-key")
-# SECURITY WARNING: don't run with debug turned on in production!
+SECRET_KEY = config('SECRET_KEY')
 
-# DEBUG = True
-DEBUG = os.getenv("DEBUG", "True") == "True"
+DEBUG = config('DEBUG', default=False, cast=bool)
 
-#ALLOWED_HOSTS = []
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    '.onrender.com',
+]
+
+
 
 # Application definition
 
@@ -55,6 +61,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -88,12 +95,25 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(
+        default=os.getenv(
+            'DATABASE_URL',
+            f"sqlite:///{BASE_DIR / 'db.sqlite3'}"
+        ),
+        conn_max_age=600,
+        ssl_require=not DEBUG
+    )
 }
+
+
 
 
 # Password validation
@@ -131,19 +151,21 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = '/static/'
-
-# Para desarrollo, asegúrate que esto esté:
-STATICFILES_DIRS = [
-    BASE_DIR / "static",  # si tienes carpeta general de static
-]
-
-# Para producción: collectstatic
 STATIC_ROOT = BASE_DIR / "staticfiles"
+
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+
+STATICFILES_DIRS = [BASE_DIR / "static"] if DEBUG else []
+
+
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-
+CSRF_TRUSTED_ORIGINS = [
+    'https://*.onrender.com',
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
@@ -151,7 +173,7 @@ MEDIA_ROOT = BASE_DIR / 'media'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL = '/autenticacion/login/'
-LOGOUT_REDIRECT_URL = '/inicio/'
+# LOGOUT_REDIRECT_URL = '/inicio/'
 LOGOUT_REDIRECT_URL = '/'
 
 # Custom User Model para inicar sesión con username, email o cedula
