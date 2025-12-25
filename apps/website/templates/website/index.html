@@ -19,7 +19,7 @@
 
           <div class="col-6 col-lg-9">
             <a href="#" class="small mr-3"><span class="icon-phone mr-2"></span> <span class="d-none d-lg-inline-block">0729666666 - 0999489227</span></a> 
-            <a href="#" class="small mr-3"><span class="icon-envelope mr-2"></span> <span class="d-none d-lg-inline-block">estiempodemujeresmachala@gmail.com</span></a> 
+            <a href="#" class="small mr-3"><span class="icon-envelope mr-2"></span> <span class="d-none d-lg-inline-block">fundacionestiempodemujeres@gmail.com</span></a> 
           </div>
 
           <div class="col-6 col-lg-3 text-right">
@@ -47,7 +47,7 @@
             <li><a href="#Vision">Visión</a></li>
             <li><a href="#Eventos-proximos">Eventos</a></li>
             <li><a href="#Proyectos-activos">Proyectos</a></li>
-            <li><a href="#Mujeres-historia">Mujeres en la historia</a></li>
+            <li><a href="#Mujeres-referentes">Mujeres referentes</a></li>
             <li class="has-children">
               <a href="#">Transparencia</a>
               <ul class="dropdown">
@@ -382,49 +382,28 @@
   </div> <!-- /.untree_co-section -->
 
 
-  <div class="untree_co-section bg-light" id="Mujeres-historia">
+  <div class="untree_co-section bg-light" id="Mujeres-referentes" data-aos="fade-up" data-aos-delay="0">
     <div class="container">
       <div class="row">
         <div class="col-lg-7 text-center mx-auto">
 
-          <h3 class="line-bottom mb-4">Mujeres en la historia</h3>
+          <h3 class="line-bottom mb-4">Mujeres referentes</h3>
           <div class="owl-carousel wide-slider-testimonial">
+            {% for mujer in mujeres_referentes %}
             <div class="item">
               <blockquote class="block-testimonial">
-
-                <p>
-                Matilde Hidalgo de Prócel es considerada la figura más importante del feminismo ecuatoriano. En 1924 se convirtió en la primera mujer en votar en Ecuador y en toda América Latina, después de presentar una solicitud que no tenía precedentes en la región. Además, fue la primera mujer en graduarse de la secundaria y en recibir un título universitario en el país. Su valentía abrió las puertas para que las mujeres ecuatorianas fueran reconocidas como ciudadanas con plenos derechos políticos y civiles, marcando un antes y un después en la historia democrática del Ecuador.</p>
-                <div class="author">
-                  <img src="{% static 'images/mujeres-historia/matilde.png' %}" alt="Free template by TemplateUX">
-                  <h3>Matilde Hidalgo de Prócel</h3>
-                  <p class="position">Médica y activista</p>
+                <p>{{ mujer.descripcion }}</p>
+                <div class="author ">
+                  {% if mujer.imagen %}
+                    <img  src="{{ mujer.imagen.url }}" alt="{{ mujer.nombre }}">
+                  {% endif %}
+                  <h3>{{ mujer.nombre }}</h3>
+                  <p class="position">{{ mujer.ocupacion }} - {{ mujer.lugar_origen }}</p>
                 </div>
               </blockquote>
             </div>
-
-            <div class="item">
-              <blockquote class="block-testimonial">
-
-                <p>Tránsito Amaguaña fue una líder indígena y activista por los derechos de los pueblos originarios y especialmente de las mujeres indígenas. Su lucha se centró en la justicia social, la tierra, la educación y la dignidad de las comunidades más vulnerables. A lo largo de su vida, organizó marchas, huelgas y movimientos que exigían mejores condiciones de vida y un trato más justo para las mujeres indígenas, quienes enfrentaban una doble discriminación: por género y por etnia. Su figura es símbolo de resistencia, igualdad y valentía.</p>
-                <div class="author">
-                  <img src="{% static 'images/mujeres-historia/transito.png' %}" alt="Free template by TemplateUX">
-                  <h3>Tránsito Amaguaña</h3>
-                  <p class="position">Líder indígena y activista social</p>
-                </div>
-              </blockquote>
-            </div>
-
-            <div class="item">
-              <blockquote class="block-testimonial">
-
-                <p>Dolores Cacuango, también conocida como Mama Doloreyuk, fue una de las pioneras en la defensa de los derechos indígenas y de la mujer en Ecuador. Fundó las primeras escuelas bilingües quichua–español en el país, con el objetivo de garantizar educación y oportunidades para los niños y niñas indígenas. Su trabajo desafió al sistema discriminatorio de la época y abrió un camino hacia la inclusión social. Fue una mujer visionaria que luchó por la autonomía, la identidad cultural y la dignidad de las mujeres indígenas.</p>
-                <div class="author">
-                  <img src="{% static 'images/mujeres-historia/dolores.png' %}" alt="Free template by TemplateUX">
-                  <h3>Dolores Cacuango</h3>
-                  <p class="position">Líder indígena, educadora comunitaria y activista</p>
-                </div>
-              </blockquote>
-            </div>
+            {% endfor %}
+            
           </div>
 
         </div>
@@ -459,7 +438,7 @@
             <div class="email mt-4">
               <i class="icon-envelope"></i>
               <h4 class="mb-2">Email:</h4>
-              <p>estiempodemujeresmachala@gmail.com</p>
+              <p>fundacionestiempodemujeres@gmail.com</p>
             </div>
 
             <div class="phone mt-4">

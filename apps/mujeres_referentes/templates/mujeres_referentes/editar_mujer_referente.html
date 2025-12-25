@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block contenido %}
+      <main role="main" class="main-content">
+        <div class="container-fluid">
+          <div class="row justify-content-center">
+            <div class="col-12">
+              <h2 class="page-title">Editar mujer referente</h2>
+              <div class="card-deck">
+                <div class="card shadow mb-4">
+                  <div class="card-body">
+                    <form method="post" action="" enctype="multipart/form-data">
+                      {% csrf_token %}
+                      {% if error is not None %}
+                          <div class="alert alert-danger" role="alert">
+                          {{ error }}
+                          </div>
+                      {% endif %}
+                      <div class="form-row">
+                        <div class="form-group col-md-12">
+                          <label for="inputNombres">Nombre</label>
+                          <input type="text" class="form-control" id="inputNombres" placeholder="Nombres" name="txtNombre" value="{{ mujer.nombre }}" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                          <label for="inputLugarOrigen">Lugar origen</label>
+                          <input type="text" class="form-control" id="inputLugarOrigen" placeholder="Lugar de origen" name="txtLugarOrigen" value="{{ mujer.lugar_origen }}"  required>
+                        </div>
+                        <div class="form-group col-md-6">
+                          <label for="inputOcupacion">Ocupación</label>
+                          <input type="text" class="form-control" id="inputOcupacion" placeholder="Ocupacion" name="txtOcupacion" value="{{ mujer.ocupacion }}"  required>
+                        </div>
+                        <div class="form-group col-md-12">
+                          <label for="inputDescripcion">Descripción</label>
+                          <textarea class="form-control" id="inputDescripcion" name="txtDescripcion" rows="4" required>{{ mujer.descripcion }}</textarea>
+                        </div>
+                        <div class="form-group col-md-6">
+                          <label for="inputImagenNew">Subir nueva imagen</label>
+                          <input type="file" class="form-control" id="inputImagen" name="imagen">
+                        </div>
+                        <div class="form-group col-md-6">
+                          <label for="inputImagenNew">Imagen actual</label><br>
+                          {% if mujer.imagen %}
+                              <img src="{{ mujer.imagen.url }}" class="img-fluid rounded shadow" width="100">
+                          {% else %}
+                              <img src="{% static 'assets/images/default.png' %}" 
+                                  class="img-fluid rounded shadow" width="100">
+                              <p class="text-muted">Imagen por defecto.</p>
+                          {% endif %}
+                        </div>
+                    
+                      </div>
+
+                      <div class="modal-footer d-flex justify-content-between">
+                        <div class="custom-control custom-switch">
+                          <input type="checkbox" class="custom-control-input" id="RepeatSwitch" name="estado" {% if mujer.estado %} checked {% endif %}>
+                          <label class="custom-control-label" for="RepeatSwitch">Activo</label>
+                        </div>
+                        <div>
+                          <button type="submit" class="btn btn-primary mr-4">Guardar</button>
+                          <a href="{% url 'tabla_mujeres_referentes' %}" class="btn btn-danger">Cancelar</a>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div> <!-- end section -->
+            </div> <!-- .col-12 -->
+          </div> <!-- .row -->
+        </div> <!-- .container-fluid -->
+</main>
+     
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-56159088-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+
+      function gtag()
+      {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+      gtag('config', 'UA-56159088-1');
+    </script>
+ 
+{% endblock %}

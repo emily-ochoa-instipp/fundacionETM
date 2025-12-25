@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'apps.dashboard',
     'apps.website',
     'apps.transparencia',
+    'apps.mujeres_referentes'
 ]
 
 MIDDLEWARE = [

@@ -19,4 +19,5 @@ urlpatterns = [
     path('proyectos/', include('apps.proyectos.urls')),
     path('eventos/', include('apps.eventos.urls')),
     path('transparencia/', include('apps.transparencia.urls')),
+    path('mujeres_referentes/', include('apps.mujeres_referentes.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

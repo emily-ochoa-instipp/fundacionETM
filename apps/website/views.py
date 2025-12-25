@@ -4,6 +4,7 @@ from django.utils import timezone
 
 from apps.eventos.models import Evento
 from apps.proyectos.models import Proyecto
+from apps.mujeres_referentes.models import MujerReferente
 
 
 def index_views(request):
@@ -20,12 +21,14 @@ def index_views(request):
     proyectos_en_curso = Proyecto.objects.filter(estado='en_curso').order_by('-fecha_inicio')
     proyectos_realizados = Proyecto.objects.filter(estado='realizado').order_by('-fecha_fin')[:6]
 
+    mujeres_referentes = MujerReferente.objects.filter(estado=True)
 
     context = {
         'proximos_eventos': proximos_eventos,
         'eventos_realizados': eventos_realizados,
         'proyectos_en_curso': proyectos_en_curso,
         'proyectos_realizados': proyectos_realizados,
+        'mujeres_referentes': mujeres_referentes,
     }
 
     return render(request, 'website/index.html', context)
