@@ -20,4 +20,6 @@ urlpatterns = [
     path('eventos/', include('apps.eventos.urls')),
     path('transparencia/', include('apps.transparencia.urls')),
     path('mujeres_referentes/', include('apps.mujeres_referentes.urls')),
+    path('miembros/', include('apps.miembros.urls')),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
