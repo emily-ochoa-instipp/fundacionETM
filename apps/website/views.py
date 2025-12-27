@@ -5,7 +5,7 @@ from django.utils import timezone
 from apps.eventos.models import Evento
 from apps.proyectos.models import Proyecto
 from apps.mujeres_referentes.models import MujerReferente
-
+from apps.miembros.models import Miembro  
 
 def index_views(request):
 
@@ -20,8 +20,12 @@ def index_views(request):
     actualizar_estados_proyectos()
     proyectos_en_curso = Proyecto.objects.filter(estado='en_curso').order_by('-fecha_inicio')
     proyectos_realizados = Proyecto.objects.filter(estado='realizado').order_by('-fecha_fin')[:6]
-
+    
+    #MUJERES REFERENTES
     mujeres_referentes = MujerReferente.objects.filter(estado=True)
+
+    #MIEMBROS DE LA FUNDACION
+    miembros = Miembro.objects.filter(estado=True)
 
     context = {
         'proximos_eventos': proximos_eventos,
@@ -29,6 +33,7 @@ def index_views(request):
         'proyectos_en_curso': proyectos_en_curso,
         'proyectos_realizados': proyectos_realizados,
         'mujeres_referentes': mujeres_referentes,
+        'miembros': miembros, 
     }
 
     return render(request, 'website/index.html', context)
