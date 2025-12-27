@@ -51,9 +51,25 @@
             <li class="has-children">
               <a href="#">Transparencia</a>
               <ul class="dropdown">
-                <li><a href="https://drive.google.com/file/d/1ZEbcDN89iiqAulqeJr20NtU2IXXc3WWi/view?usp=drive_link">FETM1</a></li>
-                <li><a href="https://drive.google.com/file/d/1yI3B-GogvlUCHaaHdVECPIthiiF0zTnH/view?usp=drive_link">FETM2</a></li>
-                <li><a href="https://drive.google.com/file/d/1ZEbcDN89iiqAulqeJr20NtU2IXXc3WWi/view?usp=drive_link">FETM3</a></li>
+                {% for categoria in menu_categorias %}
+                  <li class="has-children">
+                    <a href="#">{{ categoria.nombre }}</a>
+                    <ul class="dropdown">
+
+                      {% for documento in categoria.documentos.all %}
+                        {% if documento.estado %}
+                          <li>
+                            <a href="{{ documento.archivo.url }}" target="_blank">
+                              {{ documento.nombre }}
+                            </a>
+                          </li>
+                        {% endif %}
+                      {% empty %}
+                        <li><span class="text-muted">Sin documentos</span></li>
+                      {% endfor %}
+                    </ul>
+                  </li>
+                {% endfor %}
               </ul>
             </li>
             <li><a href="#Contacto">Contactános</a></li>
@@ -197,14 +213,62 @@
     </div>
   </div> <!-- /.untree_co-section -->
 
+<!-- miembros de la fundación -->
+  <div class="untree_co-section bg-light">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-7 text-center" data-aos="fade-up" data-aos-delay="0">
+          <h2 class="line-bottom text-center mb-3">Miembros de FETM</h2>  
+        </div>
+      </div>
+
+      <div class="row">
+        {% for miembro in miembros %}
+        <div class="col-12 col-sm-6 col-md-6 mb-4 mb-lg-0 col-lg-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:1 }}00">
+          <div class="staff text-center">
+
+            <div class="mb-4">
+              {% if miembro.foto %}
+                <img src="{{ miembro.foto.url }}" alt="Foto {{ miembro.nombre }}" class="img-fluid">
+              {% else %}
+                <img src="{% static 'images/staff_default.jpg' %}" alt="Foto por defecto" class="img-fluid">
+              {% endif %}
+            </div>
+
+            <div class="staff-body">
+              <h3 class="staff-name">
+                {{ miembro.nombre }} {{ miembro.apellido }}
+              </h3>
+
+              <span class="d-block position mb-4">
+                {{ miembro.get_cargo_display }}
+              </span>
+
+              <p class="mb-4">
+                {{ miembro.descripcion }}
+              </p>
+
+            </div>
+          </div>
+        </div>
+        {% empty %}
+          <div class="col-12 text-center">
+            <p>No hay miembros registradas aún.</p>
+          </div>
+        {% endfor %}
+      </div>
+
+    </div>
+  </div>
+<!-- /.untree_co-section -->
+
   <!-- seccion eventos -->
 
-  <div class="untree_co-section bg-light" id="Eventos-proximos">
+  <div class="untree_co-section" id="Eventos-proximos">
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-lg-7 text-center" data-aos="fade-up" data-aos-delay="0">
           <h2 class="line-bottom text-center mb-1">Próximos eventos</h2>
-        
         </div>
       </div>
 
@@ -246,7 +310,7 @@
 
   <!-- seccion eventos -->
 
-  <div class="untree_co-section" id="Eventos-realizados">
+  <div class="untree_co-section bg-light" id="Eventos-realizados">
     <div class="container">
       
       <div class="row justify-content-center mb-5">
@@ -294,7 +358,7 @@
 
   <!-- seccion proyectos en curso-->
 
-  <div class="untree_co-section bg-light" id="Proyectos-activos">
+  <div class="untree_co-section" id="Proyectos-activos">
     <div class="container">
       
       <div class="row justify-content-center mb-5">
@@ -339,7 +403,7 @@
 
   <!-- seccion proyectos -->
 
-  <div class="untree_co-section" id="Proyectos-realizados">
+  <div class="untree_co-section bg-light" id="Proyectos-realizados">
     <div class="container">
       
       <div class="row justify-content-center mb-5">
@@ -382,7 +446,7 @@
   </div> <!-- /.untree_co-section -->
 
 
-  <div class="untree_co-section bg-light" id="Mujeres-referentes" data-aos="fade-up" data-aos-delay="0">
+  <div class="untree_co-section" id="Mujeres-referentes" data-aos="fade-up" data-aos-delay="0">
     <div class="container">
       <div class="row">
         <div class="col-lg-7 text-center mx-auto">
@@ -413,7 +477,7 @@
 
   <!-- seccion contacto -->
 
-  <div class="untree_co-section" id="Contacto">
+  <div class="untree_co-section bg-light" id="Contacto">
     <div class="container">
 
       <div class="row mb-5">

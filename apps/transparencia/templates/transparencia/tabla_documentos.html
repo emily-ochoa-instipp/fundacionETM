@@ -25,6 +25,7 @@
                             <tr>
                               <th>#</th>
                               <th>Nombre</th>
+                              <th>Categoría</th>
                               <th>Archivo</th>
                               <th>Estado</th>
                               <th>Acción</th>
@@ -35,6 +36,7 @@
                             <tr>
                               <td>{{ documento.id }}</td>
                               <td>{{ documento.nombre }}</td>
+                              <td>{{ documento.categoria }}</td>
                               <td><a href="{{ documento.archivo.url }}" target="_blank">Ver PDF</a></td>
                               <td>
                                   {% if documento.estado %}
@@ -66,7 +68,7 @@
                                             ¿Estas segura de eliminar el documento {{ documento.nombre }}?
                                           </div>
                                           <div class="modal-footer">
-                                            <a href="{% url 'tabla_transparencia' %}" class="btn btn-primary"data-bs-dismiss="modal">Cancelar</a>
+                                            <a href="{% url 'tabla_documentos' %}" class="btn btn-primary"data-bs-dismiss="modal">Cancelar</a>
                                             <!-- <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancelar</button>-->
                                             <button type="submit" class="btn btn-danger">Eliminar</button>
                                           </div>
@@ -111,24 +113,33 @@
                   {% endif %}
                   <div class="form-row">
                     <div class="form-group col-md-6">
-                      <label for="inputNombre">Nombre</label>
-                      {{ form.nombre }}
+                      <label for="inputNombres">Nombre</label>
+                      <input type="text" class="form-control" id="inputNombres" placeholder="Nombre" name="txtNombre" required>
                     </div>
                     <div class="form-group col-md-6">
+                      <label>Categoría</label>
+                      <select name="categoria" class="form-control" required>
+                        <option value="">Seleccione una categoría</option>
+                        {% for categoria in categorias %}
+                          <option value="{{ categoria.id }}">{{ categoria.nombre }}</option>
+                        {% endfor %}
+                      </select>
+                    </div>
+
+                    <div class="form-group col-md-6">
                       <label for="inputDocumento">Documento pdf</label>
-                      {{ form.archivo }}
+                      <input type="file" class="form-control" id="inputDocumento" name="archivo" required>
                     </div>
                   </div>
 
                   <div class="modal-footer d-flex justify-content-between">
                     <div class="custom-control custom-switch">
-                      {{ form.estado }}
+                      <input type="checkbox" class="custom-control-input" id="RepeatSwitch" name="estado" checked>
                       <label class="custom-control-label" for="RepeatSwitch">Activo</label>
                     </div>
                     <div>
                       <button type="submit" class="btn btn-primary mr-4">Guardar</button>
-                    <!--<button type="submit" class="btn btn-danger">Cancelar</button>-->
-                      <a href="{% url 'tabla_transparencia' %}" class="btn btn-danger">Cancelar</a>
+                      <a href="{% url 'tabla_documentos' %}" class="btn btn-danger">Cancelar</a>
                     </div>
                   </div>
                 </form>

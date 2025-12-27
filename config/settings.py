@@ -57,7 +57,8 @@ INSTALLED_APPS = [
     'apps.dashboard',
     'apps.website',
     'apps.transparencia',
-    'apps.mujeres_referentes'
+    'apps.mujeres_referentes',
+    'apps.miembros',
 ]
 
 MIDDLEWARE = [
@@ -83,8 +84,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-
-                # 'apps.usuarios.context_processors.datos_usuario',
+                'apps.transparencia.context_processors.menu_transparencia',
             ],
         },
     },

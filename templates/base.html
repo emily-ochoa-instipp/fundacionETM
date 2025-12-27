@@ -102,18 +102,42 @@
                 <span class="ml-3 item-text">Proyectos</span>
               </a>
             </li>
-<!--transparencia-->
-            <li class="nav-item w-100">
-              <a class="nav-link" href="{% url 'tabla_transparencia' %}">
+<!--trabsparencia-->
+            <li class="nav-item dropdown">
+              <a href="#transparenciaMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle nav-link">
                 <i class="fe fe-file fe-16"></i>
                 <span class="ml-3 item-text">Transparencia</span>
               </a>
+              <!--Submenu-->
+              <ul class="collapse list-unstyled pl-4 w-100" id="transparenciaMenu">
+                <!--Listado-->
+                <li class="nav-item">
+                  <a class="nav-link pl-3" href="{% url 'tabla_documentos' %}"><span class="ml-1 item-text">Documentos</span></a>
+                </li>
+              </ul>
+              <!--Submenu-->
+              <!--Submenu-->
+              <ul class="collapse list-unstyled pl-4 w-100" id="transparenciaMenu">
+                <!--Listado-->
+                <li class="nav-item">
+                  <a class="nav-link pl-3" href="{% url 'tabla_categorias' %}"><span class="ml-1 item-text">Categorias</span></a>
+                </li>
+              </ul>
+              <!--Submenu-->
             </li>
+            <!--trabsparencia-->
 <!--mujeres_referentes-->
             <li class="nav-item w-100">
               <a class="nav-link" href="{% url 'tabla_mujeres_referentes' %}">
-                <i class="fe fe-file fe-16"></i>
+                <i class="fe fe-award fe-16"></i>
                 <span class="ml-3 item-text">Mujeres referentes</span>
+              </a>
+            </li>
+<!--miembros-->
+            <li class="nav-item w-100">
+              <a class="nav-link" href="{% url 'tabla_miembros' %}">
+                <i class="fe fe-users fe-16"></i>
+                <span class="ml-3 item-text">Miembros</span>
               </a>
             </li>
 <!--Usuarios-->
@@ -122,9 +146,9 @@
                 <i class="fe fe-user-plus fe-16"></i>
                 <span class="ml-3 item-text">Usuarios</span>
               </a>
-               <!--Submenu-->
+              <!--Submenu-->
               <ul class="collapse list-unstyled pl-4 w-100" id="usuariosMenu">
-                 <!--Listado-->
+                <!--Listado-->
                 <li class="nav-item">
                   <a class="nav-link pl-3" href="{% url 'tabla_usuarios' %}"><span class="ml-1 item-text">Listar usuarios</span></a>
                 </li>
