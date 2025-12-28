@@ -6,7 +6,7 @@ from .models import CategoriaDocumento, DocumentoTransparencia
 
 
 @login_required
-@user_passes_test(roles_permitidos(['Secretaria', 'Presidenta']))
+@user_passes_test(roles_permitidos(['Secretaria', 'Presidenta','Administrador']))
 
 def tabla_documentos(request):
     documentos = DocumentoTransparencia.objects.all()
@@ -17,7 +17,7 @@ def tabla_documentos(request):
 
 
 @login_required
-@user_passes_test(roles_permitidos(['Secretaria', 'Presidenta']))
+@user_passes_test(roles_permitidos(['Secretaria', 'Presidenta','Administrador']))
 
 def crear_documento(request):
     if request.method == 'POST':
@@ -41,7 +41,7 @@ def crear_documento(request):
     return redirect('tabla_documentos')
 
 @login_required
-@user_passes_test(roles_permitidos(['Secretaria', 'Presidenta']))
+@user_passes_test(roles_permitidos(['Secretaria', 'Presidenta', 'Administrador']))
 
 def editar_documento(request, id):
     documento = get_object_or_404(DocumentoTransparencia, id=id)
@@ -67,7 +67,7 @@ def editar_documento(request, id):
     })
 
 @login_required
-@user_passes_test(roles_permitidos(['Secretaria', 'Presidenta']))
+@user_passes_test(roles_permitidos(['Secretaria', 'Presidenta','Administrador']))
 
 def eliminar_documento(request, id):
     documento = get_object_or_404(DocumentoTransparencia, id=id)
@@ -78,7 +78,7 @@ def eliminar_documento(request, id):
 
 
 @login_required
-@user_passes_test(roles_permitidos(['Secretaria', 'Presidenta']))
+@user_passes_test(roles_permitidos(['Secretaria', 'Presidenta','Administrador']))
 
 def tabla_categorias(request):
     categorias = CategoriaDocumento.objects.all()
@@ -87,7 +87,7 @@ def tabla_categorias(request):
     })
 
 @login_required
-@user_passes_test(roles_permitidos(['Secretaria', 'Presidenta']))
+@user_passes_test(roles_permitidos(['Secretaria', 'Presidenta','Administrador']))
 
 def crear_categoria(request):
     if request.method == 'POST':
@@ -105,7 +105,7 @@ def crear_categoria(request):
     return redirect('tabla_categorias')
 
 @login_required
-@user_passes_test(roles_permitidos(['Secretaria', 'Presidenta']))
+@user_passes_test(roles_permitidos(['Secretaria', 'Presidenta','Administrador']))
 
 def editar_categoria(request, id):
     categoria = get_object_or_404(CategoriaDocumento, id=id)
@@ -123,7 +123,7 @@ def editar_categoria(request, id):
     })
 
 @login_required
-@user_passes_test(roles_permitidos(['Secretaria', 'Presidenta']))
+@user_passes_test(roles_permitidos(['Secretaria', 'Presidenta','Administrador']))
 
 def eliminar_categoria(request, id):
     categoria = get_object_or_404(CategoriaDocumento, id=id)

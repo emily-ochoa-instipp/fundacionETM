@@ -7,7 +7,7 @@ from apps.usuarios.decorators import roles_permitidos
 
 
 @login_required
-@user_passes_test(roles_permitidos(['Secretaria', 'Directora']))
+@user_passes_test(roles_permitidos(['Secretaria', 'Presidenta','Administrador']))
 
 def tabla_miembros(request):
     miembros = Miembro.objects.all()
@@ -17,7 +17,7 @@ def tabla_miembros(request):
 
 
 @login_required
-@user_passes_test(roles_permitidos(['Secretaria', 'Directora']))
+@user_passes_test(roles_permitidos(['Secretaria', 'Presidenta','Administrador']))
 
 def registrar_miembro(request):
     if request.method == 'POST':
@@ -44,7 +44,7 @@ def registrar_miembro(request):
 
 
 @login_required
-@user_passes_test(roles_permitidos(['Secretaria', 'Directora']))
+@user_passes_test(roles_permitidos(['Secretaria', 'Presidenta','Administrador']))
 
 def editar_miembro(request, id):
     miembro = get_object_or_404(Miembro, id=id)
@@ -69,7 +69,7 @@ def editar_miembro(request, id):
 
 
 @login_required
-@user_passes_test(roles_permitidos(['Secretaria', 'Directora']))
+@user_passes_test(roles_permitidos(['Secretaria', 'Presidenta','Administrador']))
 
 def eliminar_miembro(request, id):
     miembro = get_object_or_404(Miembro, id=id)

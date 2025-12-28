@@ -6,7 +6,7 @@ from .models import MujerReferente
 from apps.usuarios.decorators import roles_permitidos
 
 @login_required
-@user_passes_test(roles_permitidos(['Secretaria', 'Presidenta']))
+@user_passes_test(roles_permitidos(['Secretaria', 'Presidenta','Administrador']))
 
 def tabla_mujeres_referentes(request):
     mujeres = MujerReferente.objects.all()
@@ -15,7 +15,7 @@ def tabla_mujeres_referentes(request):
     })
 
 @login_required
-@user_passes_test(roles_permitidos(['Secretaria', 'Presidenta']))
+@user_passes_test(roles_permitidos(['Secretaria', 'Presidenta','Administrador']))
 
 def registrar_mujer_referente(request):
     if request.method == 'POST':
@@ -41,7 +41,7 @@ def registrar_mujer_referente(request):
     return render(request, 'mujeres_referentes/tabla_mujeres_referentes.html')
 
 @login_required
-@user_passes_test(roles_permitidos(['Secretaria', 'Presidenta']))
+@user_passes_test(roles_permitidos(['Secretaria', 'Presidenta','Administrador']))
 
 def editar_mujer_referente(request, id):
     mujer = get_object_or_404(MujerReferente, id=id)
@@ -65,7 +65,7 @@ def editar_mujer_referente(request, id):
     })
 
 @login_required
-@user_passes_test(roles_permitidos(['Secretaria', 'Presidenta']))
+@user_passes_test(roles_permitidos(['Secretaria', 'Presidenta','Administrador']))
 
 def eliminar_mujer_referente(request, id):
     mujer = get_object_or_404(MujerReferente, id=id)

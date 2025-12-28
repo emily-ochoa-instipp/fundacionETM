@@ -6,7 +6,7 @@ register = template.Library()
 def has_group(user, group_names):
     """
     Uso:
-    {% if request.user|has_group:"Secretaria,Presidenta" %}
+    {% if request.user|has_group:"Secretaria,Presidenta,'Administrador' %}
     """
     if not user.is_authenticated:
         return False

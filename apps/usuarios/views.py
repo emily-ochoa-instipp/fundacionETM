@@ -14,7 +14,7 @@ from apps.usuarios.decorators import roles_permitidos
 # Create your views here.
 
 @login_required
-@user_passes_test(roles_permitidos(['Secretaria', 'Presidenta']))
+@user_passes_test(roles_permitidos(['Secretaria', 'Presidenta', 'Administrador']))
 
 def tabla_usuarios(request):
     usuarios = Usuario.objects.all()
@@ -24,7 +24,7 @@ def tabla_usuarios(request):
     })
 
 @login_required
-@user_passes_test(roles_permitidos(['Secretaria', 'Presidenta']))
+@user_passes_test(roles_permitidos(['Secretaria', 'Presidenta', 'Administrador']))
 def registrar_usuario(request):
     if request.method == 'POST':
             first_name_ = request.POST.get('txtNombres')
@@ -73,7 +73,7 @@ def registrar_usuario(request):
     return render(request, 'usuarios/tabla_usuarios.html')
 
 @login_required
-@user_passes_test(roles_permitidos(['Secretaria', 'Presidenta']))
+@user_passes_test(roles_permitidos(['Secretaria', 'Presidenta', 'Administrador']))
 
 def editar_usuario(request, usuario_id):
     usuario = get_object_or_404(Usuario, id=usuario_id)
@@ -105,7 +105,7 @@ def editar_usuario(request, usuario_id):
     return render(request, 'usuarios/editar_usuario.html', {'usuario': usuario, 'roles': roles})
 
 @login_required
-@user_passes_test(roles_permitidos(['Secretaria', 'Presidenta']))
+@user_passes_test(roles_permitidos(['Secretaria', 'Presidenta', 'Administrador']))
 
 def eliminar_usuario(request, usuario_id):
     usuario = get_object_or_404(Usuario, id=usuario_id)
@@ -114,7 +114,7 @@ def eliminar_usuario(request, usuario_id):
     return redirect('tabla_usuarios')
 
 @login_required
-@user_passes_test(roles_permitidos(['Secretaria', 'Presidenta', 'Socia']))
+@user_passes_test(roles_permitidos(['Secretaria', 'Presidenta', 'Administrador', 'Socia']))
 
 def profile(request):
     usuario = Usuario.objects.get(user=request.user)

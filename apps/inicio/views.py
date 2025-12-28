@@ -9,7 +9,7 @@ from apps.usuarios.decorators import roles_permitidos
 
 
 @login_required
-@user_passes_test(roles_permitidos(['Secretaria', 'Presidenta']))
+@user_passes_test(roles_permitidos(['Secretaria', 'Presidenta','Administrador']))
 
 def inicio(request):
     hoy = date.today()
