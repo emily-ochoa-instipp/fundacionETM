@@ -54,7 +54,6 @@ INSTALLED_APPS = [
     'apps.usuarios.apps.UsuariosConfig',
     'apps.eventos',
     'apps.autenticacion',
-    'apps.dashboard',
     'apps.website',
     'apps.transparencia',
     'apps.mujeres_referentes',
