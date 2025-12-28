@@ -42,6 +42,8 @@ def registrar_usuario(request):
 
             if users.exists() or usuarios.exists():
                 return render(request, 'usuarios/tabla_usuarios.html', {
+                    'usuarios': Usuario.objects.all(),
+                    'roles': Group.objects.all(),
                     'error': 'Ya existe un usuario con ese nombre de usuario, email o cédula',
                 })
             
@@ -70,7 +72,7 @@ def registrar_usuario(request):
 
             return redirect('tabla_usuarios')
     
-    return render(request, 'usuarios/tabla_usuarios.html')
+    return redirect('tabla_usuarios')
 
 @login_required
 @user_passes_test(roles_permitidos(['Secretaria', 'Presidenta', 'Administrador']))
