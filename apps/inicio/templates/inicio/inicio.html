@@ -244,7 +244,13 @@
                           </td>
                           <td>{{ usuario.user.first_name }}</td>
                           <td>{{ usuario.user.last_name }}</td>
-                          <td>{{ usuario.rol }}</td>
+                          <td>
+                            {% for grupo in usuario.user.groups.all %}
+                              {{ grupo.name }}
+                            {% empty %}
+                              Sin rol
+                            {% endfor %}
+                          </td>
                           <td>{{ usuario.user.email }}</td>
                           <td>{{ usuario.telefono }}</td>
                           <td>{{ usuario.user.username }}</td>

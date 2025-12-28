@@ -50,8 +50,8 @@
                                   {% endif %}
                                 </div>
                               </td>
-                              <td>{{ usuario.user.first_name }}</td>
-                              <td>{{ usuario.user.last_name }}</td>
+                              <td>{{ usuario.user.first_name|default:"No registrado" }}</td>
+                              <td>{{ usuario.user.last_name|default:"No registrado"}}</td>
                               <td>
                                 {% for grupo in usuario.user.groups.all %}
                                   {{ grupo.name }}
@@ -60,9 +60,9 @@
                                 {% endfor %}
                               </td>
                               <td>{{ usuario.user.email }}</td>
-                              <td>{{ usuario.telefono }}</td>
+                              <td>{{ usuario.telefono|default:"No registrado" }}</td>
                               <td>{{ usuario.user.username }}</td>
-                              <td>{{ usuario.num_doc }}</td>
+                              <td>{{ usuario.num_doc|default:"No registrado" }}</td>
                               <td>
                                   {% if usuario.user.is_active %}
                                     <span class="badge badge-success">Activo</span>
@@ -146,6 +146,7 @@
                       <input type="text" class="form-control" id="inputApellidos" placeholder="Apellidos" name="txtApellidos" required>
                     </div>
                     <div class="form-group col-md-6">
+                      <label for="inputRol">Rol</label>
                       <select name="txtRol" class="form-control" required>
                         <option value="">Seleccionar rol</option>
                         {% for rol in roles %}
