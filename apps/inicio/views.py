@@ -1,13 +1,16 @@
 from django.shortcuts import render
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from datetime import date
 
 from apps.eventos.models import Evento
 from apps.proyectos.models import Proyecto
 from apps.usuarios.models import Usuario
+from apps.usuarios.decorators import roles_permitidos
 
 
 @login_required
+@user_passes_test(roles_permitidos(['Secretaria', 'Presidenta']))
+
 def inicio(request):
     hoy = date.today()
 

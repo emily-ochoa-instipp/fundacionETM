@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from apps.usuarios.models import Usuario
 from django.contrib.auth.models import User, Group
 from django.db.models import Q
@@ -10,16 +9,22 @@ from django.contrib import messages
 
 from django.contrib.auth import password_validation 
 from django.core.exceptions import ValidationError
+from apps.usuarios.decorators import roles_permitidos
 
 # Create your views here.
 
 @login_required
+@user_passes_test(roles_permitidos(['Secretaria', 'Presidenta']))
+
 def tabla_usuarios(request):
     usuarios = Usuario.objects.all()
+    roles = Group.objects.all() 
     return render(request, 'usuarios/tabla_usuarios.html', {
-        'usuarios': usuarios
+        'usuarios': usuarios, 'roles': roles
     })
 
+@login_required
+@user_passes_test(roles_permitidos(['Secretaria', 'Presidenta']))
 def registrar_usuario(request):
     if request.method == 'POST':
             first_name_ = request.POST.get('txtNombres')
@@ -39,9 +44,10 @@ def registrar_usuario(request):
                 return render(request, 'usuarios/tabla_usuarios.html', {
                     'error': 'Ya existe un usuario con ese nombre de usuario, email o cédula',
                 })
+            
 
             # Crear el usuario base
-            userCreate = User.objects.create_user(
+            user = User.objects.create_user(
                 first_name=first_name_,
                 last_name=last_name_,
                 email=email_,
@@ -49,12 +55,15 @@ def registrar_usuario(request):
                 password=password_
             )
 
-            userCreate.is_active = True   # Activo por defecto
-            userCreate.save()
+            user.is_active = True   # Activo por defecto
+            user.save()
+
+            # asignar grupo (ROL)
+            grupo = Group.objects.get(name=rol_)
+            user.groups.add(grupo)
 
             #perfil Usuario se crea automáticamente por signals.py
-            usuario = userCreate.usuario
-            usuario.rol = rol_
+            usuario = user.usuario
             usuario.telefono = telefono_
             usuario.num_doc = num_doc_
             usuario.save()
@@ -64,6 +73,8 @@ def registrar_usuario(request):
     return render(request, 'usuarios/tabla_usuarios.html')
 
 @login_required
+@user_passes_test(roles_permitidos(['Secretaria', 'Presidenta']))
+
 def editar_usuario(request, usuario_id):
     usuario = get_object_or_404(Usuario, id=usuario_id)
     if request.method == 'POST':
@@ -77,11 +88,12 @@ def editar_usuario(request, usuario_id):
         else:
             user.is_active = False
 
-        # password = request.POST.get('txtPassword')
-        # if password:
-        #     usuario.user.set_password(password)
+        # cambiar rol (grupo)
+        rol_ = request.POST.get('txtRol')
+        grupo = Group.objects.get(name=rol_)
+        user.groups.clear()
+        user.groups.add(grupo)
 
-        usuario.rol = request.POST.get('txtRol')
         usuario.num_doc = request.POST.get('txtNumDoc')
         usuario.telefono = request.POST.get('txtTelefono')
 
@@ -89,9 +101,12 @@ def editar_usuario(request, usuario_id):
         usuario.save()
         
         return redirect('tabla_usuarios')
-    return render(request, 'usuarios/editar_usuario.html', {'usuario': usuario})
+    roles = Group.objects.all()
+    return render(request, 'usuarios/editar_usuario.html', {'usuario': usuario, 'roles': roles})
 
 @login_required
+@user_passes_test(roles_permitidos(['Secretaria', 'Presidenta']))
+
 def eliminar_usuario(request, usuario_id):
     usuario = get_object_or_404(Usuario, id=usuario_id)
     user = usuario.user
@@ -99,6 +114,8 @@ def eliminar_usuario(request, usuario_id):
     return redirect('tabla_usuarios')
 
 @login_required
+@user_passes_test(roles_permitidos(['Secretaria', 'Presidenta', 'Socia']))
+
 def profile(request):
     usuario = Usuario.objects.get(user=request.user)
 
@@ -194,4 +211,7 @@ def profile(request):
             return redirect(profile_url + '#contrasena')
         
     return render(request, 'usuarios/profile.html', {'usuario': usuario})
-    
+
+@login_required
+def no_permitido(request):
+    return render(request, 'no_permitido.html')    

@@ -1,11 +1,14 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from .models import Proyecto, ImagenProyecto
 from datetime import date
+from apps.usuarios.decorators import roles_permitidos
 
 # Create your views here.
 
 @login_required
+@user_passes_test(roles_permitidos(['Secretaria', 'Presidenta', 'Socia']))
+
 def tabla_proyectos(request):
     proyectos = Proyecto.objects.all().order_by('-fecha_inicio')
     return render(request, 'proyectos/tabla_proyectos.html', {
@@ -13,6 +16,8 @@ def tabla_proyectos(request):
     })
 
 @login_required
+@user_passes_test(roles_permitidos(['Secretaria', 'Presidenta']))
+
 def registrar_proyecto(request):
     error = None
 
@@ -55,6 +60,8 @@ def registrar_proyecto(request):
     return render(request, 'proyectos/tabla_proyectos.html', {'proyectos': proyectos,'error': error})
 
 @login_required
+@user_passes_test(roles_permitidos(['Secretaria', 'Presidenta']))
+
 def editar_proyecto(request, proyecto_id):
     proyecto = Proyecto.objects.get(id=proyecto_id)
     error = None
@@ -87,6 +94,8 @@ def editar_proyecto(request, proyecto_id):
     return render(request, 'proyectos/editar_proyecto.html', {'proyecto': proyecto, 'error': error})
 
 @login_required
+@user_passes_test(roles_permitidos(['Secretaria', 'Presidenta']))
+
 def eliminar_proyecto(request, proyecto_id):
     proyecto = get_object_or_404(Proyecto, id=proyecto_id) 
     proyecto.delete()  
@@ -95,6 +104,8 @@ def eliminar_proyecto(request, proyecto_id):
 
 
 @login_required
+@user_passes_test(roles_permitidos(['Secretaria', 'Presidenta']))
+
 def agregar_imagen_galeria(request, proyecto_id):
     proyecto = get_object_or_404(Proyecto, id=proyecto_id)
 
@@ -112,6 +123,8 @@ def agregar_imagen_galeria(request, proyecto_id):
     return render(request, "proyectos/tabla_proyectos.html", {"proyecto": proyecto})
 
 @login_required
+@user_passes_test(roles_permitidos(['Secretaria', 'Presidenta']))
+
 def eliminar_imagen_galeria(request, imagen_id):
     imagen = get_object_or_404(ImagenProyecto, id=imagen_id)
     proyecto_id = imagen.proyecto.id

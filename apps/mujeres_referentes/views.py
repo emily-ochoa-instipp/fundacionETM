@@ -1,11 +1,13 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib import messages
 
 from .models import MujerReferente
-
+from apps.usuarios.decorators import roles_permitidos
 
 @login_required
+@user_passes_test(roles_permitidos(['Secretaria', 'Presidenta']))
+
 def tabla_mujeres_referentes(request):
     mujeres = MujerReferente.objects.all()
     return render(request, 'mujeres_referentes/tabla_mujeres_referentes.html', {
@@ -13,6 +15,8 @@ def tabla_mujeres_referentes(request):
     })
 
 @login_required
+@user_passes_test(roles_permitidos(['Secretaria', 'Presidenta']))
+
 def registrar_mujer_referente(request):
     if request.method == 'POST':
         nombre_ = request.POST.get('txtNombre')
@@ -37,6 +41,8 @@ def registrar_mujer_referente(request):
     return render(request, 'mujeres_referentes/tabla_mujeres_referentes.html')
 
 @login_required
+@user_passes_test(roles_permitidos(['Secretaria', 'Presidenta']))
+
 def editar_mujer_referente(request, id):
     mujer = get_object_or_404(MujerReferente, id=id)
 
@@ -59,6 +65,8 @@ def editar_mujer_referente(request, id):
     })
 
 @login_required
+@user_passes_test(roles_permitidos(['Secretaria', 'Presidenta']))
+
 def eliminar_mujer_referente(request, id):
     mujer = get_object_or_404(MujerReferente, id=id)
     mujer.delete()

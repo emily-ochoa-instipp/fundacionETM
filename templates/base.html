@@ -1,4 +1,5 @@
 {% load static %}
+{% load roles %}
 
 
 <!doctype html>
@@ -82,27 +83,52 @@
             <span>Menu de opciones</span>
           </p>
           <ul class="navbar-nav flex-fill w-100 mb-2">
+          {% if request.user|has_group:"Secretaria,Presidenta" %}
             <li class="nav-item w-100">
               <a class="nav-link" href="{% url 'inicio' %}">
                 <i class="fe fe-home fe-16"></i>
                 <span class="ml-3 item-text">Dashboard</span>
               </a>
             </li>
+          {% endif %}
 <!--Eventos-->
+            {% if request.user|has_group:"Secretaria,Presidenta,Socia" %}
             <li class="nav-item w-100">
               <a class="nav-link" href="{% url 'tabla_eventos' %}">
                 <i class="fe fe-calendar fe-16"></i>
                 <span class="ml-3 item-text">Eventos</span>
               </a>
             </li>
+            {% endif %}
 <!--proyectos-->
+            {% if request.user|has_group:"Secretaria,Presidenta,Socia" %}
             <li class="nav-item w-100">
               <a class="nav-link" href="{% url 'tabla_proyectos' %}">
                 <i class="fe fe-folder fe-16"></i>
                 <span class="ml-3 item-text">Proyectos</span>
               </a>
             </li>
+            {% endif %}
+<!--mujeres_referentes-->
+            {% if request.user|has_group:"Secretaria,Presidenta" %}
+            <li class="nav-item w-100">
+              <a class="nav-link" href="{% url 'tabla_mujeres_referentes' %}">
+                <i class="fe fe-award fe-16"></i>
+                <span class="ml-3 item-text">Mujeres referentes</span>
+              </a>
+            </li>
+            {% endif %}
+<!--miembros-->
+            {% if request.user|has_group:"Secretaria,Presidenta" %}
+            <li class="nav-item w-100">
+              <a class="nav-link" href="{% url 'tabla_miembros' %}">
+                <i class="fe fe-users fe-16"></i>
+                <span class="ml-3 item-text">Miembros</span>
+              </a>
+            </li>
+            {% endif %}
 <!--trabsparencia-->
+            {% if request.user|has_group:"Secretaria,Presidenta" %}
             <li class="nav-item dropdown">
               <a href="#transparenciaMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle nav-link">
                 <i class="fe fe-file fe-16"></i>
@@ -125,22 +151,10 @@
               </ul>
               <!--Submenu-->
             </li>
-            <!--trabsparencia-->
-<!--mujeres_referentes-->
-            <li class="nav-item w-100">
-              <a class="nav-link" href="{% url 'tabla_mujeres_referentes' %}">
-                <i class="fe fe-award fe-16"></i>
-                <span class="ml-3 item-text">Mujeres referentes</span>
-              </a>
-            </li>
-<!--miembros-->
-            <li class="nav-item w-100">
-              <a class="nav-link" href="{% url 'tabla_miembros' %}">
-                <i class="fe fe-users fe-16"></i>
-                <span class="ml-3 item-text">Miembros</span>
-              </a>
-            </li>
+            {% endif %}
+            <!--trabsparencia-->      
 <!--Usuarios-->
+            {% if request.user|has_group:"Secretaria,Presidenta" %}
             <li class="nav-item dropdown">
               <a href="#usuariosMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle nav-link">
                 <i class="fe fe-user-plus fe-16"></i>
@@ -155,6 +169,7 @@
               </ul>
               <!--Submenu-->
             </li>
+            {% endif %}
             <!--Usuarios-->
         </nav>
       </aside>

@@ -7,5 +7,7 @@ urlpatterns = [
     path('usuarios/editar/<int:usuario_id>/', views.editar_usuario, name='editar_usuario'),
     path('usuarios/eliminar/<int:usuario_id>/', views.eliminar_usuario, name='eliminar_usuario'),
     path('profile/', views.profile, name='profile'),
+    path('no-permitido/', views.no_permitido, name='no_permitido'),
+
 ]
 

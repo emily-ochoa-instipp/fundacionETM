@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load roles %}
 
 {% load static %}
 
@@ -11,7 +12,9 @@
               <div class="row my-4">
 
                 <div class="col-12 mb-3 d-flex justify-content-end">
+                {% if request.user|has_group:"Secretaria,Presidenta" %}
                   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#eventModal">Agregar +</button>
+                {% endif %}
                 </div>
 
                 <!-- Small table -->
@@ -59,11 +62,13 @@
                         
 
                             <td>
+                            {% if request.user|has_group:"Secretaria,Presidenta" %}
                               <a href="{% url 'editar_proyecto' proyecto.id %}" class="btn btn-secondary mb-1"><span class="fe fe-edit fe-14 "></span></a>
                             
                               <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal{{ proyecto.id }}">
                                 <span class="fe fe-trash fe-14 "></span>
                               </button>
+                            {% endif %}
 
                               <!-- Modal -->
                                 <div class="modal fade" id="exampleModal{{ proyecto.id }}" tabindex="-1" aria-labelledby="exampleModalLabel{{ proyecto.id }}" aria-hidden="true">

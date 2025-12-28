@@ -1,11 +1,15 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from apps.eventos.models import Evento, ImagenEvento
 from datetime import date
+
+from apps.usuarios.decorators import roles_permitidos
+
 
 # Create your views here.
 
 @login_required
+@user_passes_test(roles_permitidos(['Secretaria', 'Directora', 'Socia']))
 def tabla_eventos(request):
     eventos = Evento.objects.all().order_by('-fecha')
     return render(request, 'eventos/tabla_eventos.html', {
@@ -13,6 +17,8 @@ def tabla_eventos(request):
     })
 
 @login_required
+@user_passes_test(roles_permitidos(['Secretaria', 'Directora']))
+
 def registrar_evento(request):
     error = None
     
@@ -61,6 +67,8 @@ def registrar_evento(request):
 
 
 @login_required
+@user_passes_test(roles_permitidos(['Secretaria', 'Directora']))
+
 def editar_evento(request, evento_id):
     evento = Evento.objects.get(id=evento_id)
 
@@ -104,6 +112,8 @@ def editar_evento(request, evento_id):
     return render(request, 'eventos/editar_evento.html', {'evento': evento, 'galeria': galeria, 'error': error,'Evento': Evento})
 
 @login_required
+@user_passes_test(roles_permitidos(['Secretaria', 'Directora']))
+
 def eliminar_evento(request, evento_id):
     evento = get_object_or_404(Evento, id=evento_id)
     
@@ -112,6 +122,8 @@ def eliminar_evento(request, evento_id):
 
 
 @login_required
+@user_passes_test(roles_permitidos(['Secretaria', 'Directora']))
+
 def agregar_imagen_galeria(request, evento_id):
     evento = get_object_or_404(Evento, id=evento_id)
 
@@ -129,6 +141,8 @@ def agregar_imagen_galeria(request, evento_id):
     return render(request, "eventos/tabla_eventos.html", {"evento": evento})
 
 @login_required
+@user_passes_test(roles_permitidos(['Secretaria', 'Directora']))
+
 def eliminar_imagen_galeria(request, imagen_id):
     imagen = get_object_or_404(ImagenEvento, id=imagen_id)
     evento_id = imagen.evento.id

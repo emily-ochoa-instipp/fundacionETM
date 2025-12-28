@@ -1,11 +1,14 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib import messages
 
 from .models import Miembro
+from apps.usuarios.decorators import roles_permitidos
 
 
 @login_required
+@user_passes_test(roles_permitidos(['Secretaria', 'Directora']))
+
 def tabla_miembros(request):
     miembros = Miembro.objects.all()
     return render(request, 'miembros/tabla_miembros.html', {
@@ -14,6 +17,8 @@ def tabla_miembros(request):
 
 
 @login_required
+@user_passes_test(roles_permitidos(['Secretaria', 'Directora']))
+
 def registrar_miembro(request):
     if request.method == 'POST':
         nombre_ = request.POST.get('txtNombre')
@@ -39,6 +44,8 @@ def registrar_miembro(request):
 
 
 @login_required
+@user_passes_test(roles_permitidos(['Secretaria', 'Directora']))
+
 def editar_miembro(request, id):
     miembro = get_object_or_404(Miembro, id=id)
 
@@ -62,6 +69,8 @@ def editar_miembro(request, id):
 
 
 @login_required
+@user_passes_test(roles_permitidos(['Secretaria', 'Directora']))
+
 def eliminar_miembro(request, id):
     miembro = get_object_or_404(Miembro, id=id)
     miembro.delete()
