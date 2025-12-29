@@ -127,6 +127,15 @@
               </a>
             </li>
             {% endif %}
+<!--usuarios-->
+            {% if request.user|has_group:"Secretaria,Presidenta,Administrador" %}
+            <li class="nav-item w-100">
+              <a class="nav-link" href="{% url 'tabla_usuarios' %}">
+                <i class="fe fe-user-plus fe-16"></i>
+                <span class="ml-3 item-text">Usuarios</span>
+              </a>
+            </li>
+            {% endif %}   
 <!--trabsparencia-->
             {% if request.user|has_group:"Secretaria,Presidenta,Administrador" %}
             <li class="nav-item dropdown">
@@ -152,25 +161,7 @@
               <!--Submenu-->
             </li>
             {% endif %}
-            <!--trabsparencia-->      
-<!--Usuarios-->
-            {% if request.user|has_group:"Secretaria,Presidenta,Administrador" %}
-            <li class="nav-item dropdown">
-              <a href="#usuariosMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle nav-link">
-                <i class="fe fe-user-plus fe-16"></i>
-                <span class="ml-3 item-text">Usuarios</span>
-              </a>
-              <!--Submenu-->
-              <ul class="collapse list-unstyled pl-4 w-100" id="usuariosMenu">
-                <!--Listado-->
-                <li class="nav-item">
-                  <a class="nav-link pl-3" href="{% url 'tabla_usuarios' %}"><span class="ml-1 item-text">Listar usuarios</span></a>
-                </li>
-              </ul>
-              <!--Submenu-->
-            </li>
-            {% endif %}
-            <!--Usuarios-->
+            <!--trabsparencia-->  
         </nav>
       </aside>
               

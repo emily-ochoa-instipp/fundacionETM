@@ -1,4 +1,5 @@
 from django.db import models
+from cloudinary.models import CloudinaryField
 
 
 class Miembro(models.Model):
@@ -13,7 +14,8 @@ class Miembro(models.Model):
     apellido = models.CharField(max_length=150)
     descripcion = models.TextField()
     cargo = models.CharField(max_length=20, choices=CARGO_CHOICES)
-    foto = models.ImageField(upload_to='miembros/', blank=True, null=True)
+    # foto = models.ImageField(upload_to='miembros/', blank=True, null=True)
+    foto = CloudinaryField('foto_miembro', blank=True, null=True)
     estado = models.BooleanField(default=True)  
 
     def __str__(self):
