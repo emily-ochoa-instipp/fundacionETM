@@ -710,6 +710,7 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
   border-bottom: 1px solid rgba(255, 255, 255, 0.2); }
 
 .untree_co-hero, .bg-img {
+  background-image: url("/static/images/fondo.jpg");
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
