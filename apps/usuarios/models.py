@@ -5,7 +5,7 @@ from cloudinary.models import CloudinaryField
 
 
 class Usuario(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='usuario')
     telefono = models.CharField(max_length=20, null=True, blank=True)
     num_doc = models.CharField(max_length=20, null=True, blank=True)
     foto = CloudinaryField('foto_perfil', blank=True, null=True)
