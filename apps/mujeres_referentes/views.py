@@ -38,7 +38,7 @@ def registrar_mujer_referente(request):
         messages.success(request, 'Mujer referente registrada correctamente.')
         return redirect('tabla_mujeres_referentes')
 
-    return render(request, 'mujeres_referentes/tabla_mujeres_referentes.html')
+    return redirect('tabla_mujeres_referentes')
 
 @login_required
 @user_passes_test(roles_permitidos(['Secretaria', 'Presidenta','Administrador']))
