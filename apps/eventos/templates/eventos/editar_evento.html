@@ -73,14 +73,14 @@
                           </div>
                           
                           <div class="col-md-12 mt-3 modal-footer d-flex justify-content-between">
-                            <div class="form-group col-md-2">
-                                <label for="inputEstado">Estado</label>
-                                <select id="inputEstado" class="form-control" name="estado" required>
-                                  <option selected>Seleccionar estado</option>
-                                  {% for value, label in evento.ESTADOS_EVENTO %}
-                                    <option value="{{ value }}" {% if evento.estado == value %}selected{% endif %}>{{ label }}</option>
-                                  {% endfor %}
-                                </select>
+                              <div class="form-group col-md-2">
+                                  <label for="inputEstado">Estado</label>
+                                  <select id="inputEstado" class="form-control" name="estado" required>
+                                    <option selected>Seleccionar estado</option>
+                                    {% for value, label in evento.ESTADOS_EVENTO %}
+                                      <option value="{{ value }}" {% if evento.estado == value %}selected{% endif %}>{{ label }}</option>
+                                    {% endfor %}
+                                  </select>
                               </div>
                             <div>
                               <button type="submit" class="btn btn-primary mr-4">Guardar</button>
