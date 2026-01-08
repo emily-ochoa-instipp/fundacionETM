@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib import messages
-
+from django.db.models import Case, When, Value, IntegerField
 from .models import Miembro
 from apps.usuarios.decorators import roles_permitidos
 
@@ -10,7 +10,17 @@ from apps.usuarios.decorators import roles_permitidos
 @user_passes_test(roles_permitidos(['Secretaria', 'Presidenta','Administrador']))
 
 def tabla_miembros(request):
-    miembros = Miembro.objects.all()
+    miembros = Miembro.objects.annotate(
+        orden=Case(
+            When(cargo='presidenta', then=Value(1)),
+            When(cargo='secretaria', then=Value(2)),
+            When(cargo='tesorera', then=Value(3)),
+            When(cargo='socia', then=Value(4)),
+            default=Value(5),
+            output_field=IntegerField(),
+        )
+    ).order_by('orden', 'apellido')
+
     return render(request, 'miembros/tabla_miembros.html', {
         'miembros': miembros, 'cargos': Miembro.CARGO_CHOICES
     })

@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
 from django.utils import timezone
+from django.db.models import Case, When, Value, IntegerField
 
 from apps.eventos.models import Evento
 from apps.proyectos.models import Proyecto
@@ -25,7 +26,17 @@ def index_views(request):
     mujeres_referentes = MujerReferente.objects.filter(estado=True)
 
     #MIEMBROS DE LA FUNDACION
-    miembros = Miembro.objects.filter(estado=True)
+    miembros = Miembro.objects.filter(estado=True).annotate(
+        orden=Case(
+            When(cargo='presidenta', then=Value(1)),
+            When(cargo='secretaria', then=Value(2)),
+            When(cargo='tesorera', then=Value(3)),
+            When(cargo='socia', then=Value(4)),
+            default=Value(5),
+            output_field=IntegerField(),
+        )
+    ).order_by('orden', 'apellido')
+
 
     context = {
         'proximos_eventos': proximos_eventos,

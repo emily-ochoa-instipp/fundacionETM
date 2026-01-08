@@ -229,9 +229,9 @@
 
             <div class="mb-4">
               {% if miembro.foto %}
-                <img src="{{ miembro.foto.url }}" alt="Foto {{ miembro.nombre }}" class="img-fluid">
+                <img src="{{ miembro.foto.url }}" alt="Foto {{ miembro.nombre }}" class="img-fluid foto-miembro">
               {% else %}
-                <img src="{% static 'images/staff_default.jpg' %}" alt="Foto por defecto" class="img-fluid">
+                <img src="{% static 'images/staff_default.jpg' %}" alt="Foto por defecto" class="img-fluid foto-miembro">
               {% endif %}
             </div>
 
