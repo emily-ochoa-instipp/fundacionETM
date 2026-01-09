@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
 from django.utils import timezone
 from django.db.models import Case, When, Value, IntegerField
-
+from apps.transparencia.models import CategoriaDocumento
 from apps.eventos.models import Evento
 from apps.proyectos.models import Proyecto
 from apps.mujeres_referentes.models import MujerReferente
@@ -25,6 +25,9 @@ def index_views(request):
     #MUJERES REFERENTES
     mujeres_referentes = MujerReferente.objects.filter(estado=True)
 
+    #Categorias transparencia-menu
+    menu_categorias = CategoriaDocumento.objects.prefetch_related('documentos').all()
+
     #MIEMBROS DE LA FUNDACION
     miembros = Miembro.objects.filter(estado=True).annotate(
         orden=Case(
@@ -45,6 +48,7 @@ def index_views(request):
         'proyectos_realizados': proyectos_realizados,
         'mujeres_referentes': mujeres_referentes,
         'miembros': miembros, 
+        'menu_categorias': menu_categorias, 
     }
 
     return render(request, 'website/index.html', context)
